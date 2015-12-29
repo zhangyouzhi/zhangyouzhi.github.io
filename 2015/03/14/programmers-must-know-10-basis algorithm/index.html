@@ -1,0 +1,718 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Algorithm," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="算法一：快速排序算法快速排序是由东尼·霍尔所发展的一种排序算法。在平均状况下，排序 n 个项目要Ο(n log n)次比较。在最坏状况下则需要Ο(n2)次比较，但这种状况并不常见。事实上，快速排序通常明显比其他Ο(n log n) 算法更快，因为它的内部循环(inner loop)可以在大部分的架构上很有效率地被实现出来。
+快速排序使用分治法(Divide and conquer)策略来把一个串行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="程序员必须知道的10大基础实用算法及其讲解 (转)">
+<meta property="og:url" content="http://zhangyouzhi.com/2015/03/14/programmers-must-know-10-basis algorithm/index.html">
+<meta property="og:site_name" content="ZhangYouzhi's Blog">
+<meta property="og:description" content="算法一：快速排序算法快速排序是由东尼·霍尔所发展的一种排序算法。在平均状况下，排序 n 个项目要Ο(n log n)次比较。在最坏状况下则需要Ο(n2)次比较，但这种状况并不常见。事实上，快速排序通常明显比其他Ο(n log n) 算法更快，因为它的内部循环(inner loop)可以在大部分的架构上很有效率地被实现出来。
+快速排序使用分治法(Divide and conquer)策略来把一个串行">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eq5bhdyjjuj20hs0boab9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eq5bhepmzlj207s05yweg.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eq5bheuw6gj207s05yt8o.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eq67id0jzfj20kk0cz40z.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eq5bhfbb0hj208606k3yt.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6ba3371bjw1eq5bhfvbb4j206l069aa2.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6ba3371bjw1eq5bhg6r7nj209907kjrm.jpg">
+<meta property="og:updated_time" content="2015-10-19T08:14:12.995Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="程序员必须知道的10大基础实用算法及其讲解 (转)">
+<meta name="twitter:description" content="算法一：快速排序算法快速排序是由东尼·霍尔所发展的一种排序算法。在平均状况下，排序 n 个项目要Ο(n log n)次比较。在最坏状况下则需要Ο(n2)次比较，但这种状况并不常见。事实上，快速排序通常明显比其他Ο(n log n) 算法更快，因为它的内部循环(inner loop)可以在大部分的架构上很有效率地被实现出来。
+快速排序使用分治法(Divide and conquer)策略来把一个串行">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> 程序员必须知道的10大基础实用算法及其讲解 (转) | ZhangYouzhi's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhangYouzhi's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                程序员必须知道的10大基础实用算法及其讲解 (转)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-03-14T16:18:18+08:00" content="2015-03-14">
+              2015-03-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p><img src="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eq5bhdyjjuj20hs0boab9.jpg" alt=""></p>
+<h3 id="u7B97_u6CD5_u4E00_uFF1A_u5FEB_u901F_u6392_u5E8F_u7B97_u6CD5"><a href="#u7B97_u6CD5_u4E00_uFF1A_u5FEB_u901F_u6392_u5E8F_u7B97_u6CD5" class="headerlink" title="算法一：快速排序算法"></a>算法一：快速排序算法</h3><p>快速排序是由东尼·霍尔所发展的一种排序算法。在平均状况下，排序 n 个项目要Ο(n log n)次比较。在最坏状况下则需要Ο(n2)次比较，但这种状况并不常见。事实上，快速排序通常明显比其他Ο(n log n) 算法更快，因为它的内部循环(inner loop)可以在大部分的架构上很有效率地被实现出来。</p>
+<p>快速排序使用分治法(Divide and conquer)策略来把一个串行(list)分为两个子串行(sub-lists)。</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eq5bhepmzlj207s05yweg.jpg" alt=""></p>
+<p>算法步骤：</p>
+<ol>
+<li>从数列中挑出一个元素，称为 “基准”(pivot)。</li>
+<li>重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面(相同的数可以到任一边)。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区(partition)操作。</li>
+<li>递归地(recursive)把小于基准值元素的子数列和大于基准值元素的子数列排序。</li>
+</ol>
+<p>递归的最底部情形，是数列的大小是零或一，也就是永远都已经被排序好了。虽然一直递归下去，但是这个算法总会退出，因为在每次的迭代(iteration)中，它至少会把一个元素摆到它最后的位置去。</p>
+<h3 id="u7B97_u6CD5_u4E8C_uFF1A_u5806_u6392_u5E8F_u7B97_u6CD5"><a href="#u7B97_u6CD5_u4E8C_uFF1A_u5806_u6392_u5E8F_u7B97_u6CD5" class="headerlink" title="算法二：堆排序算法"></a>算法二：堆排序算法</h3><p>堆排序(Heapsort)是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于(或者大于)它的父节点。</p>
+<p>堆排序的平均时间复杂度为Ο(nlogn) 。</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eq5bheuw6gj207s05yt8o.jpg" alt=""></p>
+<p>算法步骤：</p>
+<ol>
+<li>创建一个堆H[0..n-1]。</li>
+<li>把堆首(最大值)和堆尾互换。</li>
+<li>把堆的尺寸缩小1，并调用shift_down(0),目的是把新的数组顶端数据调整到相应位置。</li>
+<li>重复步骤2，直到堆的尺寸为1。</li>
+</ol>
+<h3 id="u7B97_u6CD5_u4E09_uFF1A_u5F52_u5E76_u6392_u5E8F"><a href="#u7B97_u6CD5_u4E09_uFF1A_u5F52_u5E76_u6392_u5E8F" class="headerlink" title="算法三：归并排序"></a>算法三：归并排序</h3><p>归并排序(Merge sort，台湾译作：合并排序)是建立在归并操作上的一种有效的排序算法。该算法是采用分治法(Divide and Conquer)的一个非常典型的应用。</p>
+<p>算法步骤</p>
+<ol>
+<li>申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列。</li>
+<li>设定两个指针，最初位置分别为两个已经排序序列的起始位置。</li>
+<li>比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置。</li>
+<li>重复步骤3直到某一指针达到序列尾。</li>
+<li>将另一序列剩下的所有元素直接复制到合并序列尾。</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eq67id0jzfj20kk0cz40z.jpg" alt=""></p>
+<p><img src="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eq5bhfbb0hj208606k3yt.jpg" alt=""></p>
+<h3 id="u7B97_u6CD5_u56DB_uFF1A_u4E8C_u5206_u67E5_u627E_u7B97_u6CD5"><a href="#u7B97_u6CD5_u56DB_uFF1A_u4E8C_u5206_u67E5_u627E_u7B97_u6CD5" class="headerlink" title="算法四：二分查找算法"></a>算法四：二分查找算法</h3><p>二分查找算法是一种在有序数组中查找某一特定元素的搜索算法。搜素过程从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜素过程结束;如果某一特定元素大于或者小于中间元素，则在数组大于或小于中间元素的那一半中查找，而且跟开始一样从中间元素开始比较。如果在某一步骤数组为空，则代表找不到。这种搜索算法每一次比较都使搜索范围缩小一半。折半搜索每次把搜索区域减少一半，时间复杂度为Ο(logn) 。</p>
+<h3 id="u7B97_u6CD5_u4E94_uFF1ABFPRT_28_u7EBF_u6027_u67E5_u627E_u7B97_u6CD5_29"><a href="#u7B97_u6CD5_u4E94_uFF1ABFPRT_28_u7EBF_u6027_u67E5_u627E_u7B97_u6CD5_29" class="headerlink" title="算法五：BFPRT(线性查找算法)"></a>算法五：BFPRT(线性查找算法)</h3><p>BFPRT算法解决的问题十分经典，即从某n个元素的序列中选出第k大(第k小)的元素，通过巧妙的分析，BFPRT可以保证在最坏情况下仍为线性时间复杂度。该算法的思想与快速排序思想相似，当然，为使得算法在最坏情况下，依然能达到o(n)的时间复杂度，五位算法作者做了精妙的处理。</p>
+<p>算法步骤：</p>
+<ol>
+<li>将n个元素每5个一组，分成n/5(上界)组。</li>
+<li>取出每一组的中位数，任意排序方法，比如插入排序。</li>
+<li>递归的调用selection算法查找上一步中所有中位数的中位数，设为x，偶数个中位数的情况下设定为选取中间小的一个。</li>
+<li>用x来分割数组，设小于等于x的个数为k，大于x的个数即为n-k。</li>
+<li>若i==k，返回x;若ik，在大于x的元素中递归查找第i-k小的元素。<br>终止条件：n=1时，返回的即是i小元素。</li>
+</ol>
+<h3 id="u7B97_u6CD5_u516D_uFF1ADFS_28_u6DF1_u5EA6_u4F18_u5148_u641C_u7D22_29"><a href="#u7B97_u6CD5_u516D_uFF1ADFS_28_u6DF1_u5EA6_u4F18_u5148_u641C_u7D22_29" class="headerlink" title="算法六：DFS(深度优先搜索)"></a>算法六：DFS(深度优先搜索)</h3><p>深度优先搜索算法(Depth-First-Search)，是搜索算法的一种。它沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点v的所有边都己被探寻过，搜索将回溯到发现节点v的那条边的起始节点。这一过程一直进行到已发现从源节点可达的所有节点为止。如果还存在未被发现的节点，则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。DFS属于盲目搜索。<br>深度优先搜索是图论中的经典算法，利用深度优先搜索算法可以产生目标图的相应拓扑排序表，利用拓扑排序表可以方便的解决很多相关的图论问题，如最大路径问题等等。一般用堆数据结构来辅助实现DFS算法。</p>
+<p>深度优先遍历图算法步骤：</p>
+<ol>
+<li>访问顶点v。</li>
+<li>依次从v的未被访问的邻接点出发，对图进行深度优先遍历;直至图中和v有路径相通的顶点都被访问。</li>
+<li>若此时图中尚有顶点未被访问，则从一个未被访问的顶点出发，重新进行深度优先遍历，直到图中所有顶点均被访问过为止。</li>
+</ol>
+<p>上述描述可能比较抽象，举个实例：<br>DFS 在访问图中某一起始顶点 v 后，由 v 出发，访问它的任一邻接顶点 w1;再从 w1 出发，访问与 w1邻 接但还没有访问过的顶点 w2;然后再从 w2 出发，进行类似的访问，… 如此进行下去，直至到达所有的邻接顶点都被访问过的顶点 u 为止。<br>接着，退回一步，退到前一次刚访问过的顶点，看是否还有其它没有被访问的邻接顶点。如果有，则访问此顶点，之后再从此顶点出发，进行与前述类似的访问;如果没有，就再退回一步进行搜索。重复上述过程，直到连通图中所有顶点都被访问过为止。</p>
+<h3 id="u7B97_u6CD5_u4E03_uFF1ABFS_28_u5E7F_u5EA6_u4F18_u5148_u641C_u7D22_29"><a href="#u7B97_u6CD5_u4E03_uFF1ABFS_28_u5E7F_u5EA6_u4F18_u5148_u641C_u7D22_29" class="headerlink" title="算法七：BFS(广度优先搜索)"></a>算法七：BFS(广度优先搜索)</h3><p>广度优先搜索算法(Breadth-First-Search)，是一种图形搜索算法。简单的说，BFS是从根节点开始，沿着树(图)的宽度遍历树(图)的节点。如果所有节点均被访问，则算法中止。BFS同样属于盲目搜索。一般用队列数据结构来辅助实现BFS算法。</p>
+<p>算法步骤：</p>
+<ol>
+<li>首先将根节点放入队列中。</li>
+<li>从队列中取出第一个节点，并检验它是否为目标。如果找到目标，则结束搜寻并回传结果，否则将它所有尚未检验过的直接子节点加入队列中。</li>
+<li>若队列为空，表示整张图都检查过了——亦即图中没有欲搜寻的目标。结束搜寻并回传“找不到目标”。</li>
+<li>重复步骤2。</li>
+</ol>
+<p><img src="http://ww3.sinaimg.cn/mw690/6ba3371bjw1eq5bhfvbb4j206l069aa2.jpg" alt=""></p>
+<h3 id="u7B97_u6CD5_u516B_uFF1ADijkstra_u7B97_u6CD5"><a href="#u7B97_u6CD5_u516B_uFF1ADijkstra_u7B97_u6CD5" class="headerlink" title="算法八：Dijkstra算法"></a>算法八：Dijkstra算法</h3><p>戴克斯特拉算法(Dijkstra’s algorithm)是由荷兰计算机科学家艾兹赫尔·戴克斯特拉提出。迪科斯彻算法使用了广度优先搜索解决非负权有向图的单源最短路径问题，算法最终得到一个最短路径树。该算法常用于路由算法或者作为其他图算法的一个子模块。<br>该算法的输入包含了一个有权重的有向图 G，以及G中的一个来源顶点 S。我们以 V 表示 G 中所有顶点的集合。每一个图中的边，都是两个顶点所形成的有序元素对。(u, v) 表示从顶点 u 到 v 有路径相连。我们以 E 表示G中所有边的集合，而边的权重则由权重函数 w: E → [0, ∞] 定义。因此，w(u, v) 就是从顶点 u 到顶点 v 的非负权重(weight)。边的权重可以想像成两个顶点之间的距离。任两点间路径的权重，就是该路径上所有边的权重总和。已知有 V 中有顶点 s 及 t，Dijkstra 算法可以找到 s 到 t的最低权重路径(例如，最短路径)。这个算法也可以在一个图中，找到从一个顶点 s 到任何其他顶点的最短路径。对于不含负权的有向图，Dijkstra算法是目前已知的最快的单源最短路径算法。</p>
+<p>算法步骤：</p>
+<ol>
+<li>初始时令 S={V0},T={其余顶点}，T中顶点对应的距离值，若存在，d(V0,Vi)为弧上的权值，若不存在，d(V0,Vi)为∞。</li>
+<li>从T中选取一个其距离值为最小的顶点W且不在S中，加入S。</li>
+<li>对其余T中顶点的距离值进行修改：若加进W作中间顶点，从V0到Vi的距离值缩短，则修改此距离值。</li>
+<li>重复上述步骤2、3，直到S中包含所有顶点，即W=Vi为止。</li>
+</ol>
+<p><img src="http://ww3.sinaimg.cn/mw690/6ba3371bjw1eq5bhg6r7nj209907kjrm.jpg" alt=""></p>
+<h3 id="u7B97_u6CD5_u4E5D_uFF1A_u52A8_u6001_u89C4_u5212_u7B97_u6CD5"><a href="#u7B97_u6CD5_u4E5D_uFF1A_u52A8_u6001_u89C4_u5212_u7B97_u6CD5" class="headerlink" title="算法九：动态规划算法"></a>算法九：动态规划算法</h3><p>动态规划(Dynamic programming)是一种在数学、计算机科学和经济学中使用的，通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法。 动态规划常常适用于有重叠子问题和最优子结构性质的问题，动态规划方法所耗时间往往远少于朴素解法。<br>动态规划背后的基本思想非常简单。大致上，若要解一个给定问题，我们需要解其不同部分(即子问题)，再合并子问题的解以得出原问题的解。<br>通常许多子问题非常相似，为此动态规划法试图仅仅解决每个子问题一次，从而减少计算量：<br>一旦某个给定子问题的解已经算出，则将其记忆化存储，以便下次需要同一个子问题解之时直接查表。<br>这种做法在重复子问题的数目关于输入的规模呈指数增长时特别有用。<br>关于动态规划最经典的问题当属背包问题。</p>
+<p>算法步骤：</p>
+<ol>
+<li>最优子结构性质。如果问题的最优解所包含的子问题的解也是最优的，我们就称该问题具有最优子结构性质(即满足最优化原理)。最优子结构性质为动态规划算法解决问题提供了重要线索。</li>
+<li>子问题重叠性质。子问题重叠性质是指在用递归算法自顶向下对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次。动态规划算法正是利用了这种子问题的重叠性质，对每一个子问题只计算一次，然后将其计算结果保存在一个表格中，当再次需要计算已经计算过的子问题时，只是在表格中简单地查看一下结果，从而获得较高的效率。</li>
+</ol>
+<h3 id="u7B97_u6CD5_u5341_uFF1A_u6734_u7D20_u8D1D_u53F6_u65AF_u5206_u7C7B_u7B97_u6CD5"><a href="#u7B97_u6CD5_u5341_uFF1A_u6734_u7D20_u8D1D_u53F6_u65AF_u5206_u7C7B_u7B97_u6CD5" class="headerlink" title="算法十：朴素贝叶斯分类算法"></a>算法十：朴素贝叶斯分类算法</h3><p>朴素贝叶斯分类算法是一种基于贝叶斯定理的简单概率分类算法。贝叶斯分类的基础是概率推理，就是在各种条件的存在不确定，仅知其出现概率的情况下，如何完成推理和决策任务。概率推理是与确定性推理相对应的。而朴素贝叶斯分类器是基于独立假设的，即假设样本每个特征与其他特征都不相关。<br>朴素贝叶斯分类器依靠精确的自然概率模型，在有监督学习的样本集中能获取得非常好的分类效果。在许多实际应用中，朴素贝叶斯模型参数估计使用最大似然估计方法，换言之朴素贝叶斯模型能工作并没有用到贝叶斯概率或者任何贝叶斯模型。<br>尽管是带着这些朴素思想和过于简单化的假设，但朴素贝叶斯分类器在很多复杂的现实情形中仍能够取得相当好的效果。</p>
+<p>Via:<a href="http://mp.weixin.qq.com/s?__biz=MjM5MTk1NjI0MA==&amp;mid=203850025&amp;idx=1&amp;sn=a79a1f8f5422c77f5fdd4a2dc58ec6f9" target="_blank" rel="external">程序员必须知道的10大基础实用算法及其讲解 </a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Algorithm/" rel="tag">#Algorithm</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/03/12/sub-library-sub-table-by-OneProxy/" rel="next" title="OneProxy:只需修改少量SQL语句，也可以实现快速实现分库分表的可扩展方案（转）">
+                <i class="fa fa-chevron-left"></i> OneProxy:只需修改少量SQL语句，也可以实现快速实现分库分表的可扩展方案（转）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/03/16/zendstudio-install-emmet/" rel="prev" title="ZendStudio 安装 Emmet">
+                ZendStudio 安装 Emmet <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ei1yg6iujij209l09rwg2.jpg" alt="ZhangYouzhi" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">ZhangYouzhi</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Where there is a will, there is a way!</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B97_u6CD5_u4E00_uFF1A_u5FEB_u901F_u6392_u5E8F_u7B97_u6CD5"><span class="nav-number">1.</span> <span class="nav-text">算法一：快速排序算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B97_u6CD5_u4E8C_uFF1A_u5806_u6392_u5E8F_u7B97_u6CD5"><span class="nav-number">2.</span> <span class="nav-text">算法二：堆排序算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B97_u6CD5_u4E09_uFF1A_u5F52_u5E76_u6392_u5E8F"><span class="nav-number">3.</span> <span class="nav-text">算法三：归并排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B97_u6CD5_u56DB_uFF1A_u4E8C_u5206_u67E5_u627E_u7B97_u6CD5"><span class="nav-number">4.</span> <span class="nav-text">算法四：二分查找算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B97_u6CD5_u4E94_uFF1ABFPRT_28_u7EBF_u6027_u67E5_u627E_u7B97_u6CD5_29"><span class="nav-number">5.</span> <span class="nav-text">算法五：BFPRT(线性查找算法)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B97_u6CD5_u516D_uFF1ADFS_28_u6DF1_u5EA6_u4F18_u5148_u641C_u7D22_29"><span class="nav-number">6.</span> <span class="nav-text">算法六：DFS(深度优先搜索)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B97_u6CD5_u4E03_uFF1ABFS_28_u5E7F_u5EA6_u4F18_u5148_u641C_u7D22_29"><span class="nav-number">7.</span> <span class="nav-text">算法七：BFS(广度优先搜索)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B97_u6CD5_u516B_uFF1ADijkstra_u7B97_u6CD5"><span class="nav-number">8.</span> <span class="nav-text">算法八：Dijkstra算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B97_u6CD5_u4E5D_uFF1A_u52A8_u6001_u89C4_u5212_u7B97_u6CD5"><span class="nav-number">9.</span> <span class="nav-text">算法九：动态规划算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B97_u6CD5_u5341_uFF1A_u6734_u7D20_u8D1D_u53F6_u65AF_u5206_u7C7B_u7B97_u6CD5"><span class="nav-number">10.</span> <span class="nav-text">算法十：朴素贝叶斯分类算法</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYouzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

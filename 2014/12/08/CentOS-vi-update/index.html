@@ -1,0 +1,651 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Vim," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="在linux中用vi编辑和修改文件配置中没有彩色显示文件的内容，特别一些关键字不能彩色显示，给我们配置服务过程中造成极大的不方便。下面给出一种解决的方法。
+第一步：可能是因为vi的版本太低，并且没有开启高亮显示。检查是否有更新, 更新一下最新版本的vi。1[root@iZ23h8csloyZ ~]# yum install vim
+查下是否已经安装了vi1[root@iZ23h8csloyZ ~]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 升级和使用Vi">
+<meta property="og:url" content="http://zhangyouzhi.com/2014/12/08/CentOS-vi-update/index.html">
+<meta property="og:site_name" content="ZhangYouzhi's Blog">
+<meta property="og:description" content="在linux中用vi编辑和修改文件配置中没有彩色显示文件的内容，特别一些关键字不能彩色显示，给我们配置服务过程中造成极大的不方便。下面给出一种解决的方法。
+第一步：可能是因为vi的版本太低，并且没有开启高亮显示。检查是否有更新, 更新一下最新版本的vi。1[root@iZ23h8csloyZ ~]# yum install vim
+查下是否已经安装了vi1[root@iZ23h8csloyZ ~]">
+<meta property="og:updated_time" content="2015-10-19T08:14:04.008Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 升级和使用Vi">
+<meta name="twitter:description" content="在linux中用vi编辑和修改文件配置中没有彩色显示文件的内容，特别一些关键字不能彩色显示，给我们配置服务过程中造成极大的不方便。下面给出一种解决的方法。
+第一步：可能是因为vi的版本太低，并且没有开启高亮显示。检查是否有更新, 更新一下最新版本的vi。1[root@iZ23h8csloyZ ~]# yum install vim
+查下是否已经安装了vi1[root@iZ23h8csloyZ ~]">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> CentOS 升级和使用Vi | ZhangYouzhi's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhangYouzhi's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CentOS 升级和使用Vi
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2014-12-08T18:18:18+08:00" content="2014-12-08">
+              2014-12-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>在linux中用vi编辑和修改文件配置中没有彩色显示文件的内容，特别一些关键字不能彩色显示，给我们配置服务过程中造成极大的不方便。下面给出一种解决的方法。</p>
+<h3 id="u7B2C_u4E00_u6B65_uFF1A_u53EF_u80FD_u662F_u56E0_u4E3Avi_u7684_u7248_u672C_u592A_u4F4E_uFF0C_u5E76_u4E14_u6CA1_u6709_u5F00_u542F_u9AD8_u4EAE_u663E_u793A_u3002"><a href="#u7B2C_u4E00_u6B65_uFF1A_u53EF_u80FD_u662F_u56E0_u4E3Avi_u7684_u7248_u672C_u592A_u4F4E_uFF0C_u5E76_u4E14_u6CA1_u6709_u5F00_u542F_u9AD8_u4EAE_u663E_u793A_u3002" class="headerlink" title="第一步：可能是因为vi的版本太低，并且没有开启高亮显示。"></a>第一步：可能是因为vi的版本太低，并且没有开启高亮显示。</h3><p>检查是否有更新, 更新一下最新版本的vi。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23h8csloyZ ~]# yum install vim</span><br></pre></td></tr></table></figure></p>
+<p>查下是否已经安装了vi<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23h8csloyZ ~]# rpm -<span class="keyword">qa</span>|<span class="keyword">grep</span> <span class="keyword">vim</span></span><br></pre></td></tr></table></figure></p>
+<p>如果提示not install则需安装如下rpm包：<br>vim-enhance-版本号.rpm<br>vim-common-版本号.rpm<br>vim-minimal-版本号.rpm</p>
+<h3 id="u7B2C_u4E8C_uFF1A_u7136_u540E_u4FEE_u6539__23vi_/etc/bashrc__u5728_u6700_u540E_u9762_u52A0_u5165_u201Calias_vi_3Dvim__u201D_u7136_u540Ewq_u4FDD_u5B58_u9000_u51FA_u3002"><a href="#u7B2C_u4E8C_uFF1A_u7136_u540E_u4FEE_u6539__23vi_/etc/bashrc__u5728_u6700_u540E_u9762_u52A0_u5165_u201Calias_vi_3Dvim__u201D_u7136_u540Ewq_u4FDD_u5B58_u9000_u51FA_u3002" class="headerlink" title="第二：然后修改 #vi /etc/bashrc 在最后面加入“alias vi=vim ”然后wq保存退出。"></a>第二：然后修改 #vi /etc/bashrc 在最后面加入“alias vi=vim ”然后wq保存退出。</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23h8csloyZ ~]# vi /etc/bashrc</span><br></pre></td></tr></table></figure>
+<p>这样在shell里面敲入vi时候就自动打开vim了（vim是vi improve的简称）</p>
+<h3 id="u7B2C_u4E09_uFF1A_u6700_u540E_u4FEE_u6539__23vi_/etc/vimrc__u5728_u5982_u4E0B_u8BED_u53E5_u4E2D_u52A0_u5165_u201Csyntax_on__u201D_uFF0C_u4E4B_u540E_u91CD_u542Fvi_uFF0C_u5C31_u53EF_u4EE5_u5F00_u542F_u9AD8_u4EAE_u663E_u793A_u4E86_u3002"><a href="#u7B2C_u4E09_uFF1A_u6700_u540E_u4FEE_u6539__23vi_/etc/vimrc__u5728_u5982_u4E0B_u8BED_u53E5_u4E2D_u52A0_u5165_u201Csyntax_on__u201D_uFF0C_u4E4B_u540E_u91CD_u542Fvi_uFF0C_u5C31_u53EF_u4EE5_u5F00_u542F_u9AD8_u4EAE_u663E_u793A_u4E86_u3002" class="headerlink" title="第三：最后修改 #vi /etc/vimrc 在如下语句中加入“syntax on ”，之后重启vi，就可以开启高亮显示了。"></a>第三：最后修改 #vi /etc/vimrc 在如下语句中加入“syntax on ”，之后重启vi，就可以开启高亮显示了。</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23h8csloyZ ~]# vi /etc/vimrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> &amp;t_Co &gt; <span class="number">2</span> || <span class="built_in">has</span>(“gui_running”)</span><br><span class="line"><span class="keyword">syntax</span> <span class="keyword">on</span></span><br><span class="line"><span class="keyword">set</span> hlsearch</span><br><span class="line"><span class="keyword">endif</span></span><br></pre></td></tr></table></figure>
+<p>注意：如果有的话则不必再添加。<br>有时要在 #vi /etc/vimrc 文件里按一下 esc–&gt;输入：syn on 即是重启运行vi<br>RedHat下显示彩色目录列表<br>打开/etc/bashrc<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23h8csloyZ ~]# vi /etc/bashrc</span><br></pre></td></tr></table></figure></p>
+<p>加入如下一行:<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alias</span> <span class="keyword">ls</span>=<span class="string">"ls -color"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="u7B2C_u56DB_uFF1A_u7528_init_6__u91CD_u542F_u4E00_u4E0Blinux__u670D_u52A1_u5668_u3002"><a href="#u7B2C_u56DB_uFF1A_u7528_init_6__u91CD_u542F_u4E00_u4E0Blinux__u670D_u52A1_u5668_u3002" class="headerlink" title="第四：用 init 6 重启一下linux 服务器。"></a>第四：用 init 6 重启一下linux 服务器。</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23h8csloyZ ~]# init 6</span><br></pre></td></tr></table></figure>
+<p>重启完成后，应该可以高亮显示了。</p>
+<p>让 Linux vi 显示关键字颜色-www.2cto.com-和vimrc配置<br>这需要安装vim-enhanced 包。<br>其实主要是vi本身是不带颜色的，vim带颜色<br>用命令:alias vi=vim 就就可使vi显示关键字颜色了。<br>以后vi就带颜色了。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">syntax on &#8220;&#35821;&#27861;&#39640;&#20142;&#26174;&#31034;&#10;filetype indent on &#8220;&#25991;&#20214;&#33258;&#21160;&#32553;&#36827;&#10;set showcmd &#8221; Show (partial) command in status line.&#10;set showmatch &#8221; Show matching brackets.&#10;set incsearch &#8221; Incremental search&#10;set mouse=a &#8221; Enable mouse usage (all modes) in terminals&#10;set syn=cpp &#8220;&#35821;&#27861;&#39640;&#20142;&#10;set nu! &#8220;&#26174;&#31034;&#34892;&#21495;&#10;set hlsearch&#10;set nobackup &#8220;&#19981;&#20135;&#29983;&#22791;&#20221;&#25991;&#20214;&#10;set ruler &#8220;&#22312;&#32534;&#36753;&#36807;&#31243;&#20013;&#65292;&#22312;&#21491;&#19979;&#35282;&#26174;&#31034;&#20809;&#26631;&#20301;&#32622;&#30340;&#29366;&#24577;&#34892;&#10;colorscheme evening &#8220;&#35774;&#32622;&#37197;&#33394;&#26041;&#26696;&#10;set autoindent &#8220;&#20351;&#29992;&#33258;&#21160;&#23545;&#20854;&#65292;&#20063;&#23601;&#26159;&#25226;&#24403;&#21069;&#34892;&#30340;&#23545;&#20854;&#26684;&#24335;&#24212;&#29992;&#21040;&#19979;&#19968;&#34892;&#10;set smartindent &#8220;&#20381;&#25454;&#19978;&#38754;&#30340;&#23545;&#20854;&#26684;&#24335;&#65292;&#26234;&#33021;&#30340;&#36873;&#25321;&#23545;&#20854;&#26041;&#24335;&#10;set tabstop=4 &#8220;&#35774;&#32622;tab&#38190;&#20026;4&#20010;&#31354;&#26684;&#10;set shiftwidth=4 &#8220;&#35774;&#32622;&#24403;&#21069;&#34892;&#20043;&#38388;&#20132;&#38169;&#26102;&#20351;&#29992;4&#20010;&#31354;&#26684;&#10;set enc=utf-8 &#8220;&#35774;&#32622;&#32534;&#30721;&#10;set fenc=utf-8 &#8220;&#35774;&#32622;&#25991;&#20214;&#32534;&#30721;&#10;set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936 &#8220;&#35774;&#32622;&#25991;&#20214;&#32534;&#30721;&#26816;&#27979;&#31867;&#22411;&#21450;&#25903;&#25345;&#26684;&#24335;&#10;set langmenu=zh_CN.UTF-8 &#8220;&#25351;&#23450;&#33756;&#21333;&#35821;&#35328;&#10;set helplang=cn &#8220;&#20013;&#25991;&#24110;&#21161;</span><br></pre></td></tr></table></figure></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vim/" rel="tag">#Vim</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/05/Markdown-use-introduce/" rel="next" title="Markdown简明语法手册(二)（转）">
+                <i class="fa fa-chevron-left"></i> Markdown简明语法手册(二)（转）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/09/Apache-httpd.conf-position/" rel="prev" title="Apache config 文件 httpd.conf 的位置">
+                Apache config 文件 httpd.conf 的位置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ei1yg6iujij209l09rwg2.jpg" alt="ZhangYouzhi" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">ZhangYouzhi</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Where there is a will, there is a way!</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u4E00_u6B65_uFF1A_u53EF_u80FD_u662F_u56E0_u4E3Avi_u7684_u7248_u672C_u592A_u4F4E_uFF0C_u5E76_u4E14_u6CA1_u6709_u5F00_u542F_u9AD8_u4EAE_u663E_u793A_u3002"><span class="nav-number">1.</span> <span class="nav-text">第一步：可能是因为vi的版本太低，并且没有开启高亮显示。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u4E8C_uFF1A_u7136_u540E_u4FEE_u6539__23vi_/etc/bashrc__u5728_u6700_u540E_u9762_u52A0_u5165_u201Calias_vi_3Dvim__u201D_u7136_u540Ewq_u4FDD_u5B58_u9000_u51FA_u3002"><span class="nav-number">2.</span> <span class="nav-text">第二：然后修改 #vi /etc/bashrc 在最后面加入“alias vi=vim ”然后wq保存退出。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u4E09_uFF1A_u6700_u540E_u4FEE_u6539__23vi_/etc/vimrc__u5728_u5982_u4E0B_u8BED_u53E5_u4E2D_u52A0_u5165_u201Csyntax_on__u201D_uFF0C_u4E4B_u540E_u91CD_u542Fvi_uFF0C_u5C31_u53EF_u4EE5_u5F00_u542F_u9AD8_u4EAE_u663E_u793A_u4E86_u3002"><span class="nav-number">3.</span> <span class="nav-text">第三：最后修改 #vi /etc/vimrc 在如下语句中加入“syntax on ”，之后重启vi，就可以开启高亮显示了。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u56DB_uFF1A_u7528_init_6__u91CD_u542F_u4E00_u4E0Blinux__u670D_u52A1_u5668_u3002"><span class="nav-number">4.</span> <span class="nav-text">第四：用 init 6 重启一下linux 服务器。</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYouzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

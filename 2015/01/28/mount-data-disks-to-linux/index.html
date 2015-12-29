@@ -1,0 +1,665 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CentOS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="适用系统：Linux（Redhat , CentOS，Debian，Ubuntu）Linux的云服务器数据盘未做分区和格式化，可以根据以下步骤进行分区以及格式化操作。下面的操作将会把数据盘划分为一个分区来使用。
+1、查看数据盘。在没有分区和格式化数据盘之前，使用 “df –h”命令，是无法看到数据盘的，可以使用“fdisk -l”命令查看。如下图：
+友情提示：若您执行fdisk -l命令，发现没有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 系统挂载数据盘">
+<meta property="og:url" content="http://zhangyouzhi.com/2015/01/28/mount-data-disks-to-linux/index.html">
+<meta property="og:site_name" content="ZhangYouzhi's Blog">
+<meta property="og:description" content="适用系统：Linux（Redhat , CentOS，Debian，Ubuntu）Linux的云服务器数据盘未做分区和格式化，可以根据以下步骤进行分区以及格式化操作。下面的操作将会把数据盘划分为一个分区来使用。
+1、查看数据盘。在没有分区和格式化数据盘之前，使用 “df –h”命令，是无法看到数据盘的，可以使用“fdisk -l”命令查看。如下图：
+友情提示：若您执行fdisk -l命令，发现没有">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eoqj4s014wj20e10azq5q.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6ba3371bgw1eoqjf4mc95j20i80dbtbg.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6ba3371bjw1ep44bqvkv8j20ez06sgmu.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6ba3371bjw1ep44brc1zvj20eu0e1gop.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eoqji5dtn0j20fw09xtb7.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eoqjls9arxj20hc0b8tbl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eowcag3q1dj20gv088tbh.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eowcafpn9yj20fr02swf5.jpg">
+<meta property="og:updated_time" content="2015-10-19T08:14:12.327Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 系统挂载数据盘">
+<meta name="twitter:description" content="适用系统：Linux（Redhat , CentOS，Debian，Ubuntu）Linux的云服务器数据盘未做分区和格式化，可以根据以下步骤进行分区以及格式化操作。下面的操作将会把数据盘划分为一个分区来使用。
+1、查看数据盘。在没有分区和格式化数据盘之前，使用 “df –h”命令，是无法看到数据盘的，可以使用“fdisk -l”命令查看。如下图：
+友情提示：若您执行fdisk -l命令，发现没有">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> Linux 系统挂载数据盘 | ZhangYouzhi's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhangYouzhi's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux 系统挂载数据盘
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-01-28T18:58:58+08:00" content="2015-01-28">
+              2015-01-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>适用系统：Linux（Redhat , CentOS，Debian，Ubuntu）<br><strong>Linux的云服务器数据盘未做分区和格式化，可以根据以下步骤进行分区以及格式化操作。<br>下面的操作将会把数据盘划分为一个分区来使用。</strong></p>
+<h3 id="1_u3001_u67E5_u770B_u6570_u636E_u76D8_u3002_u5728_u6CA1_u6709_u5206_u533A_u548C_u683C_u5F0F_u5316_u6570_u636E_u76D8_u4E4B_u524D_uFF0C_u4F7F_u7528__u201Cdf__u2013h_u201D_u547D_u4EE4_uFF0C_u662F_u65E0_u6CD5_u770B_u5230_u6570_u636E_u76D8_u7684_uFF0C_u53EF_u4EE5_u4F7F_u7528_u201Cfdisk_-l_u201D_u547D_u4EE4_u67E5_u770B_u3002_u5982_u4E0B_u56FE_uFF1A"><a href="#1_u3001_u67E5_u770B_u6570_u636E_u76D8_u3002_u5728_u6CA1_u6709_u5206_u533A_u548C_u683C_u5F0F_u5316_u6570_u636E_u76D8_u4E4B_u524D_uFF0C_u4F7F_u7528__u201Cdf__u2013h_u201D_u547D_u4EE4_uFF0C_u662F_u65E0_u6CD5_u770B_u5230_u6570_u636E_u76D8_u7684_uFF0C_u53EF_u4EE5_u4F7F_u7528_u201Cfdisk_-l_u201D_u547D_u4EE4_u67E5_u770B_u3002_u5982_u4E0B_u56FE_uFF1A" class="headerlink" title="1、查看数据盘。在没有分区和格式化数据盘之前，使用 “df –h”命令，是无法看到数据盘的，可以使用“fdisk -l”命令查看。如下图："></a>1、查看数据盘。在没有分区和格式化数据盘之前，使用 “df –h”命令，是无法看到数据盘的，可以使用“fdisk -l”命令查看。如下图：</h3><p><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eoqj4s014wj20e10azq5q.jpg" alt=""></p>
+<p>友情提示：<em>若您执行fdisk -l命令，发现没有 /dev/xvdb 标明您的云服务无数据盘，那么您无需进行挂载，此时该教程对您不适用。</em></p>
+<h3 id="2_u3001_u5BF9_u6570_u636E_u76D8_u8FDB_u884C_u5206_u533A_u3002_u6267_u884C_u201Cfdisk_-S_56_/dev/xvdb_u201D_u547D_u4EE4_uFF0C_u5BF9_u6570_u636E_u76D8_u8FDB_u884C_u5206_u533A_uFF1B_u6839_u636E_u63D0_u793A_uFF0C_u4F9D_u6B21_u8F93_u5165_u201Cn_u201D_uFF0C_u201Cp_u201D_u201C1_u201D_uFF0C_u4E24_u6B21_u56DE_u8F66_uFF0C_u201Cwq_u201D_uFF0C_u5206_u533A_u5C31_u5F00_u59CB_u4E86_uFF0C_u5F88_u5FEB_u5C31_u4F1A_u5B8C_u6210_u3002"><a href="#2_u3001_u5BF9_u6570_u636E_u76D8_u8FDB_u884C_u5206_u533A_u3002_u6267_u884C_u201Cfdisk_-S_56_/dev/xvdb_u201D_u547D_u4EE4_uFF0C_u5BF9_u6570_u636E_u76D8_u8FDB_u884C_u5206_u533A_uFF1B_u6839_u636E_u63D0_u793A_uFF0C_u4F9D_u6B21_u8F93_u5165_u201Cn_u201D_uFF0C_u201Cp_u201D_u201C1_u201D_uFF0C_u4E24_u6B21_u56DE_u8F66_uFF0C_u201Cwq_u201D_uFF0C_u5206_u533A_u5C31_u5F00_u59CB_u4E86_uFF0C_u5F88_u5FEB_u5C31_u4F1A_u5B8C_u6210_u3002" class="headerlink" title="2、对数据盘进行分区。执行“fdisk -S 56 /dev/xvdb”命令，对数据盘进行分区；根据提示，依次输入“n”，“p”“1”，两次回车，“wq”，分区就开始了，很快就会完成。"></a>2、对数据盘进行分区。执行“fdisk -S 56 /dev/xvdb”命令，对数据盘进行分区；根据提示，依次输入“n”，“p”“1”，两次回车，“wq”，分区就开始了，很快就会完成。</h3><p><img src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1eoqjf4mc95j20i80dbtbg.jpg" alt=""></p>
+<p><em>注：有可能在格式化分区的时候报一下错误：Partition 1 is already defined.  Delete it before re-adding it.</em></p>
+<p><img src="http://ww4.sinaimg.cn/mw690/6ba3371bjw1ep44bqvkv8j20ez06sgmu.jpg" alt=""></p>
+<p>解决办法：<br>先删除，然后在格式化。</p>
+<p><img src="http://ww4.sinaimg.cn/mw690/6ba3371bjw1ep44brc1zvj20eu0e1gop.jpg" alt=""></p>
+<p>详细命令：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23tvhxkkjZ /]# fdisk -S 56 /dev/xvdb&#10;&#10;WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to&#10;         switch off the mode (command &#39;c&#39;) and change display units to&#10;         sectors (command &#39;u&#39;).&#10;&#10;Command (m for help): n&#10;Command action&#10;   e   extended&#10;   p   primary partition (1-4)&#10;p&#10;Partition number (1-4): 1&#10;Partition 1 is already defined.  Delete it before re-adding it.&#10;&#10;Command (m for help): d&#10;Selected partition 1&#10;&#10;Command (m for help): m&#10;Command action&#10;   a   toggle a bootable flag&#10;   b   edit bsd disklabel&#10;   c   toggle the dos compatibility flag&#10;   d   delete a partition&#10;   l   list known partition types&#10;   m   print this menu&#10;   n   add a new partition&#10;   o   create a new empty DOS partition table&#10;   p   print the partition table&#10;   q   quit without saving changes&#10;   s   create a new empty Sun disklabel&#10;   t   change a partition&#39;s system id&#10;   u   change display/entry units&#10;   v   verify the partition table&#10;   w   write table to disk and exit&#10;   x   extra functionality (experts only)&#10;&#10;Command (m for help): n&#10;Command action&#10;   e   extended&#10;   p   primary partition (1-4)&#10;p&#10;Partition number (1-4): 1&#10;First cylinder (1-4405, default 1): &#10;Using default value 1&#10;Last cylinder, +cylinders or +size&#123;K,M,G&#125; (1-4405, default 4405): &#10;Using default value 4405&#10;&#10;Command (m for help): wq&#10;The partition table has been altered!&#10;&#10;Calling ioctl() to re-read partition table.&#10;Syncing disks.&#10;[root@iZ23tvhxkkjZ /]#</span><br></pre></td></tr></table></figure></p>
+<h3 id="3_u3001_u67E5_u770B_u65B0_u7684_u5206_u533A_u3002"><a href="#3_u3001_u67E5_u770B_u65B0_u7684_u5206_u533A_u3002" class="headerlink" title="3、查看新的分区。"></a>3、查看新的分区。</h3><p>使用“fdisk -l”命令可以看到，新的分区xvdb1已经建立完成了。<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eoqji5dtn0j20fw09xtb7.jpg" alt=""></p>
+<h3 id="4_u3001_u683C_u5F0F_u5316_u65B0_u5206_u533A_u3002"><a href="#4_u3001_u683C_u5F0F_u5316_u65B0_u5206_u533A_u3002" class="headerlink" title="4、格式化新分区。"></a>4、格式化新分区。</h3><p>使用“mkfs.ext3 /dev/xvdb1”命令对新分区进行格式化，格式化的时间根据硬盘大小有所不同。(也可自主决定选用 ext4 格式)<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eoqjls9arxj20hc0b8tbl.jpg" alt=""></p>
+<h3 id="5_u3001_u88AB_u6302_u8F7D_u76EE_u5F55_u6587_u4EF6_u5907_u4EFD"><a href="#5_u3001_u88AB_u6302_u8F7D_u76EE_u5F55_u6587_u4EF6_u5907_u4EFD" class="headerlink" title="5、被挂载目录文件备份"></a>5、被挂载目录文件备份</h3><p><strong>注意：挂载磁盘到某个目录下面的内容清除，所以在挂载磁盘前要备份被挂载目录的内容。</strong><br>以var目录为例：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ238dbmjaiZ /]# mkdir varbak&#10;&#22797;&#21046;/var&#25991;&#20214;&#22841;&#21253;&#25324;&#25991;&#20214;&#22841;&#37324;&#30340;&#25152;&#26377;&#25991;&#20214;&#10;[root@iZ238dbmjaiZ /]# cp -r /var /varbak&#10;&#22797;&#21046;/var&#25991;&#20214;&#22841;&#19979;&#25152;&#26377;&#25991;&#20214;&#65292;&#19981;&#21253;&#25324;&#25991;&#20214;&#22841;&#10;[root@iZ238dbmjaiZ /]# cp -Rf /var/* /varbak/</span><br></pre></td></tr></table></figure></p>
+<h3 id="6_u3001_u6DFB_u52A0_u5206_u533A_u4FE1_u606F_u3002"><a href="#6_u3001_u6DFB_u52A0_u5206_u533A_u4FE1_u606F_u3002" class="headerlink" title="6、添加分区信息。"></a>6、添加分区信息。</h3><p>使用“echo ‘/dev/xvdb1 /var ext3 defaults 0 0’ &gt;&gt; /etc/fstab”（不含引号）命令写入新分区信息。<br>然后使用“cat /etc/fstab”命令查看，出现以下信息就表示写入成功。<br><img src="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eowcag3q1dj20gv088tbh.jpg" alt=""><br>注：ubuntu12.04不支持barrier，所以正确写法是：echo ‘/dev/xvdb1  /var ext3    barrier=0  0  0’ &gt;&gt; /etc/fstab</p>
+<p><em>如果需要把数据盘单独挂载到某个文件夹，比如单独用来存放网页，可以修改以上命令中的/var部分。</em></p>
+<h3 id="7_u3001_u6302_u8F7D_u65B0_u5206_u533A"><a href="#7_u3001_u6302_u8F7D_u65B0_u5206_u533A" class="headerlink" title="7、挂载新分区"></a>7、挂载新分区</h3><p>使用“mount -a”命令挂载新分区，然后用“df -h”命令查看，出现以下信息就说明挂载成功，可以开始使用新的分区了。</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eowcafpn9yj20fr02swf5.jpg" alt=""></p>
+<h3 id="8_u3001_u88AB_u6302_u8F7D_u76EE_u5F55_u6587_u4EF6_u6062_u590D"><a href="#8_u3001_u88AB_u6302_u8F7D_u76EE_u5F55_u6587_u4EF6_u6062_u590D" class="headerlink" title="8、被挂载目录文件恢复"></a>8、被挂载目录文件恢复</h3><p>拷回被挂载目录的内容。<br>以var目录为例：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#22797;&#21046;/varbak&#25991;&#20214;&#22841;&#19979;&#25152;&#26377;&#25991;&#20214;&#65292;&#19981;&#21253;&#25324;&#25991;&#20214;&#22841;&#10;[root@iZ238dbmjaiZ /]# cp -Rf /varbak/* /var/</span><br></pre></td></tr></table></figure></p>
+<p>附：<br>常用命令：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ238dbmjaiZ /]# df -h&#10;Filesystem      Size  Used Avail Use% Mounted on&#10;/dev/xvda1       20G  2.0G   17G  11% /&#10;tmpfs           3.9G     0  3.9G   0% /dev/shm</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ238dbmjaiZ /]# df -i&#10;Filesystem      Inodes IUsed   IFree IUse% Mounted on&#10;/dev/xvda1     1310720 83071 1227649    7% /&#10;tmpfs          1007257     1 1007256    1% /dev/shm</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ238dbmjaiZ /]# fdisk -l&#10;&#10;Disk /dev/xvda: 21.5 GB, 21474836480 bytes&#10;255 heads, 63 sectors/track, 2610 cylinders&#10;Units = cylinders of 16065 * 512 = 8225280 bytes&#10;Sector size (logical/physical): 512 bytes / 512 bytes&#10;I/O size (minimum/optimal): 512 bytes / 512 bytes&#10;Disk identifier: 0x00078f9c&#10;&#10;    Device Boot      Start         End      Blocks   Id  System&#10;/dev/xvda1   *           1        2611    20970496   83  Linux&#10;&#10;Disk /dev/xvdb: 53.7 GB, 53687091200 bytes&#10;255 heads, 56 sectors/track, 7342 cylinders&#10;Units = cylinders of 14280 * 512 = 7311360 bytes&#10;Sector size (logical/physical): 512 bytes / 512 bytes&#10;I/O size (minimum/optimal): 512 bytes / 512 bytes&#10;Disk identifier: 0x0478d339&#10;&#10;    Device Boot      Start         End      Blocks   Id  System&#10;/dev/xvdb1               1        7342    52421852   83  Linux&#10;[root@iZ238dbmjaiZ /]#</span><br></pre></td></tr></table></figure></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CentOS/" rel="tag">#CentOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/01/27/Linux-Glibc-Bug-fixes/" rel="next" title="Linux Glibc漏洞修复">
+                <i class="fa fa-chevron-left"></i> Linux Glibc漏洞修复
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/01/29/Linux-inodes-full/" rel="prev" title="Linux索引节点(Inode)用满导致空间不足">
+                Linux索引节点(Inode)用满导致空间不足 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ei1yg6iujij209l09rwg2.jpg" alt="ZhangYouzhi" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">ZhangYouzhi</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Where there is a will, there is a way!</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1_u3001_u67E5_u770B_u6570_u636E_u76D8_u3002_u5728_u6CA1_u6709_u5206_u533A_u548C_u683C_u5F0F_u5316_u6570_u636E_u76D8_u4E4B_u524D_uFF0C_u4F7F_u7528__u201Cdf__u2013h_u201D_u547D_u4EE4_uFF0C_u662F_u65E0_u6CD5_u770B_u5230_u6570_u636E_u76D8_u7684_uFF0C_u53EF_u4EE5_u4F7F_u7528_u201Cfdisk_-l_u201D_u547D_u4EE4_u67E5_u770B_u3002_u5982_u4E0B_u56FE_uFF1A"><span class="nav-number">1.</span> <span class="nav-text">1、查看数据盘。在没有分区和格式化数据盘之前，使用 “df –h”命令，是无法看到数据盘的，可以使用“fdisk -l”命令查看。如下图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2_u3001_u5BF9_u6570_u636E_u76D8_u8FDB_u884C_u5206_u533A_u3002_u6267_u884C_u201Cfdisk_-S_56_/dev/xvdb_u201D_u547D_u4EE4_uFF0C_u5BF9_u6570_u636E_u76D8_u8FDB_u884C_u5206_u533A_uFF1B_u6839_u636E_u63D0_u793A_uFF0C_u4F9D_u6B21_u8F93_u5165_u201Cn_u201D_uFF0C_u201Cp_u201D_u201C1_u201D_uFF0C_u4E24_u6B21_u56DE_u8F66_uFF0C_u201Cwq_u201D_uFF0C_u5206_u533A_u5C31_u5F00_u59CB_u4E86_uFF0C_u5F88_u5FEB_u5C31_u4F1A_u5B8C_u6210_u3002"><span class="nav-number">2.</span> <span class="nav-text">2、对数据盘进行分区。执行“fdisk -S 56 /dev/xvdb”命令，对数据盘进行分区；根据提示，依次输入“n”，“p”“1”，两次回车，“wq”，分区就开始了，很快就会完成。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3_u3001_u67E5_u770B_u65B0_u7684_u5206_u533A_u3002"><span class="nav-number">3.</span> <span class="nav-text">3、查看新的分区。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4_u3001_u683C_u5F0F_u5316_u65B0_u5206_u533A_u3002"><span class="nav-number">4.</span> <span class="nav-text">4、格式化新分区。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5_u3001_u88AB_u6302_u8F7D_u76EE_u5F55_u6587_u4EF6_u5907_u4EFD"><span class="nav-number">5.</span> <span class="nav-text">5、被挂载目录文件备份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6_u3001_u6DFB_u52A0_u5206_u533A_u4FE1_u606F_u3002"><span class="nav-number">6.</span> <span class="nav-text">6、添加分区信息。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7_u3001_u6302_u8F7D_u65B0_u5206_u533A"><span class="nav-number">7.</span> <span class="nav-text">7、挂载新分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8_u3001_u88AB_u6302_u8F7D_u76EE_u5F55_u6587_u4EF6_u6062_u590D"><span class="nav-number">8.</span> <span class="nav-text">8、被挂载目录文件恢复</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYouzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

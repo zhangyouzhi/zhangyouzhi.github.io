@@ -1,0 +1,650 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="文章转自：Linux中iptables配置详细
+无论如何，iptables是一个需要特别谨慎设置的东西，万一服务器不在你身边，而你贸然设置导致无法SSH，那就等着被老板骂吧，呵呵。。。
+一下内容是为了防止这种情况发生而写的，当然很初级，不过一般服务器也够用了：
+1. 首先介绍一下指令和相关配置文件1&amp;#21551;&amp;#21160;&amp;#25351;&amp;#20196;:service iptables">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux中iptables配置详细（转）">
+<meta property="og:url" content="http://zhangyouzhi.com/2014/12/10/Linux-iptables-configuration/index.html">
+<meta property="og:site_name" content="ZhangYouzhi's Blog">
+<meta property="og:description" content="文章转自：Linux中iptables配置详细
+无论如何，iptables是一个需要特别谨慎设置的东西，万一服务器不在你身边，而你贸然设置导致无法SSH，那就等着被老板骂吧，呵呵。。。
+一下内容是为了防止这种情况发生而写的，当然很初级，不过一般服务器也够用了：
+1. 首先介绍一下指令和相关配置文件1&amp;#21551;&amp;#21160;&amp;#25351;&amp;#20196;:service iptables">
+<meta property="og:updated_time" content="2015-10-19T08:14:09.712Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux中iptables配置详细（转）">
+<meta name="twitter:description" content="文章转自：Linux中iptables配置详细
+无论如何，iptables是一个需要特别谨慎设置的东西，万一服务器不在你身边，而你贸然设置导致无法SSH，那就等着被老板骂吧，呵呵。。。
+一下内容是为了防止这种情况发生而写的，当然很初级，不过一般服务器也够用了：
+1. 首先介绍一下指令和相关配置文件1&amp;#21551;&amp;#21160;&amp;#25351;&amp;#20196;:service iptables">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> Linux中iptables配置详细（转） | ZhangYouzhi's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhangYouzhi's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux中iptables配置详细（转）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2014-12-10T20:58:58+08:00" content="2014-12-10">
+              2014-12-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h3 id="u6587_u7AE0_u8F6C_u81EA_uFF1ALinux_u4E2Diptables_u914D_u7F6E_u8BE6_u7EC6"><a href="#u6587_u7AE0_u8F6C_u81EA_uFF1ALinux_u4E2Diptables_u914D_u7F6E_u8BE6_u7EC6" class="headerlink" title="文章转自：Linux中iptables配置详细"></a>文章转自：<a href="http://jsczxy2.iteye.com/blog/1436713" target="_blank" rel="external">Linux中iptables配置详细</a></h3><hr>
+<p>无论如何，iptables是一个需要特别谨慎设置的东西，万一服务器不在你身边，而你贸然设置导致无法SSH，那就等着被老板骂吧，呵呵。。。</p>
+<p>一下内容是为了防止这种情况发生而写的，当然很初级，不过一般服务器也够用了：</p>
+<h3 id="1-__u9996_u5148_u4ECB_u7ECD_u4E00_u4E0B_u6307_u4EE4_u548C_u76F8_u5173_u914D_u7F6E_u6587_u4EF6"><a href="#1-__u9996_u5148_u4ECB_u7ECD_u4E00_u4E0B_u6307_u4EE4_u548C_u76F8_u5173_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="1. 首先介绍一下指令和相关配置文件"></a>1. 首先介绍一下指令和相关配置文件</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#21551;&#21160;&#25351;&#20196;:service iptables start  &#10;&#37325;&#21551;&#25351;&#20196;:service iptables restart  &#10;&#20851;&#38381;&#25351;&#20196;:service iptables stop  &#10;  &#10;&#28982;&#21518;&#26159;&#30456;&#20851;&#37197;&#32622;:/etc/sysconfig/iptables  &#10;&#22914;&#20309;&#25805;&#20316;&#35813;&#37197;&#32622;&#21602;&#65311;  &#10;vim /etc/sysconfig/iptables  &#10;&#28982;&#21518;&#36827;&#21435;&#20462;&#25913;&#21363;&#21487;&#65292;&#20462;&#25913;&#23436;&#20102;&#24590;&#20040;&#21150;&#65311;&#36825;&#37324;&#24456;&#22810;&#20154;&#20250;&#24819;&#21040;/etc/rc.d/init.d/iptables save&#25351;&#20196;&#65292;&#20294;&#26159;&#19968;&#26086;&#20320;&#36825;&#20040;&#24178;&#20102;&#20320;&#21018;&#25165;&#30340;&#20462;&#25913;&#20869;&#23481;&#23601;&#30333;&#20570;&#20102;&#12290;&#12290;&#12290;  &#10;&#20855;&#20307;&#26041;&#27861;&#26159;&#65306;  &#10;&#21482;&#20462;&#25913;/etc/sysconfig/iptables &#20351;&#20854;&#29983;&#25928;&#30340;&#21150;&#27861;&#26159;&#20462;&#25913;&#22909;&#21518;&#20808;service iptables restart&#65292;&#28982;&#21518;&#25165;&#35843;&#29992;/etc/rc.d/init.d/iptables save&#65292;  &#10;&#22240;&#20026;/etc/rc.d/init.d/iptables save&#20250;&#22312;iptables&#26381;&#21153;&#21551;&#21160;&#26102;&#37325;&#26032;&#21152;&#36733;&#65292;&#35201;&#26159;&#22312;&#37325;&#21551;&#20043;&#21069;&#30452;&#25509;&#20808;&#35843;&#29992;&#20102;/etc/rc.d/init.d/iptables save&#37027;&#20040;&#20320;  &#10;&#30340;/etc/sysconfig/iptables &#37197;&#32622;&#23601;&#22238;&#28378;&#21040;&#19978;&#27425;&#21551;&#21160;&#26381;&#21153;&#30340;&#37197;&#32622;&#20102;&#65292;&#36825;&#28857;&#24517;&#39035;&#27880;&#24847;&#65281;&#65281;&#65281;</span><br></pre></td></tr></table></figure>
+<h3 id="2-__u4E0B_u9762_u4ECB_u7ECD_u4E00_u4E9B_u6307_u4EE4_u7528_u6CD5_uFF08_u4E3B_u8981_u8FD8_u662Fman_iptables_u770B_u4E0B_u76F8_u5173_u8D44_u6599_u624D_u884C_uFF09"><a href="#2-__u4E0B_u9762_u4ECB_u7ECD_u4E00_u4E9B_u6307_u4EE4_u7528_u6CD5_uFF08_u4E3B_u8981_u8FD8_u662Fman_iptables_u770B_u4E0B_u76F8_u5173_u8D44_u6599_u624D_u884C_uFF09" class="headerlink" title="2. 下面介绍一些指令用法（主要还是man iptables看下相关资料才行）"></a>2. 下面介绍一些指令用法（主要还是man iptables看下相关资料才行）</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A&#65306;&#25351;&#23450;&#38142;&#21517;  &#10;-p&#65306;&#25351;&#23450;&#21327;&#35758;&#31867;&#22411;  &#10;-d&#65306;&#25351;&#23450;&#30446;&#26631;&#22320;&#22336;  &#10;--dport&#65306;&#25351;&#23450;&#30446;&#26631;&#31471;&#21475;&#65288;destination port &#30446;&#30340;&#31471;&#21475;&#65289;  &#10;--sport&#65306;&#25351;&#23450;&#28304;&#31471;&#21475;&#65288;source port &#28304;&#31471;&#21475;&#65289;  &#10;-j&#65306;&#25351;&#23450;&#21160;&#20316;&#31867;&#22411;</span><br></pre></td></tr></table></figure>
+<h3 id="3-__u5982_u679C_u6211_u4E0D_u60F3_u4FEE_u6539_u6587_u4EF6_u76F4_u63A5_u6253_u547D_u4EE4_u53EF_u4EE5_u5417_uFF0C_u5F53_u7136_u6CA1_u95EE_u9898_uFF0C_u6B65_u9AA4_u5982_u4E0B_3A"><a href="#3-__u5982_u679C_u6211_u4E0D_u60F3_u4FEE_u6539_u6587_u4EF6_u76F4_u63A5_u6253_u547D_u4EE4_u53EF_u4EE5_u5417_uFF0C_u5F53_u7136_u6CA1_u95EE_u9898_uFF0C_u6B65_u9AA4_u5982_u4E0B_3A" class="headerlink" title="3. 如果我不想修改文件直接打命令可以吗，当然没问题，步骤如下:"></a>3. 如果我不想修改文件直接打命令可以吗，当然没问题，步骤如下:</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#20363;&#22914;&#25105;&#32473;SSH&#21152;&#25918;&#34892;&#30340;&#35821;&#21477;&#65306;  &#10;&#28155;&#21152;input&#35760;&#24405;&#65306; iptables -A INPUT -p tcp --dport 22 -j ACCEPT  &#10;&#28155;&#21152;output&#35760;&#24405;&#65306; iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT  &#10;&#26368;&#21518;&#27880;&#24847;&#38656;&#35201;&#20877;&#25191;&#34892;&#19968;&#19979; /etc/init.d/iptables save&#65292;&#36825;&#26679;&#36825;&#20004;&#26465;&#35821;&#21477;&#23601;&#20445;&#23384;&#21040;&#21018;&#25165;&#37027;&#20010;/etc/sysconfig/iptables &#25991;&#20214;&#20013;&#20102;&#12290;</span><br></pre></td></tr></table></figure>
+<h3 id="4-__u63A5_u4E0B_u6765_u8BF4_u660E_u4E00_u4E0B_u6B65_u9AA4_uFF0C_u5982_u679C_u673A_u5668_u4E0D_u5728_u6211_u8EAB_u8FB9_uFF0C_u6211_u53EA_u80FDSSH_u8FDB_u53BB_u505Aiptables_u89C4_u5219_uFF0C_u90A3_u4E48_u6211_u5FC5_u987B_u6CE8_u610F_u6BCF_u4E00_u6B65_uFF0C_u5343_u4E07_u522B_u641E_u9519_u4E86_uFF0C_u5426_u5219_u5C31SSH_u94FE_u63A5_u4E0D_u4E0A_u90FD_u6709_u53EF_u80FD_uFF01"><a href="#4-__u63A5_u4E0B_u6765_u8BF4_u660E_u4E00_u4E0B_u6B65_u9AA4_uFF0C_u5982_u679C_u673A_u5668_u4E0D_u5728_u6211_u8EAB_u8FB9_uFF0C_u6211_u53EA_u80FDSSH_u8FDB_u53BB_u505Aiptables_u89C4_u5219_uFF0C_u90A3_u4E48_u6211_u5FC5_u987B_u6CE8_u610F_u6BCF_u4E00_u6B65_uFF0C_u5343_u4E07_u522B_u641E_u9519_u4E86_uFF0C_u5426_u5219_u5C31SSH_u94FE_u63A5_u4E0D_u4E0A_u90FD_u6709_u53EF_u80FD_uFF01" class="headerlink" title="4. 接下来说明一下步骤，如果机器不在我身边，我只能SSH进去做iptables规则，那么我必须注意每一步，千万别搞错了，否则就SSH链接不上都有可能！"></a>4. 接下来说明一下步骤，如果机器不在我身边，我只能SSH进去做iptables规则，那么我必须注意每一步，千万别搞错了，否则就SSH链接不上都有可能！</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39318;&#20808;&#35201;&#20570;&#30340;&#26159;&#32473;&#21681;&#30340;SSH&#36827;&#34892;ACCEPT&#37197;&#32622;&#65292;&#20197;&#20813;&#30452;&#25509;&#26080;&#27861;&#36830;&#25509;&#30340;&#24773;&#20917;&#21457;&#29983;:  &#10;1.&#22914;&#26524;SSH&#31471;&#21475;&#26159;22&#65288;&#36825;&#37324;&#19981;&#24314;&#35758;&#29992;&#40664;&#35748;&#31471;&#21475;&#26368;&#22909;&#25913;&#25481;SSH&#31471;&#21475;&#65289;&#10;iptables -A INPUT -p tcp --dport 22 -j ACCEPT&#10;iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT&#10;&#27880;&#24847;&#35201;/etc/rc.d/init.d/iptables save&#65292;&#20197;&#19979;&#27599;&#19968;&#27493;&#37117;&#26368;&#22909;&#25191;&#34892;&#19968;&#36941;&#27492;&#35821;&#21477;&#65292;&#20197;&#19979;&#19981;&#20877;&#32047;&#36848;&#12290;  &#10;2.vim /etc/sysconfig/iptables&#30830;&#23450;&#26159;&#21542;&#24050;&#32463;&#21152;&#20837;&#37197;&#32622;&#65292;&#21487;&#20197;&#30340;&#35805;&#25191;&#34892;service iptables restart&#37325;&#21551;&#21518;&#29983;&#25928;&#12290;&#10;3.&#19979;&#38754;&#26159;&#24456;&#21361;&#38505;&#30340;&#25805;&#20316;&#65292;&#22914;&#26524;&#20320;&#31532;&#19968;&#27493;&#27809;&#20570;&#23601;&#20250;&#30452;&#25509;&#21487;&#33021;&#23548;&#33268;&#20320;&#36830;&#19981;&#19978;SSH&#65292;&#27492;&#27493;&#39588;&#21069;&#20999;&#35760;&#25191;&#34892;&#31532;&#19968;&#27493;&#65281;&#65281;&#65281;&#10;iptables -P INPUT DROP   &#10;iptables -P OUTPUT DROP   &#10;iptables -P FORWARD DROP  &#10;&#36825;&#20010;&#27493;&#39588;&#26159;&#25226;&#25152;&#26377;&#19981;&#31526;&#21512;&#33258;&#24049;&#37197;&#32622;&#30340;&#35268;&#21017;ACCEPT&#30340;&#36830;&#25509;&#20840;&#37096;DROP&#25481;&#65292;&#25191;&#34892;&#23436;&#20197;&#21518;&#22914;&#26524;&#21681;SSH&#36824;&#27809;&#25481;&#65292;&#37027;&#20040;&#35874;&#22825;&#35874;&#22320;&#65292;&#23433;&#20840;&#20102;&#65292;&#37325;&#21551;&#19979;iptables&#21518;&#32487;&#32493;&#19979;&#38754;&#30340;&#37197;&#32622;&#65281;&#10;4.&#19979;&#38754;&#21681;&#23601;&#19981;&#32454;&#35828;&#20102;&#65292;&#20855;&#20307;&#23601;&#26159;&#30475;&#33258;&#24049;&#26381;&#21153;&#22120;&#35201;&#24320;&#25918;&#21738;&#20123;&#31471;&#21475;&#25110;&#32773;&#26159;&#35201;&#35775;&#38382;&#21738;&#20123;&#31471;&#21475;&#26469;&#20570;&#20855;&#20307;&#30340;&#37197;&#32622;&#65292;&#19979;&#38754;&#26159;&#25105;&#33258;&#24049;&#30340;&#26426;&#22120;&#30340;&#37197;&#32622;:&#10;/etc/sysconfig/iptables&#25991;&#20214;&#37197;&#32622;&#22914;&#19979;:&#10;# Generated by iptables-save v1.4.7 on Fri Mar  2 19:59:43 2012&#10;*filter&#10;:INPUT DROP [0:0]&#10;:FORWARD DROP [0:0]&#10;:OUTPUT DROP [8:496]&#10;-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT&#10;#ping&#20351;&#29992;&#30340;&#31471;&#21475;&#10;-A INPUT -p icmp -j ACCEPT&#10;-A INPUT -i lo -j ACCEPT&#10;-A INPUT -s 127.0.0.1/32 -d 127.0.0.1/32 -j ACCEPT&#10;-A INPUT -s 192.168.2.200/32 -d 192.168.2.200/32 -j ACCEPT&#10;#&#20801;&#35768;&#26381;&#21153;&#22120;&#33258;&#24049;&#30340;SSH&#65288;&#23545;&#22806;&#37096;&#35831;&#27714;&#26469;&#35828;&#26381;&#21153;&#22120;&#26159;&#30446;&#26631;&#25152;&#20197;&#20351;&#29992;--dport&#65289;&#10;-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT  &#10;#80&#31471;&#21475;&#19981;&#29992;&#35828;&#20102;&#21543;&#65292;&#26381;&#21153;&#22120;&#32593;&#31449;&#35775;&#38382;&#31471;&#21475;  &#10;-A INPUT -p tcp -m tcp --dport 80 -j ACCEPT  &#10;-A INPUT -p tcp -m tcp --dport 3306 -j ACCEPT  &#10;-A INPUT -p tcp -m tcp --dport 11211 -j ACCEPT  &#10;-A INPUT -p tcp -m tcp --dport 11212 -j ACCEPT  &#10;-A FORWARD -j REJECT --reject-with icmp-host-prohibited  &#10;#53&#31471;&#21475;&#26159;DNS&#30456;&#20851;&#65292;TCP&#21644;UDP&#37117;&#35201;&#37197;&#32622;  &#10;-A INPUT -p tcp -m tcp --dport 53 -j ACCEPT  &#10;-A INPUT -p udp -m udp --dport 53 -j ACCEPT  &#10;#ping&#20351;&#29992;&#30340;&#31471;&#21475;  &#10;-A OUTPUT -p icmp -j ACCEPT  &#10;-A OUTPUT -s 127.0.0.1/32 -d 127.0.0.1/32 -j ACCEPT  &#10;-A OUTPUT -s 192.168.2.200/32 -d 192.168.2.200/32 -j ACCEPT  &#10;#&#20801;&#35768;&#26381;&#21153;&#22120;SSH&#21040;&#20854;&#20182;&#26426;&#22120;&#65288;&#20351;&#29992;&#22806;&#37096;&#31471;&#21475;&#23601;&#20351;&#29992;--dport&#65289;  &#10;-A OUTPUT -p tcp -m tcp --dport 22 -j ACCEPT  &#10;#&#20801;&#35768;&#26381;&#21153;&#22120;&#33258;&#24049;&#30340;SSH&#65288;&#33258;&#24050;&#20026;&#28304;&#36755;&#20986;&#23601;&#20351;&#29992;--sport&#65289;  &#10;-A OUTPUT -p tcp -m tcp --sport 22 -j ACCEPT  &#10;#&#35775;&#38382;&#22806;&#37096;&#32593;&#31449;80&#31471;&#21475;&#65288;&#20351;&#29992;&#22806;&#37096;&#31471;&#21475;&#23601;&#20351;&#29992;--dport&#65289;  &#10;-A OUTPUT -p tcp -m tcp --dport 80 -j ACCEPT  &#10;#&#22914;&#26524;&#26381;&#21153;&#22120;&#38656;&#35201;&#35775;&#38382;&#22806;&#37096;&#32593;&#31449;&#65292;&#37027;&#20040;OUTPUT&#20063;&#38656;&#35201;&#37197;&#32622;53&#31471;&#21475;&#65288;&#20351;&#29992;&#22806;&#37096;&#31471;&#21475;&#23601;&#20351;&#29992;--dport&#65289;  &#10;-A OUTPUT -p tcp -m tcp --dport 53 -j ACCEPT  &#10;-A OUTPUT -p udp -m udp --dport 53 -j ACCEPT  &#10;#&#22914;&#26524;&#26377;&#35775;&#38382;&#22806;&#37096;&#37038;&#31665;&#65292;&#37027;&#20040;&#25171;&#24320;&#37038;&#31665;&#30456;&#20851;&#31471;&#21475;&#65288;&#20351;&#29992;&#22806;&#37096;&#31471;&#21475;&#23601;&#20351;&#29992;--dport&#65289;  &#10;-A OUTPUT -p tcp -m tcp --dport 465 -j ACCEPT  &#10;-A OUTPUT -p tcp -m tcp --dport 25 -j ACCEPT  &#10;-A OUTPUT -p tcp -m tcp --dport 110 -j ACCEPT  &#10;#&#26381;&#21153;&#22120;&#32593;&#31449;&#35775;&#38382;&#31471;&#21475;&#65288;&#33258;&#24050;&#20026;&#28304;&#36755;&#20986;&#23601;&#20351;&#29992;--sport&#65289;  &#10;-A OUTPUT -p tcp -m tcp --sport 80 -j ACCEPT  &#10;-A OUTPUT -p tcp -m tcp --sport 3306 -j ACCEPT  &#10;-A OUTPUT -p tcp -m tcp --sport 11211 -j ACCEPT  &#10;-A OUTPUT -p tcp -m tcp --sport 11212 -j ACCEPT  &#10;COMMIT&#10;# Completed on Fri Mar  2 19:59:43 2012</span><br></pre></td></tr></table></figure>
+<h3 id="5-__u53EF_u80FD_u6709_u65F6_u5019_u9700_u8981_u5220_u9664_u89C4_u5219_uFF0C_u6700_u7B80_u5355_u5C31_u662F_u4FEE_u6539_u4E00_u4E0B/etc/sysconfig/iptables_u7136_u540Eservice_iptables_restart_2C_u6700_u540E/etc/rc-d/init-d/iptables_save_u5373_u53EF_u3002_u5F53_u7136_u4E5F_u53EF_u4EE5_u4F7F_u7528_u6307_u4EE4_u5B8C_u6210_3A"><a href="#5-__u53EF_u80FD_u6709_u65F6_u5019_u9700_u8981_u5220_u9664_u89C4_u5219_uFF0C_u6700_u7B80_u5355_u5C31_u662F_u4FEE_u6539_u4E00_u4E0B/etc/sysconfig/iptables_u7136_u540Eservice_iptables_restart_2C_u6700_u540E/etc/rc-d/init-d/iptables_save_u5373_u53EF_u3002_u5F53_u7136_u4E5F_u53EF_u4EE5_u4F7F_u7528_u6307_u4EE4_u5B8C_u6210_3A" class="headerlink" title="5. 可能有时候需要删除规则，最简单就是修改一下/etc/sysconfig/iptables然后service iptables restart,最后/etc/rc.d/init.d/iptables save即可。当然也可以使用指令完成:"></a>5. 可能有时候需要删除规则，最简单就是修改一下/etc/sysconfig/iptables然后service iptables restart,最后/etc/rc.d/init.d/iptables save即可。当然也可以使用指令完成:</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#22312;&#32593;&#19978;&#25214;&#20102;&#19968;&#19979;&#65292;&#21024;&#38500;&#35268;&#21017;&#30340;&#26041;&#27861;&#65306;  &#10;&#35821;&#27861;&#26159;&#65306; iptables -D chain rulenum [options]  &#10;&#20854;&#20013;&#65306; chain &#26159;&#38142;&#30340;&#24847;&#24605;&#65292;&#23601;&#26159;INPUT FORWARD &#20043;&#31867;&#30340;  &#10;rulenum &#26159;&#35268;&#21017;&#30340;&#32534;&#21495;&#12290;&#20174;1 &#24320;&#22987;&#12290;&#21487;&#20197;&#20351;&#29992;  --line-numbers &#21015;&#20986;&#35268;&#21017;&#30340;&#32534;&#21495;  &#10;   &#10;&#25152;&#20197;&#65292;&#20363;&#22914;&#19978;&#38754;&#35201;&#21024;&#38500;&#19968;&#20010;INPUT&#38142;&#30340;&#35268;&#21017;&#30340;&#35805;&#21487;&#20197;&#36825;&#26679;&#65306;iptables -D INPUT 3  &#10;&#24847;&#24605;&#26159;&#21024;&#38500;&#31532;3&#26465;&#35268;&#21017;&#12290;  &#10;&#36824;&#26377;&#31532;&#20108;&#31181;&#26041;&#27861;&#12290;&#31532;&#20108;&#31181;&#21150;&#27861;&#26159; -A &#21629;&#20196;&#30340;&#26144;&#23556;&#65292;&#19981;&#36807;&#29992;-D&#26367;&#25442;-A&#12290;&#24403;&#20320;&#30340;&#38142;&#20013;&#35268;&#21017;&#24456;&#22797;&#26434;&#65292;&#32780;&#20320;&#19981;&#24819;&#35745;&#31639;&#23427;&#20204;&#30340;&#32534;&#21495;&#30340;&#26102;&#20505;&#36825;&#23601;&#21313;&#20998;&#26377;&#29992;&#20102;&#12290;&#20063;&#23601;&#26159;&#35828;&#65292;&#20320;&#22914;&#20309;&#29992;iptables -A.... &#35821;&#21477;&#23450;&#20041;&#20102;&#19968;&#20010;&#35268;&#21017;&#65292;&#21017;&#21024;&#38500;&#27492;&#35268;&#21017;&#26102;&#23601;&#29992; -D &#26469;&#20195;&#26367;- A  &#20854;&#20313;&#30340;&#37117;&#19981;&#21464;&#21363;&#21487;&#12290;&#10;======================  &#10;&#35828;&#19968;&#19979;&#19978;&#38754;&#30340; --line-numbers &#36873;&#39033;&#65292;&#22914;&#19979;&#38754;&#30340;&#21629;&#20196;&#65306;  &#10;iptables -L INPUT --line-numbers   &#21015;&#20986;INPUT &#38142;&#25152;&#26377;&#30340;&#35268;&#21017;  &#10;num  target     prot opt source               destination           &#10;1    REJECT     tcp  --  anywhere             anywhere            tcp dpt:microsoft-ds reject-with icmp-port-unreachable  &#10;2    REJECT     tcp  --  anywhere             anywhere            tcp dpt:135 reject-with icmp-port-unreachable  &#10;3    REJECT     tcp  --  anywhere             anywhere            tcp dpt:netbios-ssn reject-with icmp-port-unreachable  &#10;  &#10;...  &#10;...  &#10;&#21024;&#38500;&#25351;&#23450;&#34892;&#35268;&#21017;&#65306;  &#10;[root@localhost rc.d]# iptables -D INPUT 4</span><br></pre></td></tr></table></figure>
+<h3 id="6-_u6700_u540E_u8865_u5145_u4E00_u4E0B_uFF0C_u5982_u679C_u60F3_u9488_u5BF9_u67D0IP_u8FDB_u884C_u5355_u72EC_u5F00_u653E_u7AEF_u53E3_u53EF_u4EE5_u5982_u4E0B_u914D_u7F6E_uFF1A"><a href="#6-_u6700_u540E_u8865_u5145_u4E00_u4E0B_uFF0C_u5982_u679C_u60F3_u9488_u5BF9_u67D0IP_u8FDB_u884C_u5355_u72EC_u5F00_u653E_u7AEF_u53E3_u53EF_u4EE5_u5982_u4E0B_u914D_u7F6E_uFF1A" class="headerlink" title="6.最后补充一下，如果想针对某IP进行单独开放端口可以如下配置："></a>6.最后补充一下，如果想针对某IP进行单独开放端口可以如下配置：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#22914;&#26524;&#25105;&#38656;&#35201;&#23545;&#20869;&#32593;&#26576;&#26426;&#22120;&#21333;&#29420;&#24320;&#25918;mysql&#31471;&#21475;&#65292;&#24212;&#35813;&#22914;&#19979;&#37197;&#32622;&#65306;  &#10;iptables -A INPUT -s 192.168.2.6 -p tcp -m tcp --dport 3306 -j ACCEPT  &#10;iptables -A OUTPUT -d 192.168.2.6 -p tcp -m tcp --sport 3306 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<h3 id="7-_u5F7B_u5E95_u7981_u6B62_u67D0IP_u8BBF_u95EE_3A"><a href="#7-_u5F7B_u5E95_u7981_u6B62_u67D0IP_u8BBF_u95EE_3A" class="headerlink" title="7.彻底禁止某IP访问:"></a>7.彻底禁止某IP访问:</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#23631;&#34109;&#21333;&#20010;IP&#30340;&#21629;&#20196;&#26159;  &#10;iptables -I INPUT -s 123.45.6.7 -j DROP  &#10;#&#23553;&#25972;&#20010;&#27573;&#21363;&#20174;123.0.0.1&#21040;123.255.255.254&#30340;&#21629;&#20196;  &#10;iptables -I INPUT -s 123.0.0.0/8 -j DROP  &#10;#&#23553;IP&#27573;&#21363;&#20174;123.45.0.1&#21040;123.45.255.254&#30340;&#21629;&#20196;  &#10;iptables -I INPUT -s 124.45.0.0/16 -j DROP  &#10;#&#23553;IP&#27573;&#21363;&#20174;123.45.6.1&#21040;123.45.6.254&#30340;&#21629;&#20196;&#26159;  &#10;iptables -I INPUT -s 123.45.6.0/24 -j DROP  &#10;&#25351;&#20196;I&#26159;insert&#25351;&#20196; &#20294;&#26159;&#35813;&#25351;&#20196;&#20250;insert&#22312;&#27491;&#30830;&#20301;&#32622;&#24182;&#19981;&#20687;A&#25351;&#20196;&#30475;&#20320;&#33258;&#24049;&#30340;&#25490;&#24207;&#20301;&#32622;&#65292;&#22240;&#27492;&#29992;&#23631;&#34109;&#22240;&#20026;&#24517;&#39035;&#22312;&#19968;&#24320;&#22987;&#23601;&#35201;&#21152;&#36733;&#23631;&#34109;IP&#65292;&#25152;&#20197;&#24517;&#39035;&#20351;&#29992;I&#21629;&#20196;&#21152;&#36733;&#65292;&#28982;&#21518;&#27880;&#24847;&#25191;&#34892;/etc/rc.d/init.d/iptables save&#36827;&#34892;&#20445;&#23384;&#21518;&#37325;&#21551;&#26381;&#21153;&#21363;&#21487;</span><br></pre></td></tr></table></figure></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/10/CentOS-install-WpcapSrc/" rel="next" title="CentOS安装rpcapd服务（WinPcap）">
+                <i class="fa fa-chevron-left"></i> CentOS安装rpcapd服务（WinPcap）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/11/win8-jdk8-install/" rel="prev" title="Win8下安装Jdk1.8">
+                Win8下安装Jdk1.8 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ei1yg6iujij209l09rwg2.jpg" alt="ZhangYouzhi" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">ZhangYouzhi</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Where there is a will, there is a way!</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u6587_u7AE0_u8F6C_u81EA_uFF1ALinux_u4E2Diptables_u914D_u7F6E_u8BE6_u7EC6"><span class="nav-number">1.</span> <span class="nav-text">文章转自：Linux中iptables配置详细</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-__u9996_u5148_u4ECB_u7ECD_u4E00_u4E0B_u6307_u4EE4_u548C_u76F8_u5173_u914D_u7F6E_u6587_u4EF6"><span class="nav-number">2.</span> <span class="nav-text">1. 首先介绍一下指令和相关配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-__u4E0B_u9762_u4ECB_u7ECD_u4E00_u4E9B_u6307_u4EE4_u7528_u6CD5_uFF08_u4E3B_u8981_u8FD8_u662Fman_iptables_u770B_u4E0B_u76F8_u5173_u8D44_u6599_u624D_u884C_uFF09"><span class="nav-number">3.</span> <span class="nav-text">2. 下面介绍一些指令用法（主要还是man iptables看下相关资料才行）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-__u5982_u679C_u6211_u4E0D_u60F3_u4FEE_u6539_u6587_u4EF6_u76F4_u63A5_u6253_u547D_u4EE4_u53EF_u4EE5_u5417_uFF0C_u5F53_u7136_u6CA1_u95EE_u9898_uFF0C_u6B65_u9AA4_u5982_u4E0B_3A"><span class="nav-number">4.</span> <span class="nav-text">3. 如果我不想修改文件直接打命令可以吗，当然没问题，步骤如下:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-__u63A5_u4E0B_u6765_u8BF4_u660E_u4E00_u4E0B_u6B65_u9AA4_uFF0C_u5982_u679C_u673A_u5668_u4E0D_u5728_u6211_u8EAB_u8FB9_uFF0C_u6211_u53EA_u80FDSSH_u8FDB_u53BB_u505Aiptables_u89C4_u5219_uFF0C_u90A3_u4E48_u6211_u5FC5_u987B_u6CE8_u610F_u6BCF_u4E00_u6B65_uFF0C_u5343_u4E07_u522B_u641E_u9519_u4E86_uFF0C_u5426_u5219_u5C31SSH_u94FE_u63A5_u4E0D_u4E0A_u90FD_u6709_u53EF_u80FD_uFF01"><span class="nav-number">5.</span> <span class="nav-text">4. 接下来说明一下步骤，如果机器不在我身边，我只能SSH进去做iptables规则，那么我必须注意每一步，千万别搞错了，否则就SSH链接不上都有可能！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-__u53EF_u80FD_u6709_u65F6_u5019_u9700_u8981_u5220_u9664_u89C4_u5219_uFF0C_u6700_u7B80_u5355_u5C31_u662F_u4FEE_u6539_u4E00_u4E0B/etc/sysconfig/iptables_u7136_u540Eservice_iptables_restart_2C_u6700_u540E/etc/rc-d/init-d/iptables_save_u5373_u53EF_u3002_u5F53_u7136_u4E5F_u53EF_u4EE5_u4F7F_u7528_u6307_u4EE4_u5B8C_u6210_3A"><span class="nav-number">6.</span> <span class="nav-text">5. 可能有时候需要删除规则，最简单就是修改一下/etc/sysconfig/iptables然后service iptables restart,最后/etc/rc.d/init.d/iptables save即可。当然也可以使用指令完成:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-_u6700_u540E_u8865_u5145_u4E00_u4E0B_uFF0C_u5982_u679C_u60F3_u9488_u5BF9_u67D0IP_u8FDB_u884C_u5355_u72EC_u5F00_u653E_u7AEF_u53E3_u53EF_u4EE5_u5982_u4E0B_u914D_u7F6E_uFF1A"><span class="nav-number">7.</span> <span class="nav-text">6.最后补充一下，如果想针对某IP进行单独开放端口可以如下配置：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-_u5F7B_u5E95_u7981_u6B62_u67D0IP_u8BBF_u95EE_3A"><span class="nav-number">8.</span> <span class="nav-text">7.彻底禁止某IP访问:</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYouzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

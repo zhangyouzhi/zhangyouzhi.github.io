@@ -1,0 +1,658 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTTP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="一 原理区别一般在浏览器中输入网址访问资源都是通过GET方式；在FORM提交中，可以通过Method指定提交方式为GET或者POST，默认为GET提交。Http定义了与服务器交互的不同方法，最基本的方法有4种，分别是GET，POST，PUT，DELETE。URL全称是资源描述符，我们可以这样认 为：一个URL地址，它用于描述一个网络上的资源，而HTTP中的GET，POST，PUT，DELETE就对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP POST GET本质区别详解（转）">
+<meta property="og:url" content="http://zhangyouzhi.com/2014/12/04/http-post-get/index.html">
+<meta property="og:site_name" content="ZhangYouzhi's Blog">
+<meta property="og:description" content="一 原理区别一般在浏览器中输入网址访问资源都是通过GET方式；在FORM提交中，可以通过Method指定提交方式为GET或者POST，默认为GET提交。Http定义了与服务器交互的不同方法，最基本的方法有4种，分别是GET，POST，PUT，DELETE。URL全称是资源描述符，我们可以这样认 为：一个URL地址，它用于描述一个网络上的资源，而HTTP中的GET，POST，PUT，DELETE就对">
+<meta property="og:updated_time" content="2015-10-19T08:14:06.393Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP POST GET本质区别详解（转）">
+<meta name="twitter:description" content="一 原理区别一般在浏览器中输入网址访问资源都是通过GET方式；在FORM提交中，可以通过Method指定提交方式为GET或者POST，默认为GET提交。Http定义了与服务器交互的不同方法，最基本的方法有4种，分别是GET，POST，PUT，DELETE。URL全称是资源描述符，我们可以这样认 为：一个URL地址，它用于描述一个网络上的资源，而HTTP中的GET，POST，PUT，DELETE就对">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> HTTP POST GET本质区别详解（转） | ZhangYouzhi's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhangYouzhi's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HTTP POST GET本质区别详解（转）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2014-12-04T18:18:58+08:00" content="2014-12-04">
+              2014-12-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h2 id="u4E00__u539F_u7406_u533A_u522B"><a href="#u4E00__u539F_u7406_u533A_u522B" class="headerlink" title="一 原理区别"></a>一 原理区别</h2><p>一般在浏览器中输入网址访问资源都是通过GET方式；在FORM提交中，可以通过Method指定提交方式为GET或者POST，默认为GET提交。<br>Http定义了与服务器交互的不同方法，最基本的方法有4种，分别是<strong>GET，POST，PUT，DELETE。</strong><br>URL全称是资源描述符，我们可以这样认 为：一个URL地址，它用于描述一个网络上的资源，而HTTP中的<em>GET，POST，PUT，DELETE</em>就对应着对这个资源的<em>查，改，增，删</em>4个操作。到这里，大家应该有个大概的了解了，GET一般用于<strong>获取/查询</strong>资源信息，而POST一般用于<strong>更新</strong>资源信息(<strong>个人认为这是GET和POST的本质区别，也是协议设计者的本意，其它区别都是具体表现形式的差异</strong>)。</p>
+<h3 id="u6839_u636EHTTP_u89C4_u8303_uFF0CGET_u7528_u4E8E_u4FE1_u606F_u83B7_u53D6_uFF0C_u800C_u4E14_u5E94_u8BE5_u662F_u5B89_u5168_u7684_u548C_u5E42_u7B49_u7684_u3002"><a href="#u6839_u636EHTTP_u89C4_u8303_uFF0CGET_u7528_u4E8E_u4FE1_u606F_u83B7_u53D6_uFF0C_u800C_u4E14_u5E94_u8BE5_u662F_u5B89_u5168_u7684_u548C_u5E42_u7B49_u7684_u3002" class="headerlink" title="根据HTTP规范，GET用于信息获取，而且应该是安全的和幂等的。"></a>根据HTTP规范，GET用于信息获取，而且应该是安全的和幂等的。</h3><ol>
+<li>所谓安全的意味着该操作用于获取信息而非修改信息。换句话说，GET请求一般不应产生副作用。就是说，它仅仅是获取资源信息，就像数据库查询一样，不会修改，增加数据，不会影响资源的状态。<br><strong>注意：这里安全的含义仅仅是指是非修改信息。</strong></li>
+<li>幂等的意味着对同一URL的多个请求应该返回同样的结果。这里我再解释一下幂等这个概念：<br>幂等（idempotent、idempotence）是一个数学或计算机学概念，常见于抽象代数中。<br>幂等有以下几种定义：<br>对于单目运算，如果一个运算对于在范围内的所有的一个数多次进行该运算所得的结果和进行一次该运算所得的结果是一样的，那么我们就称该运算是幂等的。比如绝对值运算就是一个例子，在实数集中，有abs(a) =abs(abs(a)) 。<br>对于双目运算，则要求当参与运算的两个值是等值的情况下，如果满足运算结果与参与运算的两个值相等，则称该运算幂等，如求两个数的最大值的函数，有在在实数集中幂等，即max(x,x)  =  x 。</li>
+</ol>
+<p>看完上述解释后，应该可以理解GET幂等的含义了。<br>但在实际应用中，以上2条规定并没有这么严格。引用别人文章的例子：比如，新闻站点的头版不断更新。虽然第二次请求会返回不同的一批新闻，该操 作仍然被认为是安全的和幂等的，因为它总是返回当前的新闻。从根本上说，如果目标是当用户打开一个链接时，他可以确信从自身的角度来看没有改变资源即可。</p>
+<p>根据HTTP规范，POST表示可能修改变服务器上的资源的请求 。继续引用上面的例子：还是新闻以网站为例，读者对新闻发表自己的评论应该通过POST实现，因为在评论提交后站点的资源已经不同了，或者说资源被修改了。<br>上面大概说了一下HTTP规范中，GET和POST的一些原理性的问题。但在实际的做的时候，很多人却没有按照HTTP规范去做，导致这个问题的原因有很多，比如说：</p>
+<ol>
+<li>很多人贪方便，更新资源时用了GET，因为用POST必须要到FORM（表单），这样会麻烦一点。</li>
+<li>对资源的增，删，改，查操作，其实都可以通过GET/POST完成，不需要用到PUT和DELETE。</li>
+<li>另外一个是，早期的但是Web MVC框架设计者们并没有有意识地将URL当作抽象的资源来看待和设计 。还有一个较为严重的问题是传统的Web MVC框架基本上都只支持GET和POST两种HTTP方法，而不支持PUT和DELETE方法。<br><em>简单解释一下MVC：MVC本来是存在于Desktop程序中的，M是指数据模型，V是指用户界面，C则是控制器。使用MVC的目的是将M和V的实现代码分离，从而使同一个程序可以使用不同的表现形式。</em></li>
+</ol>
+<p>以上3点典型地描述了老一套的风格（没有严格遵守HTTP规范），随着架构的发展，现在出现REST(Representational State Transfer)，一套支持HTTP规范的新风格，这里不多说了，可以参考《RESTful Web Services》。</p>
+<h2 id="u4E8C__u8868_u73B0_u5F62_u5F0F_u533A_u522B"><a href="#u4E8C__u8868_u73B0_u5F62_u5F0F_u533A_u522B" class="headerlink" title="二 表现形式区别"></a>二 表现形式区别</h2><p>搞清了两者的原理区别，我们再来看一下他们实际应用中的区别：<br>为了理解两者在传输过程中的不同，我们先看一下HTTP协议的格式：<br>HTTP请求：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;request line&#62;&#10;&#60;headers&#62;&#10;&#60;blank line&#62;&#10;&#60;request-body&#62;]</span><br></pre></td></tr></table></figure></p>
+<p>在HTTP请求中，第一行必须是一个请求行（request line），用来说明请求类型、要访问的资源以及使用的HTTP版本。紧接着是一个首部（header）小节，用来说明服务器要使用的附加信息。在首部之后是一个空行，再此之后可以添加任意的其他数据[称之为主体（body）]。<br>GET与POST方法实例：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /books/?sex=man&#38;name=Professional HTTP/1.1&#10;Host: www.wrox.com&#10;User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6)&#10;Gecko/20050225 Firefox/1.0.1&#10;Connection: Keep-Alive</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST / HTTP/1.1&#10;Host: www.wrox.com&#10;User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6)&#10;Gecko/20050225 Firefox/1.0.1&#10;Content-Type: application/x-www-form-urlencoded&#10;Content-Length: 40&#10;Connection: Keep-Alive&#10;     &#65288;----&#27492;&#22788;&#31354;&#19968;&#34892;----&#65289;&#10;name=Professional%20Ajax&#38;publisher=Wiley</span><br></pre></td></tr></table></figure>
+<p>有了以上对HTTP请求的了解和示例，我们再来看两种提交方式的区别：<br>（1）GET提交，请求的数据会附在URL之后（就是把数据放置在请求行（request line）中），以?分割URL和传输数据，多个参数用&amp;连接；例如：login.action?name=hyddd&amp;password=idontknow&amp;verify=%E4%BD%A0 %E5%A5%BD。Url的编码格式采用的是ASCII码，而不是Unicode，这也就是说你不能在Url中包含任何非ASCII字符，所有非ASCII字符均需要编码再传输，关于Url编码可参考：<a href="http://kb.cnblogs.com/page/133765/。" target="_blank" rel="external">http://kb.cnblogs.com/page/133765/。</a><br>POST提交：把提交的数据放置在是HTTP包的包体中。上文示例中红色字体标明的就是实际的传输数据。<br>因此，GET提交的数据会在地址栏中显示出来，而POST提交，地址栏不会改变<br>(2)传输数据的大小：首先声明：HTTP协议没有对传输的数据大小进行限制，HTTP协议规范也没有对URL长度进行限制。<br>而在实际开发中存在的限制主要有：<br>GET:特定浏览器和服务器对URL长度有限制，例如IE对URL长度的限制是2083字节(2K+35)。对于其他浏览器，如Netscape、FireFox等，理论上没有长度限制，其限制取决于操作系统的支持。<br>因此对于GET提交时，传输数据就会受到URL长度的限制。<br>POST:由于不是通过URL传值，理论上数据不受限。但实际各个WEB服务器会规定对post提交数据大小进行限制，Apache、IIS6都有各自的配置。<br>(3)安全性：<br>.POST的安全性要比GET的安全性高。注意：这里所说的安全性和上面GET提到的“安全”不是同个概念。上面“安全”的含义仅仅是不作数据修改，而这 里安全的含义是真正的Security的含义，比如：通过GET提交数据，用户名和密码将明文出现在URL上，因为(1)登录页面有可能被浏览器缓存，(2)其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了，除此之外，使用GET提交数据还可能会造成Cross-site request forgery攻击。<br>(4)Http get,post,soap协议都是在http上运行的。<br>1）get：请求参数是作为一个key/value对的序列（查询字符串）附加到URL上的。<br>查询字符串的长度受到web浏览器和web服务器的限制（如IE最多支持2048个字符），不适合传输大型数据集同时，它很不安全。<br>2）post：请求参数是在http标题的一个不同部分（名为entity body）传输的，这一部分用来传输表单信息，因此必须将Content-type设置为:application/x-www-form-urlencoded。post设计用来支持web窗体上的用户字段，其参数也是作为key/value对传输。<br>但是：它不支持复杂数据类型，因为post没有定义传输数据结构的语义和规则。<br>3）soap：是http post的一个专用版本，遵循一种特殊的xml消息格式。<br>Content-type设置为: text/xml。任何数据都可以xml化。</p>
+<h2 id="u4E09_HTTP_u54CD_u5E94"><a href="#u4E09_HTTP_u54CD_u5E94" class="headerlink" title="三 HTTP响应"></a>三 HTTP响应</h2><h3 id="1_uFF0EHTTP_u54CD_u5E94_u683C_u5F0F_uFF1A"><a href="#1_uFF0EHTTP_u54CD_u5E94_u683C_u5F0F_uFF1A" class="headerlink" title="1．HTTP响应格式："></a>1．HTTP响应格式：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;status line&#62;&#10;&#60;headers&#62;&#10;&#60;blank line&#62;&#10;[&#60;response-body&#62;]</span><br></pre></td></tr></table></figure>
+<p>在响应中唯一真正的区别在于第一行中用状态信息代替了请求信息。状态行（status line）通过提供一个状态码来说明所请求的资源情况。<br>HTTP响应实例：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK&#10;Date: Sat, 31 Dec 2005 23:59:59 GMT&#10;Content-Type: text/html;charset=ISO-8859-1&#10;Content-Length: 122&#10;&#65308;html&#65310;&#10;&#9;&#65308;head&#65310;&#10;&#9;&#9;&#65308;title&#65310;Wrox Homepage&#65308;/title&#65310;&#10;&#9;&#65308;/head&#65310;&#10;&#9;&#65308;body&#65310;&#10;&#9;&#9;&#65308;!-- body goes here --&#65310;&#10;&#9;&#65308;/body&#65310;&#10;&#65308;/html&#65310;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2_uFF0E_u6700_u5E38_u7528_u7684_u72B6_u6001_u7801_u6709_uFF1A"><a href="#2_uFF0E_u6700_u5E38_u7528_u7684_u72B6_u6001_u7801_u6709_uFF1A" class="headerlink" title="2．最常用的状态码有："></a>2．最常用的状态码有：</h3><p>◆200 (OK): 找到了该资源，并且一切正常。<br>◆304 (NOT MODIFIED): 该资源在上次请求之后没有任何修改。这通常用于浏览器的缓存机制。<br>◆401 (UNAUTHORIZED): 客户端无权访问该资源。这通常会使得浏览器要求用户输入用户名和密码，以登录到服务器。<br>◆403 (FORBIDDEN): 客户端未能获得授权。这通常是在401之后输入了不正确的用户名或密码。<br>◆404 (NOT FOUND): 在指定的位置不存在所申请的资源。</p>
+<h2 id="u56DB__u5B8C_u6574_u793A_u4F8B_uFF1A"><a href="#u56DB__u5B8C_u6574_u793A_u4F8B_uFF1A" class="headerlink" title="四 完整示例："></a>四 完整示例：</h2><p>例子：<br><strong>HTTP GET</strong><br>发送:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /DEMOWebServices2.8/Service.asmx/CancelOrder?UserID=string&#38;PWD=string&#38;OrderConfirmation=string HTTP/1.1&#10;Host: api.efxnow.com</span><br></pre></td></tr></table></figure></p>
+<p>回复:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK&#10;Content-Type: text/xml; charset=utf-8&#10;Content-Length: length&#10;&#10;&#60;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&#62;&#10;&#9;&#60;objPlaceOrderResponse xmlns=&#34;https://api.efxnow.com/webservices2.3&#34;&#62;&#10;&#9;&#9;&#60;Success&#62;boolean&#60;/Success&#62;&#10;&#9;&#9;&#60;ErrorDescription&#62;string&#60;/ErrorDescription&#62;&#10;&#9;&#9;&#60;ErrorNumber&#62;int&#60;/ErrorNumber&#62;&#10;&#9;&#9;&#60;CustomerOrderReference&#62;long&#60;/CustomerOrderReference&#62;&#10;&#9;&#9;&#60;OrderConfirmation&#62;string&#60;/OrderConfirmation&#62;&#10;&#9;&#9;&#60;CustomerDealRef&#62;string&#60;/CustomerDealRef&#62;&#10;&#9;&#60;/objPlaceOrderResponse&#62;</span><br></pre></td></tr></table></figure></p>
+<p><strong>HTTP POST</strong><br>发送<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /DEMOWebServices2.8/Service.asmx/CancelOrder HTTP/1.1&#10;Host: api.efxnow.com&#10;Content-Type: application/x-www-form-urlencoded&#10;Content-Length: length&#10;&#10;UserID=string&#38;PWD=string&#38;OrderConfirmation=string</span><br></pre></td></tr></table></figure></p>
+<p>回复<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK&#10;Content-Type: text/xml; charset=utf-8&#10;Content-Length: length&#10;&#10;&#60;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&#62;&#10;&#60;objPlaceOrderResponse xmlns=&#34;https://api.efxnow.com/webservices2.3&#34;&#62;&#10;&#60;Success&#62;boolean&#60;/Success&#62;&#10;&#60;ErrorDescription&#62;string&#60;/ErrorDescription&#62;&#10;&#60;ErrorNumber&#62;int&#60;/ErrorNumber&#62;&#10;&#60;CustomerOrderReference&#62;long&#60;/CustomerOrderReference&#62;&#10;&#60;OrderConfirmation&#62;string&#60;/OrderConfirmation&#62;&#10;&#60;CustomerDealRef&#62;string&#60;/CustomerDealRef&#62;&#10;&#60;/objPlaceOrderResponse&#62;</span><br></pre></td></tr></table></figure></p>
+<p><strong>SOAP 1.2</strong><br>发送<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /DEMOWebServices2.8/Service.asmx HTTP/1.1&#10;Host: api.efxnow.com&#10;Content-Type: application/soap+xml; charset=utf-8&#10;Content-Length: length&#10;&#10;&#60;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&#62;&#10;&#60;soap12:Envelope xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34; xmlns:xsd=&#34;http://www.w3.org/2001/XMLSchema&#34; xmlns:soap12=&#34;http://www.w3.org/2003/05/soap-envelope&#34;&#62;&#10;&#60;soap12:Body&#62;&#10;    &#60;CancelOrder xmlns=&#34;https://api.efxnow.com/webservices2.3&#34;&#62;&#10;      &#60;UserID&#62;string&#60;/UserID&#62;&#10;      &#60;PWD&#62;string&#60;/PWD&#62;&#10;      &#60;OrderConfirmation&#62;string&#60;/OrderConfirmation&#62;&#10;    &#60;/CancelOrder&#62;&#10;&#60;/soap12:Body&#62;&#10;&#60;/soap12:Envelope&#62;</span><br></pre></td></tr></table></figure></p>
+<p>回复<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK&#10;Content-Type: application/soap+xml; charset=utf-8&#10;Content-Length: length&#10;&#10;&#60;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&#62;&#10;&#60;soap12:Envelope xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34; xmlns:xsd=&#34;http://www.w3.org/2001/XMLSchema&#34; xmlns:soap12=&#34;http://www.w3.org/2003/05/soap-envelope&#34;&#62;&#10;&#60;soap12:Body&#62;&#10;    &#60;CancelOrderResponse xmlns=&#34;https://api.efxnow.com/webservices2.3&#34;&#62;&#10;      &#60;CancelOrderResult&#62;&#10;        &#60;Success&#62;boolean&#60;/Success&#62;&#10;        &#60;ErrorDescription&#62;string&#60;/ErrorDescription&#62;&#10;        &#60;ErrorNumber&#62;int&#60;/ErrorNumber&#62;&#10;        &#60;CustomerOrderReference&#62;long&#60;/CustomerOrderReference&#62;&#10;        &#60;OrderConfirmation&#62;string&#60;/OrderConfirmation&#62;&#10;        &#60;CustomerDealRef&#62;string&#60;/CustomerDealRef&#62;&#10;      &#60;/CancelOrderResult&#62;&#10;    &#60;/CancelOrderResponse&#62;&#10;&#60;/soap12:Body&#62;&#10;&#60;/soap12:Envelope&#62;</span><br></pre></td></tr></table></figure></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTTP/" rel="tag">#HTTP</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/03/pts-use-guide/" rel="next" title="性能测试服务-PTS使用说明">
+                <i class="fa fa-chevron-left"></i> 性能测试服务-PTS使用说明
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/05/Markdown-use-introduce/" rel="prev" title="Markdown简明语法手册(二)（转）">
+                Markdown简明语法手册(二)（转） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ei1yg6iujij209l09rwg2.jpg" alt="ZhangYouzhi" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">ZhangYouzhi</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Where there is a will, there is a way!</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E00__u539F_u7406_u533A_u522B"><span class="nav-number">1.</span> <span class="nav-text">一 原理区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u6839_u636EHTTP_u89C4_u8303_uFF0CGET_u7528_u4E8E_u4FE1_u606F_u83B7_u53D6_uFF0C_u800C_u4E14_u5E94_u8BE5_u662F_u5B89_u5168_u7684_u548C_u5E42_u7B49_u7684_u3002"><span class="nav-number">1.1.</span> <span class="nav-text">根据HTTP规范，GET用于信息获取，而且应该是安全的和幂等的。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E8C__u8868_u73B0_u5F62_u5F0F_u533A_u522B"><span class="nav-number">2.</span> <span class="nav-text">二 表现形式区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E09_HTTP_u54CD_u5E94"><span class="nav-number">3.</span> <span class="nav-text">三 HTTP响应</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1_uFF0EHTTP_u54CD_u5E94_u683C_u5F0F_uFF1A"><span class="nav-number">3.1.</span> <span class="nav-text">1．HTTP响应格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2_uFF0E_u6700_u5E38_u7528_u7684_u72B6_u6001_u7801_u6709_uFF1A"><span class="nav-number">3.2.</span> <span class="nav-text">2．最常用的状态码有：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u56DB__u5B8C_u6574_u793A_u4F8B_uFF1A"><span class="nav-number">4.</span> <span class="nav-text">四 完整示例：</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYouzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

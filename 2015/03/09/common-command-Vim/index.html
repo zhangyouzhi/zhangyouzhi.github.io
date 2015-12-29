@@ -1,0 +1,919 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Vim," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="首先介绍一下 vim vi 是 unix/linux 下极为普遍的一种文本编辑器, 大部分机器上都有 vi 有各种变种, 在不同的机器上常用不同的变种软件 其中 vim 比较好用也用得比较广泛 vim 是 Vi IMproved 的缩写, 表示更好的 vi 本文就说些其中比较有用, 比较常用的命令, 若能熟练运用这些命令, 那么会发现编辑文件很大帮助，尤其是做开发的人员，能快速的提高开发效率
+说明">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Vi(Vim)常用命令汇总">
+<meta property="og:url" content="http://zhangyouzhi.com/2015/03/09/common-command-Vim/index.html">
+<meta property="og:site_name" content="ZhangYouzhi's Blog">
+<meta property="og:description" content="首先介绍一下 vim vi 是 unix/linux 下极为普遍的一种文本编辑器, 大部分机器上都有 vi 有各种变种, 在不同的机器上常用不同的变种软件 其中 vim 比较好用也用得比较广泛 vim 是 Vi IMproved 的缩写, 表示更好的 vi 本文就说些其中比较有用, 比较常用的命令, 若能熟练运用这些命令, 那么会发现编辑文件很大帮助，尤其是做开发的人员，能快速的提高开发效率
+说明">
+<meta property="og:updated_time" content="2015-10-19T08:14:04.629Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux Vi(Vim)常用命令汇总">
+<meta name="twitter:description" content="首先介绍一下 vim vi 是 unix/linux 下极为普遍的一种文本编辑器, 大部分机器上都有 vi 有各种变种, 在不同的机器上常用不同的变种软件 其中 vim 比较好用也用得比较广泛 vim 是 Vi IMproved 的缩写, 表示更好的 vi 本文就说些其中比较有用, 比较常用的命令, 若能熟练运用这些命令, 那么会发现编辑文件很大帮助，尤其是做开发的人员，能快速的提高开发效率
+说明">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> Linux Vi(Vim)常用命令汇总 | ZhangYouzhi's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhangYouzhi's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux Vi(Vim)常用命令汇总
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-03-09T19:58:58+08:00" content="2015-03-09">
+              2015-03-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>首先介绍一下 vim vi 是 unix/linux 下极为普遍的一种文本编辑器, 大部分机器上都有 vi 有各种变种, 在不同的机器上常用不同的变种软件 其中 vim 比较好用也用得比较广泛 vim 是 Vi IMproved 的缩写, 表示更好的 vi 本文就说些其中比较有用, 比较常用的命令, 若能熟练运用这些命令, 那么会发现编辑文件很大帮助，尤其是做开发的人员，能快速的提高开发效率</p>
+<p>说明:<br>以下的例子中 xxx 表示在命令模式下输入 xxx 并回车<br>以下的例子中 :xxx 表示在扩展模式下输入 xxx 并回车<br>小括号中的命令表示相关命令<br>在编辑模式或可视模式下输入的命令会另外注明</p>
+<h3 id="1__u67E5_u627E"><a href="#1__u67E5_u627E" class="headerlink" title="1 查找"></a>1 查找</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/xxx(?xxx)</td>
+<td>表示在整篇文档中搜索匹配xxx的字符串, / 表示向下查找, ? 表示向上查找其中xxx可以是正规表达式,关于正规式就不多说了一般来说是区分大小写的, 要想不区分大小写, 那得先输入:set ignorecase 查找到以后, 再输入 n 查找下一个匹配处, 输入 N 反方向查找</td>
+</tr>
+<tr>
+<td>*(#)</td>
+<td>当光标停留在某个单词上时, 输入这条命令表示查找与该单词匹配的下(上)一个单词 同样, 再输入 n 查找下一个匹配处, 输入 N 反方向查找</td>
+</tr>
+<tr>
+<td>g*(g#)</td>
+<td>此命令与上条命令相似, 只不过它不完全匹配光标所在处的单词, 而是匹配包含该单词的所有字符串</td>
+</tr>
+<tr>
+<td>gd</td>
+<td>本命令查找与光标所在单词相匹配的单词, 并将光标停留在文档的非注释段中第一次出现这个单词的地方</td>
+</tr>
+<tr>
+<td>%</td>
+<td>本命令查找与光标所在处相匹配的反括号, 包括 () [] { }</td>
+</tr>
+<tr>
+<td>f(F)x</td>
+<td>本命令表示在光标所在行进行查找, 查找光标右(左)方第一个x字符找到后:输入 ; 表示继续往下找；输入 , 表示反方向查找</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2__u5FEB_u901F_u79FB_u52A8_u5149_u6807"><a href="#2__u5FEB_u901F_u79FB_u52A8_u5149_u6807" class="headerlink" title="2 快速移动光标"></a>2 快速移动光标</h3><p>   在 vi 中, 移动光标和编辑是两件事, 正因为区分开来, 所以可以很方便的进行光标定<br>位和编辑 因此能更快一点移动光标是很有用的。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>w(e)</td>
+<td>移动光标到下一个单词</td>
+</tr>
+<tr>
+<td>b</td>
+<td>移动光标到上一个单词</td>
+</tr>
+<tr>
+<td>0</td>
+<td>移动光标到本行最开头</td>
+</tr>
+<tr>
+<td>^</td>
+<td>移动光标到本行最开头的字符处</td>
+</tr>
+<tr>
+<td>$</td>
+<td>移动光标到本行结尾处</td>
+</tr>
+<tr>
+<td>H</td>
+<td>移动光标到屏幕的首行</td>
+</tr>
+<tr>
+<td>M</td>
+<td>移动光标到屏幕的中间一行</td>
+</tr>
+<tr>
+<td>L</td>
+<td>移动光标到屏幕的尾行</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>移动光标到文档首行</td>
+</tr>
+<tr>
+<td>G</td>
+<td>移动光标到文档尾行</td>
+</tr>
+<tr>
+<td>c-f</td>
+<td>(即 ctrl 键与 f 键一同按下) 本命令即 page down</td>
+</tr>
+<tr>
+<td>c-b</td>
+<td>(即 ctrl 键与 b 键一同按下, 后同) 本命令即 page up</td>
+</tr>
+<tr>
+<td>‘’</td>
+<td>此命令相当有用, 它移动光标到上一个标记处, 比如用 gd, * 等查找到某个单词后, 再输入此命令则回到上次停留的位置</td>
+</tr>
+<tr>
+<td>‘</td>
+<td>此命令相当好使, 它移动光标到上一次的修改行</td>
+</tr>
+<tr>
+<td>`</td>
+<td>此命令相当强大, 它移动光标到上一次的修改点</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3__u62F7_u8D1D_2C__u5220_u9664_u4E0E_u7C98_u8D34"><a href="#3__u62F7_u8D1D_2C__u5220_u9664_u4E0E_u7C98_u8D34" class="headerlink" title="3 拷贝, 删除与粘贴"></a>3 拷贝, 删除与粘贴</h3><p>   在 vi 中 y 表示拷贝, d 表示删除, p 表示粘贴 其中拷贝与删除是与光标移动命令<br>结合的, 看几个例子就能够明白了</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yw</td>
+<td>表示拷贝从当前光标到光标所在单词结尾的内容</td>
+</tr>
+<tr>
+<td>dw</td>
+<td>表示删除从当前光标到光标所在单词结尾的内容</td>
+</tr>
+<tr>
+<td>y0</td>
+<td>表示拷贝从当前光标到光标所在行首的内容</td>
+</tr>
+<tr>
+<td>d0</td>
+<td>表示删除从当前光标到光标所在行首的内容</td>
+</tr>
+<tr>
+<td>y$</td>
+<td>表示拷贝从当前光标到光标所在行尾的内容</td>
+</tr>
+<tr>
+<td>d$</td>
+<td>表示删除从当前光标到光标所在行尾的内容</td>
+</tr>
+<tr>
+<td>yfa</td>
+<td>表示拷贝从当前光标到光标后面的第一个a字符之间的内容</td>
+</tr>
+<tr>
+<td>dfa</td>
+<td>表示删除从当前光标到光标后面的第一个a字符之间的内容</td>
+</tr>
+</tbody>
+</table>
+<p>特殊地:</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yy</td>
+<td>表示拷贝光标所在行</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>表示删除光标所在行</td>
+</tr>
+<tr>
+<td>D</td>
+<td>表示删除从当前光标到光标所在行尾的内容</td>
+</tr>
+</tbody>
+</table>
+<p>关于拷贝, 删除和粘贴的复杂用法与寄存器有关, 可以自行查询</p>
+<h3 id="4__u6570_u5B57_u4E0E_u547D_u4EE4"><a href="#4__u6570_u5B57_u4E0E_u547D_u4EE4" class="headerlink" title="4 数字与命令"></a>4 数字与命令</h3><p>在 vi 中数字与命令结合往往表示重复进行此命令, 若在扩展模式的开头出现则表示行<br>号定位 如:</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5fx</td>
+<td>表示查找光标后第5个x字符</td>
+</tr>
+<tr>
+<td>5w(e)</td>
+<td>移动光标到下五个单词</td>
+</tr>
+<tr>
+<td>5yy</td>
+<td>表示拷贝光标以下 5 行</td>
+</tr>
+<tr>
+<td>5dd</td>
+<td>表示删除光标以下 5 行</td>
+</tr>
+<tr>
+<td>y2fa</td>
+<td>表示拷贝从当前光标到光标后面的第二个a字符之间的内容</td>
+</tr>
+<tr>
+<td>:12,24y</td>
+<td>表示拷贝第12行到第24行之间的内容</td>
+</tr>
+<tr>
+<td>:12,y</td>
+<td>表示拷贝第12行到光标所在行之间的内容</td>
+</tr>
+<tr>
+<td>:,24y</td>
+<td>表示拷贝光标所在行到第24行之间的内容 删除类似</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5__u5FEB_u901F_u8F93_u5165_u5B57_u7B26"><a href="#5__u5FEB_u901F_u8F93_u5165_u5B57_u7B26" class="headerlink" title="5 快速输入字符"></a>5 快速输入字符</h3><p>在 vi 中, 不要求你输入每一个字符, 可以有很多种方法快速输入一些字符。<br>使用 linux/unix 的同学一定有一个经验, 在命令行下输入命令时敲入头几个字符再按<br>TAB 系统就会自动将剩下的字符补齐, 假如有多个匹配则会打印出来 这就是著名的命令<br>补齐(其实windows中也有文件名补齐功能) vi 中有许多的字符串补齐命令, 非常方便。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c-p(c-n)</td>
+<td>在编辑模式中, 输入几个字符后再输入此命令则 vi 开始向上(下)搜索开头与其匹配的单词并补齐, 不断输入此命令则循环查找 此命令会在所有在这个 vim 程序中打开的文件中进行匹配</td>
+</tr>
+<tr>
+<td>c-x-l</td>
+<td>在编辑模式中, 此命令快速补齐整行内容, 但是仅在本窗口中出现的文档中进行匹配</td>
+</tr>
+<tr>
+<td>c-x-f</td>
+<td>在编辑模式中, 这个命令表示补齐文件名 如输入:/usr/local/tom 后再输入此命令则它会自动匹配出:/usr/local/tomcat/</td>
+</tr>
+<tr>
+<td>abbr</td>
+<td>即缩写 这是一个宏操作, 可以在编辑模式中用一个缩写代替另一个字符串 比如编写java文件的常常输入 Systemoutprintln, 这很是麻烦, 所以应该用缩写来减少敲字 可以这么做: :abbr sprt Systemoutprintln以后在输入sprt后再输入其他非字母符号, 它就会自动扩展为Systemoutprintln</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6__u66FF_u6362"><a href="#6__u66FF_u6362" class="headerlink" title="6 替换"></a>6 替换</h3><p>替换是 vi 的强项, 因为可以用正规表达式来匹配字符串以下提供几个例子</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:s/aa/bb/g</td>
+<td>将光标所在行出现的所有包含 aa 的字符串中的 aa 替换为 bb</td>
+</tr>
+<tr>
+<td>:s/\<aa\>/bb/g</aa\></td>
+<td>将光标所在行出现的所有 aa 替换为 bb, 仅替换 aa 这个单词</td>
+</tr>
+<tr>
+<td>:%s/aa/bb/g</td>
+<td>将文档中出现的所有包含 aa 的字符串中的 aa 替换为 bb</td>
+</tr>
+<tr>
+<td>:12,23s/aa/bb/g</td>
+<td>将从12行到23行中出现的所有包含 aa 的字符串中的 aa 替换为 bb</td>
+</tr>
+<tr>
+<td>:12,23s/^/#/</td>
+<td>将从12行到23行的行首加入 # 字符</td>
+</tr>
+<tr>
+<td>:%s= *$==</td>
+<td>将所有行尾多余的空格删除</td>
+</tr>
+<tr>
+<td>:g/^\s*$/d</td>
+<td>将所有不包含字符(空格也不包含)的空行删除</td>
+</tr>
+</tbody>
+</table>
+<p>Via：<a href="http://hi.baidu.com/s_jqzhang/blog/item/39d1b522840971fbd7cae2f0.html" target="_blank" rel="external">http://hi.baidu.com/s_jqzhang/blog/item/39d1b522840971fbd7cae2f0.html</a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vim/" rel="tag">#Vim</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/03/01/introduce-MapReduce-to-my-wife/" rel="next" title="我是如何向老婆解释MapReduce的（转）">
+                <i class="fa fa-chevron-left"></i> 我是如何向老婆解释MapReduce的（转）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/03/10/kicked-out-logged-on-user-in-centos/" rel="prev" title="CentOS 下踢出登陆用户">
+                CentOS 下踢出登陆用户 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ei1yg6iujij209l09rwg2.jpg" alt="ZhangYouzhi" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">ZhangYouzhi</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Where there is a will, there is a way!</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1__u67E5_u627E"><span class="nav-number">1.</span> <span class="nav-text">1 查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2__u5FEB_u901F_u79FB_u52A8_u5149_u6807"><span class="nav-number">2.</span> <span class="nav-text">2 快速移动光标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3__u62F7_u8D1D_2C__u5220_u9664_u4E0E_u7C98_u8D34"><span class="nav-number">3.</span> <span class="nav-text">3 拷贝, 删除与粘贴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4__u6570_u5B57_u4E0E_u547D_u4EE4"><span class="nav-number">4.</span> <span class="nav-text">4 数字与命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5__u5FEB_u901F_u8F93_u5165_u5B57_u7B26"><span class="nav-number">5.</span> <span class="nav-text">5 快速输入字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6__u66FF_u6362"><span class="nav-number">6.</span> <span class="nav-text">6 替换</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYouzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

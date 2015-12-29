@@ -1,0 +1,655 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="一、如何把命令运行的结果保存到文件当中?这个问题太简单了，大家都知道，用 &amp;gt; 把输出转向就可以了例子:1[lmmbao@iZ23b44crpgZ ~]$ ls &amp;#62; ls.txt&amp;#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &amp;#10;darkburn.vim&amp;#10;linux-3.10.28&amp;#10;linux-3.10.28.tar.xz&amp;#10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux中记录终端（Terminal）命令及执行结果并输出到文本文件">
+<meta property="og:url" content="http://zhangyouzhi.com/2015/01/12/Linux-terminal-comand-output-to-file/index.html">
+<meta property="og:site_name" content="ZhangYouzhi's Blog">
+<meta property="og:description" content="一、如何把命令运行的结果保存到文件当中?这个问题太简单了，大家都知道，用 &amp;gt; 把输出转向就可以了例子:1[lmmbao@iZ23b44crpgZ ~]$ ls &amp;#62; ls.txt&amp;#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &amp;#10;darkburn.vim&amp;#10;linux-3.10.28&amp;#10;linux-3.10.28.tar.xz&amp;#10">
+<meta property="og:updated_time" content="2015-10-19T08:14:09.901Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux中记录终端（Terminal）命令及执行结果并输出到文本文件">
+<meta name="twitter:description" content="一、如何把命令运行的结果保存到文件当中?这个问题太简单了，大家都知道，用 &amp;gt; 把输出转向就可以了例子:1[lmmbao@iZ23b44crpgZ ~]$ ls &amp;#62; ls.txt&amp;#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &amp;#10;darkburn.vim&amp;#10;linux-3.10.28&amp;#10;linux-3.10.28.tar.xz&amp;#10">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> Linux中记录终端（Terminal）命令及执行结果并输出到文本文件 | ZhangYouzhi's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhangYouzhi's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux中记录终端（Terminal）命令及执行结果并输出到文本文件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-01-12T18:58:58+08:00" content="2015-01-12">
+              2015-01-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h3 id="u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F"><a href="#u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F" class="headerlink" title="一、如何把命令运行的结果保存到文件当中?"></a>一、如何把命令运行的结果保存到文件当中?</h3><p>这个问题太简单了，大家都知道，用 &gt; 把输出转向就可以了<br>例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ls &#62; ls.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>说明: &gt; 是把输出转向到指定的文件，如文件已存在的话也会重新写入，文件原内容不会保留。&gt;&gt; 是把输出附向到文件的后面，文件原内容会保留下来。</p>
+<h3 id="u4E8C_u3001_u5982_u4F55_u80FD_u5728_u8F93_u51FA_u4FE1_u606F_u7684_u540C_u65F6_u628A_u4FE1_u606F_u8BB0_u5F55_u5230_u6587_u4EF6_u4E2D_3F"><a href="#u4E8C_u3001_u5982_u4F55_u80FD_u5728_u8F93_u51FA_u4FE1_u606F_u7684_u540C_u65F6_u628A_u4FE1_u606F_u8BB0_u5F55_u5230_u6587_u4EF6_u4E2D_3F" class="headerlink" title="二、如何能在输出信息的同时把信息记录到文件中?"></a>二、如何能在输出信息的同时把信息记录到文件中?</h3><p>我们在上面的例子中可以看到，我们使用输出转向，命令在终端上的输出转向到了文件中，但如果我希望能同时在终端上看到输出信息怎么办？<br>我们可以使用这个命令: tee<br>解释一下tee的作用:<br>read from standard input and write to standard output and files<br>它从标准输入读取内容并将其写到标准输出和文件中<br>看例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ls | tee ls_tee.txt&#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz&#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls_tee.txt &#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>备注：使用 tee时,如果想保留目标文件原有的内容怎么办？可以使用 -a参数。<br>-a, –append<br>append to the given FILEs, do not overwrite<br>附加至给出的文件，而不是覆盖它</p>
+<h3 id="u4E09_u3001_u591A_u4E2A_u547D_u4EE4_u7684_u8F93_u51FA_u90FD_u9700_u8981_u8BB0_u5F55_uFF0C_u53EF_u4EE5_u7528script"><a href="#u4E09_u3001_u591A_u4E2A_u547D_u4EE4_u7684_u8F93_u51FA_u90FD_u9700_u8981_u8BB0_u5F55_uFF0C_u53EF_u4EE5_u7528script" class="headerlink" title="三、多个命令的输出都需要记录，可以用script"></a>三、多个命令的输出都需要记录，可以用script</h3><p>script这个命令很强大，可以记录终端的所有输出到相应的文件中。<br>看例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ script&#10;Script started, file is typescript&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim   linux-3.10.28.tar.xz  ls.txt             rsync-3.1.1.tar.gz&#10;linux-3.10.28  ls_tee.txt            quartz_install.sh  typescript&#10;[lmmbao@iZ23b44crpgZ ~]$ exit&#10;exit&#10;Script done, file is typescript&#10;[lmmbao@iZ23b44crpgZ ~]$ cat typescript &#10;Script started on Tue 13 Jan 2015 05:37:51 PM CST&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim   linux-3.10.28.tar.xz  ls.txt             rsync-3.1.1.tar.gz&#10;linux-3.10.28  ls_tee.txt            quartz_install.sh  typescript&#10;[lmmbao@iZ23b44crpgZ ~]$ exit&#10;exit&#10;&#10;Script done on Tue 13 Jan 2015 05:38:24 PM CST&#10;[lmmbao@iZ23b44crpgZ ~]$</span><br></pre></td></tr></table></figure></p>
+<p>说明:</p>
+<ol>
+<li>我们在启动script时没有指定文件名，它会自动记录到当前目录下一个名为 typescript的文件中。也可以用-a参数 指定文件名<br>例子:<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ script -a example.txt&#10;Script started, file is example.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim  linux-3.10.28         ls_tee.txt  quartz_install.sh   typescript&#10;example.txt   linux-3.10.28.tar.xz  ls.txt      rsync-3.1.1.tar.gz&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim  linux-3.10.28         ls_tee.txt  quartz_install.sh   typescript&#10;example.txt   linux-3.10.28.tar.xz  ls.txt      rsync-3.1.1.tar.gz&#10;[lmmbao@iZ23b44crpgZ ~]$ exit&#10;exit&#10;Script done, file is example.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ cat example.txt &#10;Script started on Tue 13 Jan 2015 05:44:33 PM CST&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim  linux-3.10.28         ls_tee.txt  quartz_install.sh   typescript&#10;example.txt   linux-3.10.28.tar.xz  ls.txt      rsync-3.1.1.tar.gz&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim  linux-3.10.28         ls_tee.txt  quartz_install.sh   typescript&#10;example.txt   linux-3.10.28.tar.xz  ls.txt      rsync-3.1.1.tar.gz&#10;[lmmbao@iZ23b44crpgZ ~]$ exit&#10;exit&#10;&#10;Script done on Tue 13 Jan 2015 05:44:39 PM CST&#10;[lmmbao@iZ23b44crpgZ ~]$</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>此时终端的输出内容被记录到example.txt这个文件中</p>
+<ol>
+<li><p>退出script时，用exit<br>感到奇怪吗？事实上script就是启动了一个shell<br>看一下ps auxfww 的信息就知道了</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ps auxfww | grep lmmbao&#10;root     17468  0.0  0.0 163908  2152 pts/2    S    16:00   0:00  |       \_ su lmmbao&#10;lmmbao   17470  0.0  0.0 108392  1852 pts/2    S    16:00   0:00  |           \_ bash&#10;root     17713  0.0  0.0  98428  4232 ?        Ss   16:08   0:00  \_ sshd: lmmbao [priv]&#10;lmmbao   17720  0.0  0.0  98428  1720 ?        S    16:09   0:00  |   \_ sshd: lmmbao@pts/1&#10;lmmbao   17721  0.0  0.0 108392  1840 pts/1    Ss   16:09   0:00  |       \_ -bash&#10;root     19346  0.0  0.0  98428  4232 ?        Ss   17:24   0:00  \_ sshd: lmmbao [priv]&#10;lmmbao   19349  0.0  0.0  98428  1724 ?        S    17:24   0:00      \_ sshd: lmmbao@pts/4&#10;lmmbao   19350  0.0  0.0 108392  1844 pts/4    Ss   17:24   0:00          \_ -bash&#10;lmmbao   19852  0.0  0.0 110348  1140 pts/4    R+   17:49   0:00              \_ ps auxfww&#10;lmmbao   19853  0.0  0.0 103304   804 pts/4    S+   17:49   0:00              \_ grep lmmbao</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看example.txt的内容，可以看到它同时记录下了script的启动和结束时间。</p>
+</li>
+</ol>
+<h3 id="u56DB_u3001_u7528script_u5F55_u5236_u5E76_u64AD_u653Esession_u7684_u5185_u5BB9"><a href="#u56DB_u3001_u7528script_u5F55_u5236_u5E76_u64AD_u653Esession_u7684_u5185_u5BB9" class="headerlink" title="四、用script录制并播放session的内容"></a>四、用script录制并播放session的内容</h3><p>我们可以用 script把整个终端会话的所有操作和输出录制下来，然后再用scriptreplay进行播放。<br>如果录制时记录下来了操作时的时间数据，那么播放时和操作时的使用时间完全相同。<br>这个很有用吧，比如：我们可以把安装软件时编译的过程记录下来，然后给别人进行演示<br>看例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ script -t 2&#62;example.time -a example.txt&#10;Script started, file is example.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim  example.txt    linux-3.10.28.tar.xz  ls.txt             rsync-3.1.1.tar.gz&#10;example.time  linux-3.10.28  ls_tee.txt            quartz_install.sh  typescript&#10;[lmmbao@iZ23b44crpgZ ~]$</span><br></pre></td></tr></table></figure></p>
+<p>说明: -t 2&gt;example.time -t是把时间数据输出到标准错误(standard error)，所以我们使用 2&gt;example.time 把数据转向到 example.time这个文件当中<br>如何播放所记录的内容?<br>第一步：安装scriptreplay<br>下载<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget linux/utils/util-linux/util-linux-2.12r.tar.bz2&#34;&#62;ftp://ftp.kernel.org/pub/linux/utils/util-linux/util-linux-2.12r.tar.bz2</span><br></pre></td></tr></table></figure></p>
+<p>解压<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -jxvf util-linux-2.12r.tar.bz2</span><br></pre></td></tr></table></figure></p>
+<p>之后复制文件到系统的命令目录中即可<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ &#19979;&#36733;]# cp util-linux-2.12r/misc-utils/scriptreplay.pl /usr/bin/scriptreplay&#10;lmmbao@iZ23b44crpgZ &#19979;&#36733;]# chmod 755 /usr/bin/scriptreplay</span><br></pre></td></tr></table></figure></p>
+<p>备注: fedora 10的util-linux-ng-2.14.1-3.2.fc10.i386.rpm 此包中已包含 scriptreplay,已无需另行安装<br>第二步：播放所录制的session内容<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ scriptreplay example1.time example1.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;1.gtkrc-2.0 c.tar zzzz@hotmail.com pass&#10;[lmmbao@iZ23b44crpgZ ~]$ abcd&#10;bash: abcd: command not found&#10;&#10;[lmmbao@iZ23b44crpgZ ~]$ exit</span><br></pre></td></tr></table></figure></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/01/12/redis-introduce-and-install/" rel="next" title="Redis的介绍与安装部署">
+                <i class="fa fa-chevron-left"></i> Redis的介绍与安装部署
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/01/13/tomcat-tomcat.bat-quit/" rel="prev" title="直接双击启动tomcat中的startup.bat闪退">
+                直接双击启动tomcat中的startup.bat闪退 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ei1yg6iujij209l09rwg2.jpg" alt="ZhangYouzhi" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">ZhangYouzhi</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Where there is a will, there is a way!</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F"><span class="nav-number">1.</span> <span class="nav-text">一、如何把命令运行的结果保存到文件当中?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E8C_u3001_u5982_u4F55_u80FD_u5728_u8F93_u51FA_u4FE1_u606F_u7684_u540C_u65F6_u628A_u4FE1_u606F_u8BB0_u5F55_u5230_u6587_u4EF6_u4E2D_3F"><span class="nav-number">2.</span> <span class="nav-text">二、如何能在输出信息的同时把信息记录到文件中?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E09_u3001_u591A_u4E2A_u547D_u4EE4_u7684_u8F93_u51FA_u90FD_u9700_u8981_u8BB0_u5F55_uFF0C_u53EF_u4EE5_u7528script"><span class="nav-number">3.</span> <span class="nav-text">三、多个命令的输出都需要记录，可以用script</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u56DB_u3001_u7528script_u5F55_u5236_u5E76_u64AD_u653Esession_u7684_u5185_u5BB9"><span class="nav-number">4.</span> <span class="nav-text">四、用script录制并播放session的内容</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYouzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

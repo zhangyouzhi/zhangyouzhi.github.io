@@ -1,0 +1,652 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="FTP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="1. 重启/关闭 vsftpd 服务器1[root@localhost ftp]# service vsftpd restart &amp;#10;&amp;#10;Shutting down vsftpd: [ OK ] &amp;#10;&amp;#10;Starting vsftpd for vsftpd: [ OK ]
+OK表示重启成功了。启动和关闭分别把restart改为start/stop即可.如果是源码安装的,到安">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS下创建FTP登录用户">
+<meta property="og:url" content="http://zhangyouzhi.com/2015/02/12/CentOS-create-FTP-login-user/index.html">
+<meta property="og:site_name" content="ZhangYouzhi's Blog">
+<meta property="og:description" content="1. 重启/关闭 vsftpd 服务器1[root@localhost ftp]# service vsftpd restart &amp;#10;&amp;#10;Shutting down vsftpd: [ OK ] &amp;#10;&amp;#10;Starting vsftpd for vsftpd: [ OK ]
+OK表示重启成功了。启动和关闭分别把restart改为start/stop即可.如果是源码安装的,到安">
+<meta property="og:updated_time" content="2015-10-19T08:14:02.042Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS下创建FTP登录用户">
+<meta name="twitter:description" content="1. 重启/关闭 vsftpd 服务器1[root@localhost ftp]# service vsftpd restart &amp;#10;&amp;#10;Shutting down vsftpd: [ OK ] &amp;#10;&amp;#10;Starting vsftpd for vsftpd: [ OK ]
+OK表示重启成功了。启动和关闭分别把restart改为start/stop即可.如果是源码安装的,到安">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> CentOS下创建FTP登录用户 | ZhangYouzhi's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhangYouzhi's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CentOS下创建FTP登录用户
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-02-12T12:58:58+08:00" content="2015-02-12">
+              2015-02-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h3 id="1-__u91CD_u542F/_u5173_u95ED_vsftpd__u670D_u52A1_u5668"><a href="#1-__u91CD_u542F/_u5173_u95ED_vsftpd__u670D_u52A1_u5668" class="headerlink" title="1. 重启/关闭 vsftpd 服务器"></a>1. 重启/关闭 vsftpd 服务器</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ftp]# service vsftpd restart &#10;&#10;Shutting down vsftpd: [ OK ] &#10;&#10;Starting vsftpd for vsftpd: [ OK ]</span><br></pre></td></tr></table></figure>
+<p>OK表示重启成功了。<br>启动和关闭分别把restart改为start/stop即可.<br>如果是源码安装的,到安装文件夹下找到start.sh和shutdown.sh文件,执行它们就可以了。</p>
+<h3 id="2-__u4E0Evsftpd_u670D_u52A1_u5668_u6709_u5173_u7684_u6587_u4EF6_u548C_u6587_u4EF6_u5939"><a href="#2-__u4E0Evsftpd_u670D_u52A1_u5668_u6709_u5173_u7684_u6587_u4EF6_u548C_u6587_u4EF6_u5939" class="headerlink" title="2. 与vsftpd服务器有关的文件和文件夹"></a>2. 与vsftpd服务器有关的文件和文件夹</h3><p>vsftpd服务器的配置文件的是: /etc/vsftpd/vsftpd.conf vsftpd服务器的根目录,即FTP服务器的主目录: 在/var/ftp处pub处。<br>如果你想修改服务器目录的路径,那么你只要修改/var/ftp到别处就行了。</p>
+<h3 id="3-__u6DFB_u52A0FTP_u672C_u5730_u7528_u6237"><a href="#3-__u6DFB_u52A0FTP_u672C_u5730_u7528_u6237" class="headerlink" title="3. 添加FTP本地用户"></a>3. 添加FTP本地用户</h3><p>有的FTP服务器需要用户名和密码才能登录,就是因为设置了FTP用户和权限.<br>FTP用户一般是不能登录系统的,只能进入FTP服务器自己的目录中,这是为了安全.这样的用户就叫做虚拟用户了.实际上并不是真正的虚拟用户,只是不能登录SHELL了而已,没能力登录系统.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/sbin/adduser -d /var/test_ftp -g ftp -s /sbin/nologin testftp</span><br></pre></td></tr></table></figure>
+<p>这个命令的意思是:<br>使用命令(adduser)添加test用户,不能登录系统(-s /sbin/nologin),自己的文件夹在(-d /opt/test_ftp)),属于组ftp(-g ftp)。<br>然后你需要为它设置密码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd testftp&#10;``` &#160;&#10;&#36825;&#26679;&#23601;&#28155;&#21152;&#20102;&#19968;&#20010;FTP&#29992;&#25143;&#20102;.&#19979;&#38754;&#30340;&#31034;&#20363;&#21487;&#20197;&#24110;&#21161;&#20320;&#36827;&#20837;FTP&#26381;&#21153;&#22120;&#20102;&#12290;&#10;```&#123;bash&#125;&#10;[root@localhost&#160;ftp]#&#160;ftp&#160;&#10;ftp&#62;&#160;open&#160;192.168.0.33&#160;&#10;Connected&#160;to&#160;192.168.0.33&#160;(192.168.0.33).&#160;&#10;220&#160;(vsFTPd&#160;2.0.5)&#160;&#10;Name&#160;(192.168.0.33:gxl):&#160;test&#160;&#10;331&#160;Please&#160;specify&#160;the&#160;password.&#160;&#10;Password:&#160;&#10;230&#160;Login&#160;successful.&#160;&#10;Remote&#160;system&#160;type&#160;is&#160;UNIX.&#160;&#10;Using&#160;binary&#160;mode&#160;to&#160;transfer&#160;files.&#160;&#10;ftp&#62;&#160;quit&#160;&#10;221&#160;Goodbye.</span><br></pre></td></tr></table></figure></p>
+<p>在windows中,只要在浏览器中输入 [url=ftp://192.168.0.33]ftp://192.168.0.33[/url] 进入FTP服务器,然后 右键 登录,输入用户名和密码就可以登录自己的目录了.<br>当然你要保证自己能读写自己的目录,就要在配置文件vsftpd.conf里设置一下就可以读写了.<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">local_enable=yes&#160;&#10;write_enable=yes&#160;&#10;local_umask=022</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-__u533F_u540D_u4E0A_u4F20_u4E0B_u8F7D"><a href="#4-__u533F_u540D_u4E0A_u4F20_u4E0B_u8F7D" class="headerlink" title="4. 匿名上传下载"></a>4. 匿名上传下载</h3><p>修改配置文件即可vsftpd.conf,确定有以下几行,没有自己添加进去就可以了.<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anonymous_enable=yes&#160;&#160;&#160;&#160;&#160;&#160;&#36825;&#37324;&#22914;&#26524;&#25913;&#25104;NO&#65292;&#23601;&#34920;&#31034;&#19981;&#20801;&#35768;&#21311;&#21517;&#29992;&#25143;&#30331;&#38470;&#10;```&#160;&#10;&#35760;&#20303;&#20462;&#25913;&#23436;&#37197;&#32622;&#25991;&#20214;&#35201;&#37325;&#21551;&#26381;&#21153;&#10;```&#123;bash&#125;&#160;&#160;&#10;anon_upload_enable=yes&#160;&#10;anon_mkdir_write_enable=yes&#160;&#10;anon_umask=022&#10;```&#160;&#10;&#28982;&#21518;&#20320;&#21487;&#20197;&#26032;&#24314;&#19968;&#20010;&#25991;&#20214;&#22841;,&#20462;&#25913;&#23427;&#30340;&#26435;&#38480;&#20026;&#23436;&#20840;&#24320;&#25918;,&#20219;&#20309;&#29992;&#25143;&#23601;&#21487;&#20197;&#30331;&#24405;&#36825;&#20010;&#25991;&#20214;&#22841;,&#24182;&#19978;&#20256;&#19979;&#36733;&#25991;&#20214;:&#160;&#10;```&#123;bash&#125;&#10;mkdir&#160;/var/ftp/guest&#160;&#10;chmod&#160;777&#160;/var/ftp/guest</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-__u5B9A_u5236_u8FDB_u5165FTP_u670D_u52A1_u5668_u7684_u6B22_u8FCE_u4FE1_u606F"><a href="#5-__u5B9A_u5236_u8FDB_u5165FTP_u670D_u52A1_u5668_u7684_u6B22_u8FCE_u4FE1_u606F" class="headerlink" title="5. 定制进入FTP服务器的欢迎信息"></a>5. 定制进入FTP服务器的欢迎信息</h3><p>在vsftpd.conf文件中设置:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirmessage_enable=yes</span><br></pre></td></tr></table></figure></p>
+<p>然后进入用户目录建立一个.message文件,输入欢迎信息即可(我这里写入的是Welcome to gxlinux’s FTP!):<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost&#160;test_ftp]#&#160;ftp&#160;192.168.0.33&#160;&#10;Connected&#160;to&#160;192.168.0.33&#160;(192.168.0.33).&#160;&#10;220&#160;(vsFTPd&#160;2.0.5)&#160;&#10;Name&#160;(192.168.0.33:gxl):&#160;test&#160;&#10;331&#160;Please&#160;specify&#160;the&#160;password.&#160;&#10;Password:&#160;&#10;230-Welcome&#160;to&#160;gxlinux&#39;s&#160;FTP!&#160;&#10;230&#160;Login&#160;successful.&#160;&#10;Remote&#160;system&#160;type&#160;is&#160;UNIX.&#160;&#10;Using&#160;binary&#160;mode&#160;to&#160;transfer&#160;files.</span><br></pre></td></tr></table></figure></p>
+<h3 id="6-__u5B9E_u73B0_u865A_u62DF_u8DEF_u5F84"><a href="#6-__u5B9E_u73B0_u865A_u62DF_u8DEF_u5F84" class="headerlink" title="6. 实现虚拟路径"></a>6. 实现虚拟路径</h3><p>将某个目录挂载到FTP服务器下供用户使用,这就叫做虚拟路径.<br>比如将gxl用户的目录挂载到FTP服务器中,供FTP服务器的用户使用,使用如下命令即可:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost&#160;opt]#&#160;mount&#160;--bind&#160;/home/gxl&#160;/var/ftp/pub&#160;#&#20351;&#29992;&#25346;&#36733;&#21629;&#20196;&#160;&#10;[root@localhost&#160;opt]#&#160;ls&#160;/var/ftp/pub&#160;&#10;LumaQQ&#160;Screenshot.png&#160;&#26700;&#38754;</span><br></pre></td></tr></table></figure></p>
+<h3 id="7-__u6253_u5F00vsFTPd_u7684_u65E5_u5FD7_u529F_u80FD"><a href="#7-__u6253_u5F00vsFTPd_u7684_u65E5_u5FD7_u529F_u80FD" class="headerlink" title="7. 打开vsFTPd的日志功能"></a>7. 打开vsFTPd的日志功能</h3><p>添加下面一行到vsftpd.conf文件中,一般情况下该文件中有这一行,只要把前面的注释符号#去掉即可,没有的话就添加,或者修改:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xferlog_file=/var/log/vsftpd.log</span><br></pre></td></tr></table></figure></p>
+<h3 id="8-__u9650_u5236_u94FE_u63A5_u6570_2C_u4EE5_u53CA_u6BCF_u4E2AIP_u6700_u5927_u7684_u94FE_u63A5_u6570"><a href="#8-__u9650_u5236_u94FE_u63A5_u6570_2C_u4EE5_u53CA_u6BCF_u4E2AIP_u6700_u5927_u7684_u94FE_u63A5_u6570" class="headerlink" title="8. 限制链接数,以及每个IP最大的链接数"></a>8. 限制链接数,以及每个IP最大的链接数</h3><p>修改配置文件中,例如vsftp最大支持链接数100个,每个IP能支持5个链接:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max_client=100&#160;&#10;max_per=5</span><br></pre></td></tr></table></figure></p>
+<h3 id="9-__u9650_u5236_u4F20_u8F93_u901F_u5EA6"><a href="#9-__u9650_u5236_u4F20_u8F93_u901F_u5EA6" class="headerlink" title="9. 限制传输速度"></a>9. 限制传输速度</h3><p>修改配置文件中,例如让匿名用户和vsftd上的用户(即虚拟用户)都以80KB=1024*80=81920的速度下载<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anon_max_rate=81920&#160;&#10;local_max_rate=81920</span><br></pre></td></tr></table></figure></p>
+<h3 id="10-__u5C06_u7528_u6237_28_u4E00_u822C_u6307_u865A_u62DF_u7528_u6237_29_u9650_u5236_u5728_u81EA_u5BB6_u76EE_u5F55"><a href="#10-__u5C06_u7528_u6237_28_u4E00_u822C_u6307_u865A_u62DF_u7528_u6237_29_u9650_u5236_u5728_u81EA_u5BB6_u76EE_u5F55" class="headerlink" title="10. 将用户(一般指虚拟用户)限制在自家目录"></a>10. 将用户(一般指虚拟用户)限制在自家目录</h3><p>修改配置文件中,这样用户就只能访问自己家的目录了:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chroot_local_user=yes&#10;```&#160;&#10;&#22914;&#26524;&#21482;&#24819;&#26576;&#20123;&#29992;&#25143;&#20165;&#33021;&#35775;&#38382;&#33258;&#24049;&#30340;&#30446;&#24405;,&#20854;&#23427;&#29992;&#25143;&#19981;&#20570;&#36825;&#20010;&#38480;&#21046;,&#37027;&#20040;&#23601;&#38656;&#35201;&#22312;chroot_list&#25991;&#20214;(&#27492;&#25991;&#20214;&#19968;&#33324;&#26159;&#22312;/etc/vsftpd/&#20013;)&#20013;&#28155;&#21152;&#27492;&#29992;&#25143;.&#160;&#10;&#32534;&#36753;&#27492;&#25991;&#20214;,&#27604;&#22914;&#23558;test&#29992;&#25143;&#28155;&#21152;&#21040;&#27492;&#25991;&#20214;&#20013;,&#37027;&#20040;&#23558;&#20854;&#20889;&#20837;&#21363;&#21487;.&#19968;&#33324;&#30340;&#35805;,&#19968;&#20010;&#29992;&#25143;&#21344;&#19968;&#34892;&#10;```&#123;bash&#125;&#10;[root@localhost&#160;vsftpd]#&#160;cat&#160;chroot_list&#160;&#10;test</span><br></pre></td></tr></table></figure></p>
+<h3 id="11-__u7ED1_u5B9A_u67D0_u4E2AIP_u5230vsFTPd"><a href="#11-__u7ED1_u5B9A_u67D0_u4E2AIP_u5230vsFTPd" class="headerlink" title="11. 绑定某个IP到vsFTPd"></a>11. 绑定某个IP到vsFTPd</h3><p>有时候要限制某些IP访问服务器,只允许某些IP访问,例如只允许192.168.0.33访问这个FTP,同样修改配置文件:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen_address=192.168.0.33&#160;&#37197;&#32622;vsftpd.conf&#10;anonymous_enable=NO&#160;#&#31105;&#27490;&#21311;&#21517;&#160;local_enable=YES&#160;#&#20801;&#35768;&#26412;&#22320;&#30331;&#24405;&#160;&#10;write_enable=YES&#160;#&#20801;&#35768;&#20889;&#65292;&#22914;&#38656;&#19978;&#20256;&#65292;&#21017;&#24517;&#39035;&#160;&#10;local_umask=027&#160;#&#23558;&#19978;&#20256;&#25991;&#20214;&#30340;&#26435;&#38480;&#35774;&#32622;&#20026;&#65306;777-local_umask&#160;anon_upload_enable=YES&#160;#&#20801;&#35768;&#34394;&#25311;&#29992;&#25143;&#21644;&#21311;&#21517;&#29992;&#25143;&#19978;&#20256;&#160;&#10;anon_other_write_enable=YES&#160;#&#20801;&#35768;&#34394;&#25311;&#29992;&#25143;&#21644;&#21311;&#21517;&#29992;&#25143;&#20462;&#25913;&#25991;&#20214;&#21517;&#21644;&#21024;&#38500;&#25991;&#20214;&#160;dirmessage_enable=YES&#160;&#160;&#10;xferlog_enable=YES&#160;#&#25171;&#24320;&#26085;&#24535;&#35760;&#24405;&#160;&#10;connect_from_port_20=YES&#160;&#10;xferlog_file=/var/log/vsftpd.log&#160;#&#26085;&#24535;&#23384;&#25918;&#20301;&#32622;&#160;&#10;xferlog_std_format=YES&#160;#&#26631;&#20934;&#26085;&#24535;&#26684;&#24335;&#160;&#10;idle_session_timeout=600&#160;#&#31354;&#38386;&#36830;&#25509;&#36229;&#26102;&#160;&#10;data_connection_timeout=120&#160;&#10;ftpd_banner=Welcome&#160;to&#160;ChinaRise&#160;FTP&#160;service&#160;#&#27426;&#36814;&#20449;&#24687;&#160;&#10;guest_enable=yes&#160;#&#20801;&#35768;&#34394;&#25311;&#29992;&#25143;&#160;&#10;guest_username=vsftpdguest&#160;#&#34394;&#25311;&#29992;&#25143;&#20351;&#29992;&#30340;&#31995;&#32479;&#36134;&#21495;&#160;&#10;virtual_use_local_privs=YES&#160;#&#34394;&#25311;&#29992;&#25143;&#25317;&#26377;&#26412;&#22320;&#31995;&#32479;&#26435;&#38480;&#160;&#10;chroot_local_user=NO&#160;&#160;chroot_list_enable=YES&#160;&#10;#&#20197;&#19978;&#20004;&#34892;&#23558;&#34394;&#25311;&#29992;&#25143;&#38480;&#21046;&#22312;&#20854;&#30446;&#24405;&#19979;&#65292;&#19981;&#33021;&#35775;&#38382;&#20854;&#20182;&#30446;&#24405;&#65292;&#25110;&#32773;&#30452;&#25509;&#29992;&#160;&#160;&#10;chroot_local_user=YES&#160;&#160;listen=yes&#160;#&#30417;&#21548;/&#34987;&#21160;&#27169;&#24335;&#160;listen_port=21&#160;#&#30417;&#21548;&#31471;&#21475;&#160;&#10;chroot_list_file=/etc/vsftpd/vsftpd.chroot_list&#160;#&#34394;&#25311;&#29992;&#25143;&#21517;&#21333;&#20445;&#23384;&#22312;&#25991;&#20214;&#10;/etc/vsftpd/vsftpd.chroot_list&#160;&#20013;&#160;&#10;user_config_dir=/etc/vsftpd/vsftpd_user_conf&#160;#&#27599;&#20010;&#34394;&#25311;&#29992;&#25143;&#21517;&#30340;&#26356;&#21152;&#35814;&#32454;&#30340;&#22521;&#26893;&#20445;&#23384;&#22312;/etc/vsftpd/vsftpd_user_conf&#160;&#20013;</span><br></pre></td></tr></table></figure></p>
+<p>虚拟用户其他设置<br>在/etc/vsftpd/vsftpd.chroot_list 文件中写入允许登陆的虚拟用户名称，每行一个 在/etc/vsftpd/vsftpd_user_conf 文件夹中创建一个以虚拟用户用户名命名的文件， 写入：local_root = /var/FTP/子目录名 然后在/var/FTP下创建一个对应的目录即可。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/FTP/" rel="tag">#FTP</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/02/12/Linux-FTP-configuration/" rel="next" title="Linux 下进行 FTP 设置">
+                <i class="fa fa-chevron-left"></i> Linux 下进行 FTP 设置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/02/12/gVim-Vim-configuration/" rel="prev" title="Gvim/Vim 配置（已配置常用插件且Windows 与 Linux 通用）">
+                Gvim/Vim 配置（已配置常用插件且Windows 与 Linux 通用） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ei1yg6iujij209l09rwg2.jpg" alt="ZhangYouzhi" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">ZhangYouzhi</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Where there is a will, there is a way!</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-__u91CD_u542F/_u5173_u95ED_vsftpd__u670D_u52A1_u5668"><span class="nav-number">1.</span> <span class="nav-text">1. 重启/关闭 vsftpd 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-__u4E0Evsftpd_u670D_u52A1_u5668_u6709_u5173_u7684_u6587_u4EF6_u548C_u6587_u4EF6_u5939"><span class="nav-number">2.</span> <span class="nav-text">2. 与vsftpd服务器有关的文件和文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-__u6DFB_u52A0FTP_u672C_u5730_u7528_u6237"><span class="nav-number">3.</span> <span class="nav-text">3. 添加FTP本地用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-__u533F_u540D_u4E0A_u4F20_u4E0B_u8F7D"><span class="nav-number">4.</span> <span class="nav-text">4. 匿名上传下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-__u5B9A_u5236_u8FDB_u5165FTP_u670D_u52A1_u5668_u7684_u6B22_u8FCE_u4FE1_u606F"><span class="nav-number">5.</span> <span class="nav-text">5. 定制进入FTP服务器的欢迎信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-__u5B9E_u73B0_u865A_u62DF_u8DEF_u5F84"><span class="nav-number">6.</span> <span class="nav-text">6. 实现虚拟路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-__u6253_u5F00vsFTPd_u7684_u65E5_u5FD7_u529F_u80FD"><span class="nav-number">7.</span> <span class="nav-text">7. 打开vsFTPd的日志功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-__u9650_u5236_u94FE_u63A5_u6570_2C_u4EE5_u53CA_u6BCF_u4E2AIP_u6700_u5927_u7684_u94FE_u63A5_u6570"><span class="nav-number">8.</span> <span class="nav-text">8. 限制链接数,以及每个IP最大的链接数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-__u9650_u5236_u4F20_u8F93_u901F_u5EA6"><span class="nav-number">9.</span> <span class="nav-text">9. 限制传输速度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-__u5C06_u7528_u6237_28_u4E00_u822C_u6307_u865A_u62DF_u7528_u6237_29_u9650_u5236_u5728_u81EA_u5BB6_u76EE_u5F55"><span class="nav-number">10.</span> <span class="nav-text">10. 将用户(一般指虚拟用户)限制在自家目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-__u7ED1_u5B9A_u67D0_u4E2AIP_u5230vsFTPd"><span class="nav-number">11.</span> <span class="nav-text">11. 绑定某个IP到vsFTPd</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYouzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

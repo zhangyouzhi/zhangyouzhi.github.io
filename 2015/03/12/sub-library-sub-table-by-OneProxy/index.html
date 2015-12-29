@@ -1,0 +1,642 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="OneProxy," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="MySQL简单易用，并且开源，自用可以免费，用得好的话可以发挥自主可控成本低的理想功效，非常受互联网企业喜爱，现在也逐渐开始进入非互联网企业（不喜欢用传统企业这个词）了。但也的确缺失一些针对企业的高级功能，比如新增列、添加索引还会对整个表的数据进行重组，需要独占整个表，因此在单机使用时，需要控制单个表的大小，以减少做运维维护工作时独占表的时间。在多核（超过24个核）情况下的线性扩展能力（包括事务能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OneProxy:只需修改少量SQL语句，也可以实现快速实现分库分表的可扩展方案（转）">
+<meta property="og:url" content="http://zhangyouzhi.com/2015/03/12/sub-library-sub-table-by-OneProxy/index.html">
+<meta property="og:site_name" content="ZhangYouzhi's Blog">
+<meta property="og:description" content="MySQL简单易用，并且开源，自用可以免费，用得好的话可以发挥自主可控成本低的理想功效，非常受互联网企业喜爱，现在也逐渐开始进入非互联网企业（不喜欢用传统企业这个词）了。但也的确缺失一些针对企业的高级功能，比如新增列、添加索引还会对整个表的数据进行重组，需要独占整个表，因此在单机使用时，需要控制单个表的大小，以减少做运维维护工作时独占表的时间。在多核（超过24个核）情况下的线性扩展能力（包括事务能">
+<meta property="og:updated_time" content="2015-10-19T08:14:14.416Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OneProxy:只需修改少量SQL语句，也可以实现快速实现分库分表的可扩展方案（转）">
+<meta name="twitter:description" content="MySQL简单易用，并且开源，自用可以免费，用得好的话可以发挥自主可控成本低的理想功效，非常受互联网企业喜爱，现在也逐渐开始进入非互联网企业（不喜欢用传统企业这个词）了。但也的确缺失一些针对企业的高级功能，比如新增列、添加索引还会对整个表的数据进行重组，需要独占整个表，因此在单机使用时，需要控制单个表的大小，以减少做运维维护工作时独占表的时间。在多核（超过24个核）情况下的线性扩展能力（包括事务能">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> OneProxy:只需修改少量SQL语句，也可以实现快速实现分库分表的可扩展方案（转） | ZhangYouzhi's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhangYouzhi's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                OneProxy:只需修改少量SQL语句，也可以实现快速实现分库分表的可扩展方案（转）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-03-12T16:58:58+08:00" content="2015-03-12">
+              2015-03-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>MySQL简单易用，并且开源，自用可以免费，用得好的话可以发挥自主可控成本低的理想功效，非常受互联网企业喜爱，现在也逐渐开始进入非互联网企业（不喜欢用传统企业这个词）了。但也的确缺失一些针对企业的高级功能，比如新增列、添加索引还会对整个表的数据进行重组，需要独占整个表，因此在单机使用时，需要控制单个表的大小，以减少做运维维护工作时独占表的时间。在多核（超过24个核）情况下的线性扩展能力（包括事务能力和查询能力）也不够理想，需要有较好的方法来快速解决这一类的技术需求。</p>
+<p>当一个表太大不利于维护时，我们会将大表拆分成小表，这些表还属于同一个数据库，这种技术称为分表；当一个数据库的处理能力不够支撑业务，增加CPU的作用也十分有限时，就可能需要将部份表移到别的数据库，以增加系统处理能力，这种技术称为分库；通过精心的数据模型设计，将大的业务表拆分成小表，再将一系列小表分到不同的服务器，使得每台服务器都能独立承担部分业务处理，这种技术称为水平拆分，俗称为分库分表。分表的数量可以和物理的机器数不一致，分表数量称为逻辑份数，分库的数量称为物理份数，当逻辑份数大于物理份数时，就可以迅速获得水平扩展能力。</p>
+<p>在使用传统商业数据库时，必须要通过应用层修改应用代码来实现，现在流行的做法是将应用开发语言统一，比如用统一的Java框架，然后编写一个统一的数据访问层，比如TDDL、ZDAL等。这种做法在大并发量下的性能上有一定的优势，可以减少一次网络交互，但在开发上绑定了特定的开发语言，需要有强大的配置推送体系，并且需要有强大的运维团队来支持。当后台用的是MySQL数据库，或兼容MySQL协议的数据库时，就可以不用修改应用程序，使用OneProxy来承担TDDL、ZDAL的功能，将后端的多台MySQL虚拟成一台MySQL提供给上层应用，对应用相对透明地实现分库分表的需求，来快速获得MySQL上的水平扩展能力。</p>
+<p>OneProxy里分库分表的概念和MySQL里分区表的概念非常接近，来看一下MySQL分区表的创建语法：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE employees (&#10;    id INT NOT NULL,&#10;    fname VARCHAR(30),&#10;    lname VARCHAR(30),&#10;    hired DATE NOT NULL DEFAULT &#39;1970-01-01&#39;,&#10;    separated DATE NOT NULL DEFAULT &#39;9999-12-31&#39;,&#10;    job_code INT NOT NULL,&#10;    store_id INT NOT NULL&#10;)&#10;PARTITION BY RANGE (store_id) (&#10;    PARTITION p0 VALUES LESS THAN (6),&#10;    PARTITION p1 VALUES LESS THAN (11),&#10;    PARTITION p2 VALUES LESS THAN (16),&#10;    PARTITION p3 VALUES LESS THAN (21)&#10;);</span><br></pre></td></tr></table></figure></p>
+<p>只要给OneProxy提供分区的关键信息，保存到文件“part.txt”中，就可以实现分库分表了，配置信息如下所示：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#10;  &#123;&#10;        &#34;table&#34;   : &#34;empolyees&#34;,&#10;        &#34;pkey&#34;    : &#34;store_id&#34;,&#10;        &#34;type&#34;    : &#34;int&#34;,&#10;        &#34;method&#34;  : &#34;range&#34;,&#10;        &#34;partitions&#34;:&#10;           [&#10;               &#123; &#34;suffix&#34; : &#34;_0&#34;, &#34;group&#34;: &#34;default&#34;, &#34;value&#34; : 6 &#125;,&#10;               &#123; &#34;suffix&#34; : &#34;_1&#34;, &#34;group&#34;: &#34;default&#34;, &#34;value&#34; : 11 &#125;,&#10;               &#123; &#34;suffix&#34; : &#34;_2&#34;, &#34;group&#34;: &#34;default&#34;, &#34;value&#34; : 16 &#125;,&#10;               &#123; &#34;suffix&#34; : &#34;_3&#34;, &#34;group&#34;: &#34;default&#34;, &#34;value&#34; : 21 &#125;&#10;           ]&#10;  &#125;&#10;]</span><br></pre></td></tr></table></figure></p>
+<p>然后用这个指定OneProxy的分区配置文件为“part.txt”，启动OneProxy即可。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;ONEPROXY_HOME&#125;/oneproxy --proxy-address=:3307 \&#10;  --proxy-master-addresses=192.168.1.119:3306 \&#10;  --proxy-user-list=test/1378F6CC3A8E8A43CA388193FBED5405982FBBD3@test \&#10;  --proxy-part-tables=$&#123;ONEPROXY_HOME&#125;/part.txt \&#10;  --event-threads=8 --proxy-charset=gbk_chinese_ci \&#10;  --log-file=$&#123;ONEPROXY_HOME&#125;/oneproxy.log \&#10;  --pid-file=$&#123;ONEPROXY_HOME&#125;/oneproxy.pid</span><br></pre></td></tr></table></figure></p>
+<p>然后在对应的MySQL集群（“default”）里创建好“employees”表，创建表时需要加上后缀（参照“suffix”字段的值），即创建四张表：“employees_0”、“employees_1”、“employees_2”和“employees_3”就行了。也可以修改每个表的集群信息（参照“group”字段的值），让每个表位于不同MySQL主备集群中，来实现完整的分库分表的例子。发下图所示：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&#62; show tables;&#10;+----------------+&#10;| Tables_in_test |&#10;+----------------+&#10;| employees_0    |&#10;| employees_1    |&#10;| employees_2    |&#10;| employees_3    |&#10;+----------------+&#10;4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>并不需要登录到每一台机器，进行表的创建工作，通过OneProxy可以直接发送如下创建表命令，会自动定位到MySQL服务器并创建包含准确后缀的表。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE employees (&#10;    id INT NOT NULL,&#10;    fname VARCHAR(30),&#10;    lname VARCHAR(30),&#10;    hired DATE NOT NULL DEFAULT &#39;1970-01-01&#39;,&#10;    separated DATE NOT NULL DEFAULT &#39;9999-12-31&#39;,&#10;    job_code INT NOT NULL,&#10;    store_id INT NOT NULL&#10;);</span><br></pre></td></tr></table></figure></p>
+<p>接下来可以运行一些DML语句和查询语句试试。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&#62; insert into employees (id, fname, lname, job_code, store_id)&#10;    -&#62; values (4, &#39;A&#39;,&#39;B&#39;,4,4);&#10;Query OK, 1 row affected (0.00 sec)&#10;&#10;mysql&#62; insert into employees (id, fname, lname, job_code, store_id)&#10;    -&#62; values (8, &#39;C&#39;,&#39;D&#39;,8,8);&#10;Query OK, 1 row affected (0.00 sec)&#10;&#10;mysql&#62; select * from employees;&#10;+----+-------+-------+------------+------------+----------+----------+&#10;| id | fname | lname | hired      | separated  | job_code | store_id |&#10;+----+-------+-------+------------+------------+----------+----------+&#10;|  4 | A     | B     | 1970-01-01 | 9999-12-31 |        4 |        4 |&#10;|  8 | C     | D     | 1970-01-01 | 9999-12-31 |        8 |        8 |&#10;+----+-------+-------+------------+------------+----------+----------+&#10;2 rows in set (0.00 sec)&#10;&#10;mysql&#62; select * from employees_0;&#10;+----+-------+-------+------------+------------+----------+----------+&#10;| id | fname | lname | hired      | separated  | job_code | store_id |&#10;+----+-------+-------+------------+------------+----------+----------+&#10;|  4 | A     | B     | 1970-01-01 | 9999-12-31 |        4 |        4 |&#10;+----+-------+-------+------------+------------+----------+----------+&#10;1 row in set (0.00 sec)&#10;&#10;mysql&#62; select * from employees_1;&#10;+----+-------+-------+------------+------------+----------+----------+&#10;| id | fname | lname | hired      | separated  | job_code | store_id |&#10;+----+-------+-------+------------+------------+----------+----------+&#10;|  8 | C     | D     | 1970-01-01 | 9999-12-31 |        8 |        8 |&#10;+----+-------+-------+------------+------------+----------+----------+&#10;1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>Via:<a href="http://www.onexsoft.com/?page_id=378" target="_blank" rel="external">http://www.onexsoft.com/?page_id=378</a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OneProxy/" rel="tag">#OneProxy</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/03/10/kicked-out-logged-on-user-in-centos/" rel="next" title="CentOS 下踢出登陆用户">
+                <i class="fa fa-chevron-left"></i> CentOS 下踢出登陆用户
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/03/14/programmers-must-know-10-basis algorithm/" rel="prev" title="程序员必须知道的10大基础实用算法及其讲解 (转)">
+                程序员必须知道的10大基础实用算法及其讲解 (转) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ei1yg6iujij209l09rwg2.jpg" alt="ZhangYouzhi" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">ZhangYouzhi</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Where there is a will, there is a way!</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYouzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

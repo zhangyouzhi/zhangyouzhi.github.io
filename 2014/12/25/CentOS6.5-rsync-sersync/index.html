@@ -1,0 +1,769 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Inotify,rsync," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="一、为什么要用Rsync+sersync架构?1、sersync是基于Inotify开发的，类似于Inotify-tools的工具
+2、sersync可以记录下被监听目录中发生变化的（包括增加、删除、修改）具体某一个文件或某一个目录的名字，然后使用rsync同步的时候，只同步发生变化的这个文件或者这个目录。
+二、Rsync+Inotify-tools与Rsync+sersync这两种架构有什么区别">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 6.5 Rsync+sersync 实现数据实时同步备份">
+<meta property="og:url" content="http://zhangyouzhi.com/2014/12/25/CentOS6.5-rsync-sersync/index.html">
+<meta property="og:site_name" content="ZhangYouzhi's Blog">
+<meta property="og:description" content="一、为什么要用Rsync+sersync架构?1、sersync是基于Inotify开发的，类似于Inotify-tools的工具
+2、sersync可以记录下被监听目录中发生变化的（包括增加、删除、修改）具体某一个文件或某一个目录的名字，然后使用rsync同步的时候，只同步发生变化的这个文件或者这个目录。
+二、Rsync+Inotify-tools与Rsync+sersync这两种架构有什么区别">
+<meta property="og:updated_time" content="2015-10-19T08:14:04.175Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 6.5 Rsync+sersync 实现数据实时同步备份">
+<meta name="twitter:description" content="一、为什么要用Rsync+sersync架构?1、sersync是基于Inotify开发的，类似于Inotify-tools的工具
+2、sersync可以记录下被监听目录中发生变化的（包括增加、删除、修改）具体某一个文件或某一个目录的名字，然后使用rsync同步的时候，只同步发生变化的这个文件或者这个目录。
+二、Rsync+Inotify-tools与Rsync+sersync这两种架构有什么区别">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> CentOS 6.5 Rsync+sersync 实现数据实时同步备份 | ZhangYouzhi's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhangYouzhi's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CentOS 6.5 Rsync+sersync 实现数据实时同步备份
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2014-12-25T18:58:58+08:00" content="2014-12-25">
+              2014-12-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h3 id="u4E00_u3001_u4E3A_u4EC0_u4E48_u8981_u7528Rsync+sersync_u67B6_u6784_3F"><a href="#u4E00_u3001_u4E3A_u4EC0_u4E48_u8981_u7528Rsync+sersync_u67B6_u6784_3F" class="headerlink" title="一、为什么要用Rsync+sersync架构?"></a>一、为什么要用Rsync+sersync架构?</h3><p>1、sersync是基于Inotify开发的，类似于Inotify-tools的工具</p>
+<p>2、sersync可以记录下被监听目录中发生变化的（包括增加、删除、修改）具体某一个文件或某一个目录的名字，然后使用rsync同步的时候，只同步发生变化的这个文件或者这个目录。</p>
+<h3 id="u4E8C_u3001Rsync+Inotify-tools_u4E0ERsync+sersync_u8FD9_u4E24_u79CD_u67B6_u6784_u6709_u4EC0_u4E48_u533A_u522B_uFF1F"><a href="#u4E8C_u3001Rsync+Inotify-tools_u4E0ERsync+sersync_u8FD9_u4E24_u79CD_u67B6_u6784_u6709_u4EC0_u4E48_u533A_u522B_uFF1F" class="headerlink" title="二、Rsync+Inotify-tools与Rsync+sersync这两种架构有什么区别？"></a>二、Rsync+Inotify-tools与Rsync+sersync这两种架构有什么区别？</h3><p>1、Rsync+Inotify-tools<br>（1）：Inotify-tools只能记录下被监听的目录发生了变化（包括增加、删除、修改），并没有把具体是哪个文件或者哪个目录发生了变化记录下来。</p>
+<p>（2）：rsync在同步的时候，并不知道具体是哪个文件或者哪个目录发生了变化，每次都是对整个目录进行同步，当数据量很大时，整个目录同步非常耗时（rsync要对整个目录遍历查找对比文件），因此，效率很低。</p>
+<p>2、Rsync+sersync</p>
+<p>（1）：sersync可以记录下被监听目录中发生变化的（包括增加、删除、修改）具体某一个文件或某一个目录的名字；</p>
+<p>（2）：rsync在同步的时候，只同步发生变化的这个文件或者这个目录（每次发生变化的数据相对整个同步目录数据来说是很小的，rsync在遍历查找比对文件时，速度很快），因此，效率很高。</p>
+<p>小结：当同步的目录数据量不大时，建议使用Rsync+Inotify-tools；当数据量很大（几百G甚至1T以上）、文件很多时，建议使用Rsync+sersync。</p>
+<p>说明：</p>
+<p>操作系统：CentOS 6.5<br>源服务器：121.41.28.253<br>目标服务器：121.41.48.242，121.41.48.233<br>目的：把源服务器上/var/www/synctest目录实时同步到目标服务器的/var/www/synctest下</p>
+<p>【具体操作】</p>
+<h3 id="u7B2C_u4E00_u90E8_u5206_uFF1A_u5728_u4E24_u53F0_u76EE_u6807_u670D_u52A1_u5668121-41-48-242_u548C121-41-48-233_u6267_u884C_u7684_u64CD_u4F5C"><a href="#u7B2C_u4E00_u90E8_u5206_uFF1A_u5728_u4E24_u53F0_u76EE_u6807_u670D_u52A1_u5668121-41-48-242_u548C121-41-48-233_u6267_u884C_u7684_u64CD_u4F5C" class="headerlink" title="第一部分：在两台目标服务器121.41.48.242和121.41.48.233执行的操作"></a>第一部分：在两台目标服务器121.41.48.242和121.41.48.233执行的操作</h3><p>一、在目标服务器安装rsync服务端</p>
+<p>1、关闭SELINUX<br>编辑防火墙配置文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23tvhxkkjZ /]# vi /etc/selinux/config</span><br></pre></td></tr></table></figure></p>
+<p>用 # 注释掉下面两行代码:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#SELINUX=enforcing&#10;#SELINUXTYPE=targeted</span><br></pre></td></tr></table></figure></p>
+<p>增加下面一行代码:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELINUX=disabled</span><br></pre></td></tr></table></figure></p>
+<p>保存，退出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br></pre></td></tr></table></figure></p>
+<p>运行命令行，立即生效:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23tvhxkkjZ /]# setenforce 0</span><br></pre></td></tr></table></figure></p>
+<p>2、开启防火墙tcp 873端口（rsync默认端口）</p>
+<p>编辑防火墙配置文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23tvhxkkjZ /]# vi /etc/sysconfig/iptables</span><br></pre></td></tr></table></figure></p>
+<p>添加下列行到开启22端口的后面：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 873 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<p>保存，退出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br></pre></td></tr></table></figure></p>
+<p>重启防火墙使配置生效：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23tvhxkkjZ /]# /etc/init.d/iptables restart</span><br></pre></td></tr></table></figure></p>
+<p>3、安装rsync服务端软件</p>
+<p>安装rsync，CentOS6.5自带rsync，运行下列命令行，确保rsync安装，同时安装rsync工具xinetd<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23tvhxkkjZ /]# yum install rsync xinetd</span><br></pre></td></tr></table></figure></p>
+<p>编辑配置文件，设置开机启动rsync<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23tvhxkkjZ /]# vi /etc/xinetd.d/rsync</span><br></pre></td></tr></table></figure></p>
+<p>修改disable的值为no:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">disable = no</span><br></pre></td></tr></table></figure></p>
+<p>保存，退出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br></pre></td></tr></table></figure></p>
+<p>启动xinetd（CentOS中是以xinetd来管理Rsync服务的）<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23tvhxkkjZ /]# /etc/init.d/xinetd start</span><br></pre></td></tr></table></figure></p>
+<p>4、创建rsyncd.conf配置文件</p>
+<p>创建配置文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23tvhxkkjZ /]# vi /etc/rsyncd.conf</span><br></pre></td></tr></table></figure></p>
+<p>添加以下代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log file = /var/log/rsyncd.log&#10;pidfile = /var/run/rsyncd.pid&#10;lock file = /var/run/rsync.lock&#10;secrets file = /etc/rsyncd.passwd&#10;motd file = /etc/rsyncd.motd&#10;&#10;[synctest]&#10;path = /var/www/synctest/&#10;comment = synctest&#10;uid = root&#10;gid = root&#10;port=873&#10;use chroot = no&#10;read only = no&#10;list = no&#10;max connections = 200&#10;timeout = 600&#10;auth users = root&#10;hosts allow = 121.41.28.253&#10;hosts deny = 121.41.28.254</span><br></pre></td></tr></table></figure></p>
+<p>5、创建用户认证文件</p>
+<p>配置文件<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23tvhxkkjZ /]# vi /etc/rsyncd.passwd</span><br></pre></td></tr></table></figure></p>
+<p>添加以下内容(原服务器的用户名、密码)：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root:123456</span><br></pre></td></tr></table></figure></p>
+<p>格式，用户名:密码，可以设置多个，每行一个 用户名:密码 对。<br>保存，退出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br></pre></td></tr></table></figure></p>
+<p>6、设置文件权限</p>
+<p>设置文件所有者读取、写入权限:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23tvhxkkjZ etc]# chmod 600 /etc/rsyncd.conf&#10;[root@iZ23tvhxkkjZ etc]# chmod 600 /etc/rsyncd.passwd&#10;``` &#10;7&#12289;&#21551;&#21160;rsync&#10;&#10;&#21551;&#21160;&#65306;&#10;```&#123;bash&#125;&#10;[root@iZ23tvhxkkjZ etc]# /etc/init.d/xinetd start</span><br></pre></td></tr></table></figure></p>
+<p>参考指令：<br>停止:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service xinetd stop</span><br></pre></td></tr></table></figure></p>
+<p>重新启动:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service xinetd restart</span><br></pre></td></tr></table></figure></p>
+<p>『目的服务器安装完成』</p>
+<hr>
+<h3 id="u7B2C_u4E8C_u90E8_u5206_uFF1A_u5728_u6E90_u670D_u52A1_u5668121-41-28-253_u4E0A_u64CD_u4F5C"><a href="#u7B2C_u4E8C_u90E8_u5206_uFF1A_u5728_u6E90_u670D_u52A1_u5668121-41-28-253_u4E0A_u64CD_u4F5C" class="headerlink" title="第二部分：在源服务器121.41.28.253上操作"></a>第二部分：在源服务器121.41.28.253上操作</h3><p>【以下部分在源服务器（发布服务器）上进行操作】</p>
+<p>一、安装Rsync客户端</p>
+<p>1、关闭SELINUX</p>
+<p>编辑防火墙配置文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# vi /etc/selinux/config</span><br></pre></td></tr></table></figure></p>
+<p>用 # 注释掉下面两行代码:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#SELINUX=enforcing&#10;#SELINUXTYPE=targeted</span><br></pre></td></tr></table></figure></p>
+<p>增加下面一行代码:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELINUX=disabled</span><br></pre></td></tr></table></figure></p>
+<p>保存，退出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br></pre></td></tr></table></figure></p>
+<p>运行命令行，立即生效:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# setenforce 0</span><br></pre></td></tr></table></figure></p>
+<p>2、开启防火墙tcp 873端口（rsync默认端口）</p>
+<p>编辑防火墙配置文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# vi /etc/sysconfig/iptables</span><br></pre></td></tr></table></figure></p>
+<p>添加下列行到开启22端口的后面：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 873 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<p>保存，退出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br></pre></td></tr></table></figure></p>
+<p>重启防火墙使配置生效：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# /etc/init.d/iptables restart</span><br></pre></td></tr></table></figure></p>
+<p>3、安装rsync客户端软件</p>
+<p>安装rsync，CentOS6.5自带rsync，运行下列命令行，确保rsync安装，同时安装rsync工具xinetd<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# yum install rsync xinetd</span><br></pre></td></tr></table></figure></p>
+<p>编辑配置文件，设置开机启动rsync<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# vi /etc/xinetd.d/rsync</span><br></pre></td></tr></table></figure></p>
+<p>修改disable的值为no:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">disable = no</span><br></pre></td></tr></table></figure></p>
+<p>保存，退出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br></pre></td></tr></table></figure></p>
+<p>启动xinetd（CentOS中是以xinetd来管理Rsync服务的）<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# /etc/init.d/xinetd start</span><br></pre></td></tr></table></figure></p>
+<p>4、创建认证密码文件</p>
+<p>编辑文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# vi /etc/rsyncd.passwd</span><br></pre></td></tr></table></figure></p>
+<p>添加以下内容作为密码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">123456</span><br></pre></td></tr></table></figure></p>
+<p>保存，退出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br></pre></td></tr></table></figure></p>
+<p>设置文件权限，只设置文件所有者具有读取、写入权限：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# chmod 600 /etc/rsyncd.passwd</span><br></pre></td></tr></table></figure></p>
+<p>5、测试源服务器到两台目标服务器之间的数据同步</p>
+<p>在源服务器上创建测试文件夹<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ www]# mkdir /var/www/synctest&#10;[root@iZ23i2txh8jZ www]# mkdir /var/www/synctest/test</span><br></pre></td></tr></table></figure></p>
+<p>在源服务器运行下面2行命令<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avH --port=873 --progress --delete /var/www/synctest/ root@121.41.48.242::synctest --password-file=/etc/rsyncd.passwd</span><br></pre></td></tr></table></figure></p>
+<p>运行完成后，分别在两台目标服务器上查看，在/var/www/synctest目录下有test文件夹，说明数据同步成功。</p>
+<p>『以上手动同步功能实现完成。下面内容为使用sersync工具监控目录，完成自动同步』</p>
+<hr>
+<h2 id="u4E8C_u3001_u5B89_u88C5sersync_u5DE5_u5177_uFF0C_u5B9E_u65F6_u89E6_u53D1rsync_u8FDB_u884C_u540C_u6B65"><a href="#u4E8C_u3001_u5B89_u88C5sersync_u5DE5_u5177_uFF0C_u5B9E_u65F6_u89E6_u53D1rsync_u8FDB_u884C_u540C_u6B65" class="headerlink" title="二、安装sersync工具，实时触发rsync进行同步"></a>二、安装sersync工具，实时触发rsync进行同步</h2><p>1、查看服务器内核是否支持inotify</p>
+<p>列出文件目录<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# ll /proc/sys/fs/inotify</span><br></pre></td></tr></table></figure></p>
+<p>出现下面的内容，说明服务器内核支持inotify<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r-- 1 root root 0 Dec 25 12:03 max_queued_events&#10;-rw-r--r-- 1 root root 0 Dec 25 15:05 max_user_instances&#10;-rw-r--r-- 1 root root 0 Dec 25 12:03 max_user_watches</span><br></pre></td></tr></table></figure></p>
+<p>备注：CentOS 6.5，默认已经支持inotify</p>
+<p>2、修改inotify默认参数（inotify默认内核参数值太小）</p>
+<p>查看系统默认参数值(max_queued_events)：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# sysctl -a | grep max_queued_events</span><br></pre></td></tr></table></figure></p>
+<p>结果是：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# sysctl -a | grep max_queued_events&#10;fs.inotify.max_queued_events = 327679&#10;[root@iZ23i2txh8jZ /]#</span><br></pre></td></tr></table></figure></p>
+<p>查看系统默认参数值(max_user_watches)：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# sysctl -a | grep max_user_watches</span><br></pre></td></tr></table></figure></p>
+<p>结果是：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# sysctl -a | grep max_user_watches&#10;fs.inotify.max_user_watches = 50000000&#10;fs.epoll.max_user_watches = 1646100&#10;[root@iZ23i2txh8jZ /]#</span><br></pre></td></tr></table></figure></p>
+<p>查看系统默认参数值(max_user_instances)：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# sysctl -a | grep max_user_instances</span><br></pre></td></tr></table></figure></p>
+<p>结果是：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# sysctl -a | grep max_user_instances&#10;fs.inotify.max_user_instances = 128&#10;[root@iZ23i2txh8jZ /]#</span><br></pre></td></tr></table></figure></p>
+<p>修改参数：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# sysctl -w fs.inotify.max_queued_events=&#34;99999999&#34;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# sysctl -w fs.inotify.max_user_watches=&#34;99999999&#34;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# sysctl -w fs.inotify.max_user_instances=&#34;65535&#34;</span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<p>max_queued_events：<br>inotify队列最大长度，如果值太小，会出现”<strong> Event Queue Overflow </strong>“错误，导致监控文件不准确</p>
+<p>max_user_watches：<br>要同步的文件包含多少目录，可以用：find /var/www/synctest -type d | wc -l 统计，必须保证max_user_watches值大于统计结果（这里/var/www/synctest为同步文件目录）</p>
+<p>max_user_instances：<br>每个用户创建inotify实例最大值</p>
+<p>3、安装sersync</p>
+<p>sersync下载地址（不好用）：<a href="https://sersync.googlecode.com/files/sersync2.5.4_64bit_binary_stable_final.tar.gz" target="_blank" rel="external">https://sersync.googlecode.com/files/sersync2.5.4_64bit_binary_stable_final.tar.gz</a><br>将sersync2.5.4_64bit_binary_stable_final.tar.gz复制到/usr/local/src目录下。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ /]# cd /usr/local/src</span><br></pre></td></tr></table></figure></p>
+<p>解压<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ src]# tar zxvf sersync2.5.4_64bit_binary_stable_final.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>移动目录到/usr/local/sersync<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ src]# mv GNU-Linux-x86 /usr/local/sersync</span><br></pre></td></tr></table></figure></p>
+<p>4、配置sersync</p>
+<p>进入sersync安装目录:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ src]# cd /usr/local/sersync</span><br></pre></td></tr></table></figure></p>
+<p>备份原文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ sersync]# cp confxml.xml confxml.xml-bak</span><br></pre></td></tr></table></figure></p>
+<p>编辑配置文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ sersync]# vi confxml.xml</span><br></pre></td></tr></table></figure></p>
+<p>修改代码如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&#62;&#10;&#60;head version=&#34;2.5&#34;&#62;&#10;&#9;&#60;host hostip=&#34;localhost&#34; port=&#34;8008&#34;&#62;&#60;/host&#62;&#10;&#9;&#60;debug start=&#34;false&#34;/&#62;&#10;&#9;&#60;fileSystem xfs=&#34;false&#34;/&#62;&#10;&#9;&#60;filter start=&#34;false&#34;&#62;&#10;&#9;&#9;&#60;exclude expression=&#34;(.*)\.svn&#34;&#62;&#60;/exclude&#62;&#10;&#9;&#9;&#60;exclude expression=&#34;(.*)\.gz&#34;&#62;&#60;/exclude&#62;&#10;&#9;&#9;&#60;exclude expression=&#34;^info/*&#34;&#62;&#60;/exclude&#62;&#10;&#9;&#9;&#60;exclude expression=&#34;^static/*&#34;&#62;&#60;/exclude&#62;&#10;&#9;&#60;/filter&#62;&#10;&#9;&#60;inotify&#62;&#10;&#9;&#9;&#60;delete start=&#34;true&#34;/&#62;&#10;&#9;&#9;&#60;createFolder start=&#34;true&#34;/&#62;&#10;&#9;&#9;&#60;createFile start=&#34;false&#34;/&#62;&#10;&#9;&#9;&#60;closeWrite start=&#34;true&#34;/&#62;&#10;&#9;&#9;&#60;moveFrom start=&#34;true&#34;/&#62;&#10;&#9;&#9;&#60;moveTo start=&#34;true&#34;/&#62;&#10;&#9;&#9;&#60;attrib start=&#34;false&#34;/&#62;&#10;&#9;&#9;&#60;modify start=&#34;false&#34;/&#62;&#10;&#9;&#60;/inotify&#62;&#10;&#10;&#9;&#60;sersync&#62;&#10;&#9;&#9;&#60;localpath watch=&#34;/var/www/synctest&#34;&#62;&#10;&#9;&#9;&#9;&#60;remote ip=&#34;121.41.48.242&#34; name=&#34;synctest&#34;/&#62;&#10;&#9;&#9;&#9;&#60;remote ip=&#34;121.41.48.233&#34; name=&#34;synctest&#34;/&#62;&#10;&#9;&#9;&#9;&#60;!--&#60;remote ip=&#34;192.168.8.40&#34; name=&#34;tongbu&#34;/&#62;--&#62;&#10;&#9;&#9;&#60;/localpath&#62;&#10;&#9;&#9;&#60;rsync&#62;&#10;&#9;&#9;&#9;&#60;commonParams params=&#34;-artuz&#34;/&#62;&#10;&#9;&#9;&#9;&#60;auth start=&#34;true&#34; users=&#34;root&#34; passwordfile=&#34;/etc/rsyncd.passwd&#34;/&#62;&#10;&#9;&#9;&#9;&#60;userDefinedPort start=&#34;false&#34; port=&#34;874&#34;/&#62;&#60;!-- port=874 --&#62;&#10;&#9;&#9;&#9;&#60;timeout start=&#34;false&#34; time=&#34;100&#34;/&#62;&#60;!-- timeout=100 --&#62;&#10;&#9;&#9;&#9;&#60;ssh start=&#34;false&#34;/&#62;&#10;&#9;&#9;&#60;/rsync&#62;&#10;&#9;&#9;&#60;failLog path=&#34;/tmp/rsync_fail_log.sh&#34; timeToExecute=&#34;60&#34;/&#62;&#60;!--default every 60mins execute once--&#62;&#10;&#9;&#9;&#60;crontab start=&#34;true&#34; schedule=&#34;600&#34;&#62;&#60;!--600mins--&#62;&#10;&#9;&#9;&#9;&#60;crontabfilter start=&#34;false&#34;&#62;&#10;&#9;&#9;&#9;&#9;&#60;exclude expression=&#34;*.php&#34;&#62;&#60;/exclude&#62;&#10;&#9;&#9;&#9;&#9;&#60;exclude expression=&#34;info/*&#34;&#62;&#60;/exclude&#62;&#10;&#9;&#9;&#9;&#60;/crontabfilter&#62;&#10;&#9;&#9;&#60;/crontab&#62;&#10;&#9;&#9;&#60;plugin start=&#34;false&#34; name=&#34;command&#34;/&#62;&#10;&#9;&#60;/sersync&#62;&#10;&#10;&#9;&#60;plugin name=&#34;command&#34;&#62;&#10;&#9;&#9;&#60;param prefix=&#34;/bin/sh&#34; suffix=&#34;&#34; ignoreError=&#34;true&#34;/&#62; &#60;!--prefix /opt/tongbu/mmm.sh suffix--&#62;&#10;&#9;&#9;&#60;filter start=&#34;false&#34;&#62;&#10;&#9;&#9;&#9;&#60;include expression=&#34;(.*)\.php&#34;/&#62;&#10;&#9;&#9;&#9;&#60;include expression=&#34;(.*)\.sh&#34;/&#62;&#10;&#9;&#9;&#60;/filter&#62;&#10;&#9;&#60;/plugin&#62;&#10;&#10;&#9;&#60;plugin name=&#34;socket&#34;&#62;&#10;&#9;&#9;&#60;localpath watch=&#34;/opt/tongbu&#34;&#62;&#10;&#9;&#9;&#9;&#60;deshost ip=&#34;192.168.138.20&#34; port=&#34;8009&#34;/&#62;&#10;&#9;&#9;&#60;/localpath&#62;&#10;&#9;&#60;/plugin&#62;&#10;&#10;&#9;&#60;plugin name=&#34;refreshCDN&#34;&#62;&#10;&#9;&#9;&#60;localpath watch=&#34;/data0/htdocs/cms.xoyo.com/site/&#34;&#62;&#10;&#9;&#9;&#9;&#60;cdninfo domainname=&#34;ccms.chinacache.com&#34; port=&#34;80&#34; username=&#34;xxxx&#34; passwd=&#34;xxxx&#34;/&#62;&#10;&#9;&#9;&#9;&#60;sendurl base=&#34;http://pic.xoyo.com/cms&#34;/&#62;&#10;&#9;&#9;&#9;&#60;regexurl regex=&#34;false&#34; match=&#34;cms.xoyo.com/site([/a-zA-Z0-9]*).xoyo.com/images&#34;/&#62;&#10;&#9;&#9;&#60;/localpath&#62;&#10;&#9;&#60;/plugin&#62;&#10;&#60;/head&#62;</span><br></pre></td></tr></table></figure></p>
+<p>保存，退出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br></pre></td></tr></table></figure></p>
+<p>参数说明：</p>
+<p>localpath watch=”/var/www/synctest”：#源服务器同步目录</p>
+<p>121.41.48.242，121.41.48.233：#目标服务器IP地址</p>
+<p>name=”synctest”： #目标服务器rsync同步目录模块名称</p>
+<p>users=”root”： #目标服务器rsync同步用户名</p>
+<p>passwordfile=”/etc/rsyncd.passwd”： #目标服务器rsync同步用户的密码在源服务器的存放路径</p>
+<p>remote ip=”121.41.48.242”: #目标服务器ip，每行一个</p>
+<p>remote ip=”121.41.48.233”: #目标服务器ip，每行一个</p>
+<p>failLog path=”/tmp/rsync_fail_log.sh” #脚本运行失败日志记录</p>
+<p>start=”true” #设置为true，每隔600分钟执行一次全盘同步</p>
+<p>5、设置sersync监控开机自动执行</p>
+<p>编辑<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ sersync]# vi /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure></p>
+<p>在最后添加一行,设置开机自动运行脚本<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/sersync/sersync2 -d -r -o /usr/local/sersync/confxml.xml</span><br></pre></td></tr></table></figure></p>
+<p>保存，退出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br></pre></td></tr></table></figure></p>
+<p>6、添加脚本监控sersync是否正常运行</p>
+<p>编辑<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ crontab]# vi /home/crontab/check_sersync.sh</span><br></pre></td></tr></table></figure></p>
+<p>添加以下代码<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh&#10;sersync=&#34;/usr/local/sersync/sersync2&#34;&#10;confxml=&#34;/usr/local/sersync/confxml.xml&#34;&#10;status=$(ps aux |grep &#39;sersync2&#39;|grep -v &#39;grep&#39;|wc -l)&#10;if [ $status -eq 0 ];&#10;then&#10;$sersync -d -r -o $confxml &#38;&#10;else&#10;exit 0;&#10;fi</span><br></pre></td></tr></table></figure></p>
+<p>保存，退出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br></pre></td></tr></table></figure></p>
+<p>添加脚本执行权限<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ crontab]# chmod +x /home/crontab/check_sersync.sh</span><br></pre></td></tr></table></figure></p>
+<p>编辑<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ crontab]# vi /etc/crontab</span><br></pre></td></tr></table></figure></p>
+<p>在最后添加下面一行，每隔5分钟执行一次脚本<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/5 * * * * root /home/crontab/check_sersync.sh &#62; /dev/null 2&#62;&#38;1</span><br></pre></td></tr></table></figure></p>
+<p>重新加载服务<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ crontab]# service crond reload</span><br></pre></td></tr></table></figure></p>
+<p>7、测试sersync实时触发rsync同步脚本是否正常运行</p>
+<p>在源服务器121.41.28.253上创建文件inotify_rsync_ceshi<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /var/www/synctest/inotify_rsync_ceshi</span><br></pre></td></tr></table></figure></p>
+<p>重新启动源服务器：121.41.28.253</p>
+<p>等系统启动之后，查看两台目标服务器121.41.48.242，121.41.48.233的/var/www/synctest下是否有inotify_rsync_ceshi文件夹。</p>
+<p>然后再在源服务器121.41.28.253创建文件夹inotify_rsync_ceshi_new<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /var/www/synctest/inotify_rsync_ceshi_new</span><br></pre></td></tr></table></figure></p>
+<p>继续查看两台目标服务器121.41.48.242，121.41.48.233的/var/www/synctest下是否有inotify_rsync_ceshi_new文件夹</p>
+<p>如果以上测试都通过，说明inotify实时触发rsync同步脚本运行正常。</p>
+<p>至此，Linux下Rsync+sersync实现数据实时同步完成。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Inotify/" rel="tag">#Inotify</a>
+          
+            <a href="/tags/rsync/" rel="tag">#rsync</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/19/CentOS-add-user/" rel="next" title="CentOS 服务器新建用户并设置密码">
+                <i class="fa fa-chevron-left"></i> CentOS 服务器新建用户并设置密码
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/29/upgrade-the-kernel-on-centos/" rel="prev" title="CentOS 6.5 升级内核到 3.10.28">
+                CentOS 6.5 升级内核到 3.10.28 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ei1yg6iujij209l09rwg2.jpg" alt="ZhangYouzhi" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">ZhangYouzhi</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Where there is a will, there is a way!</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E00_u3001_u4E3A_u4EC0_u4E48_u8981_u7528Rsync+sersync_u67B6_u6784_3F"><span class="nav-number">1.</span> <span class="nav-text">一、为什么要用Rsync+sersync架构?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E8C_u3001Rsync+Inotify-tools_u4E0ERsync+sersync_u8FD9_u4E24_u79CD_u67B6_u6784_u6709_u4EC0_u4E48_u533A_u522B_uFF1F"><span class="nav-number">2.</span> <span class="nav-text">二、Rsync+Inotify-tools与Rsync+sersync这两种架构有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u4E00_u90E8_u5206_uFF1A_u5728_u4E24_u53F0_u76EE_u6807_u670D_u52A1_u5668121-41-48-242_u548C121-41-48-233_u6267_u884C_u7684_u64CD_u4F5C"><span class="nav-number">3.</span> <span class="nav-text">第一部分：在两台目标服务器121.41.48.242和121.41.48.233执行的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u4E8C_u90E8_u5206_uFF1A_u5728_u6E90_u670D_u52A1_u5668121-41-28-253_u4E0A_u64CD_u4F5C"><span class="nav-number">4.</span> <span class="nav-text">第二部分：在源服务器121.41.28.253上操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E8C_u3001_u5B89_u88C5sersync_u5DE5_u5177_uFF0C_u5B9E_u65F6_u89E6_u53D1rsync_u8FDB_u884C_u540C_u6B65"><span class="nav-number"></span> <span class="nav-text">二、安装sersync工具，实时触发rsync进行同步</span></a></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYouzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
