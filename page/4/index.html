@@ -1189,104 +1189,6 @@
             
               
                 
-                <a class="post-title-link" href="/2014/12/19/add-user-to-sudo/" itemprop="url">
-                  CentOS 将用户添加到 sudo 用户组的方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2014-12-19T16:58:58+08:00" content="2014-12-19">
-              2014-12-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/工作/" itemprop="url" rel="index">
-                    <span itemprop="name">工作</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <p>安装完 CentOS 后，默认没有启用 sudo，首先应该是对 sudo 进行设置。<br>sudo的作用就是使当前非 root 用户在使用没有权限的命令 时，直接在命令前加入 sudo ，在输入自己当前用户的密码就可以完成 root 用户的功能，而不必在每次使用 su - 来回切换用户了。sudo的配置文件位于 /etc/sudoers，需要 root 权限才可以读写。<br><strong>运行visudo 来改 /etc/sudoers</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost lmmbao]# visudo&#10;``` &#10;&#10;&#25214;&#21040; root ALL=(ALL) ALL &#36825;&#19968;&#34892;&#65292;&#22312;&#21518;&#38754;&#20877;&#21152;&#19978;&#19968;&#34892;&#23601;&#21487;&#20197;&#20102;&#65288;&#19981;&#29992;&#24341;&#21495;&#65289;&#65306;&#10;&#8220;username ALL=(ALL) ALL&#8221; &#10;&#20854;&#20013; username &#20026;&#25351;&#23450;&#30340;&#20351;&#29992; sudo &#30340;&#29992;&#25143;&#65292;&#24341;&#21495;&#20869;&#30340;&#31354;&#26684;&#20026; tab &#12290;&#10;&#25214;&#21040; root ALL=(ALL) ALL &#36825;&#19968;&#34892;&#65292;&#22312;&#21518;&#38754;&#20877;&#21152;&#19978;&#19968;&#34892;&#23601;&#21487;&#20197;&#20102;&#65288;&#19981;&#29992;&#24341;&#21495;&#65289;&#65306;&#10;&#8220;username ALL=(ALL) ALL&#8221; &#10;&#20854;&#20013; username &#20026;&#25351;&#23450;&#30340;&#20351;&#29992; sudo &#30340;&#29992;&#25143;&#65292;&#24341;&#21495;&#20869;&#30340;&#31354;&#26684;&#20026; tab&#10;&#10;&#22914;&#26524;&#20320;&#24819;&#27599;&#27425;&#20351;&#29992; sudo &#21629;&#20196;&#30340;&#26102;&#20505;&#37117;&#25552;&#31034;&#20320;&#36755;&#20837;&#26681;&#23494;&#30721;&#65292;&#31227;&#21160;&#21040;&#36825;&#19968;&#34892;&#65306;&#10;```&#123;bash&#125;&#10;#%wheel ALL=(ALL) ALL</span><br></pre></td></tr></table></figure></p>
-<p>解除 # 号注释<br>如果你不想每次使用 sudo 命令的时候都提示你输入跟密码，移动到下面这一行：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#%wheel ALL=(ALL)NOPASSWD:ALL</span><br></pre></td></tr></table></figure></p>
-<p>解除 # 号注释<br>保存后退出<br>添加用户名到 wheel 用户组：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -G wheel username</span><br></pre></td></tr></table></figure></p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2014/12/19/CentOS-apche-configuration/" itemprop="url">
                   Apache 常用文件的路径
                 </a>
@@ -1347,6 +1249,104 @@
 <li><p>Apache config 文件 httpd.conf 的位置在/etc/httpd/conf 下。<br>查看命令如下：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23zmtjn2dZ conf]# ls&#10;extra httpd.conf magic&#10;[lmmbao@iZ23zmtjn2dZ conf]# pwd&#10;/etc/httpd/conf</span><br></pre></td></tr></table></figure></li>
 </ol>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/12/19/add-user-to-sudo/" itemprop="url">
+                  CentOS 将用户添加到 sudo 用户组的方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2014-12-19T16:58:58+08:00" content="2014-12-19">
+              2014-12-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>安装完 CentOS 后，默认没有启用 sudo，首先应该是对 sudo 进行设置。<br>sudo的作用就是使当前非 root 用户在使用没有权限的命令 时，直接在命令前加入 sudo ，在输入自己当前用户的密码就可以完成 root 用户的功能，而不必在每次使用 su - 来回切换用户了。sudo的配置文件位于 /etc/sudoers，需要 root 权限才可以读写。<br><strong>运行visudo 来改 /etc/sudoers</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost lmmbao]# visudo&#10;``` &#10;&#10;&#25214;&#21040; root ALL=(ALL) ALL &#36825;&#19968;&#34892;&#65292;&#22312;&#21518;&#38754;&#20877;&#21152;&#19978;&#19968;&#34892;&#23601;&#21487;&#20197;&#20102;&#65288;&#19981;&#29992;&#24341;&#21495;&#65289;&#65306;&#10;&#8220;username ALL=(ALL) ALL&#8221; &#10;&#20854;&#20013; username &#20026;&#25351;&#23450;&#30340;&#20351;&#29992; sudo &#30340;&#29992;&#25143;&#65292;&#24341;&#21495;&#20869;&#30340;&#31354;&#26684;&#20026; tab &#12290;&#10;&#25214;&#21040; root ALL=(ALL) ALL &#36825;&#19968;&#34892;&#65292;&#22312;&#21518;&#38754;&#20877;&#21152;&#19978;&#19968;&#34892;&#23601;&#21487;&#20197;&#20102;&#65288;&#19981;&#29992;&#24341;&#21495;&#65289;&#65306;&#10;&#8220;username ALL=(ALL) ALL&#8221; &#10;&#20854;&#20013; username &#20026;&#25351;&#23450;&#30340;&#20351;&#29992; sudo &#30340;&#29992;&#25143;&#65292;&#24341;&#21495;&#20869;&#30340;&#31354;&#26684;&#20026; tab&#10;&#10;&#22914;&#26524;&#20320;&#24819;&#27599;&#27425;&#20351;&#29992; sudo &#21629;&#20196;&#30340;&#26102;&#20505;&#37117;&#25552;&#31034;&#20320;&#36755;&#20837;&#26681;&#23494;&#30721;&#65292;&#31227;&#21160;&#21040;&#36825;&#19968;&#34892;&#65306;&#10;```&#123;bash&#125;&#10;#%wheel ALL=(ALL) ALL</span><br></pre></td></tr></table></figure></p>
+<p>解除 # 号注释<br>如果你不想每次使用 sudo 命令的时候都提示你输入跟密码，移动到下面这一行：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#%wheel ALL=(ALL)NOPASSWD:ALL</span><br></pre></td></tr></table></figure></p>
+<p>解除 # 号注释<br>保存后退出<br>添加用户名到 wheel 用户组：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -G wheel username</span><br></pre></td></tr></table></figure></p>
 
             
           </span>
