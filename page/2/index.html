@@ -200,6 +200,128 @@
             
               
                 
+                <a class="post-title-link" href="/2015/02/12/Linux-FTP-configuration/" itemprop="url">
+                  Linux 下进行 FTP 设置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-02-12T09:58:58+08:00" content="2015-02-12">
+              2015-02-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h3 id="u4E00_u3001Redhat/CentOS_u5B89_u88C5vsftp_u8F6F_u4EF6"><a href="#u4E00_u3001Redhat/CentOS_u5B89_u88C5vsftp_u8F6F_u4EF6" class="headerlink" title="一、Redhat/CentOS安装vsftp软件"></a>一、Redhat/CentOS安装vsftp软件</h3><h4 id="1-_u66F4_u65B0yum_u6E90"><a href="#1-_u66F4_u65B0yum_u6E90" class="headerlink" title="1.更新yum源"></a>1.更新yum源</h4><p>首先需要更新系统的yum源，便捷工具下载地址：<a href="http://help.aliyun.com/manual?spm=0.0.0.0.zJ3dBU&amp;helpId=1692" target="_blank" rel="external">http://help.aliyun.com/manual?spm=0.0.0.0.zJ3dBU&amp;helpId=1692</a></p>
+<h4 id="2-_u5B89_u88C5vsftp"><a href="#2-_u5B89_u88C5vsftp" class="headerlink" title="2.安装vsftp"></a>2.安装vsftp</h4><p>使用yum命令安装vsftp<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#yum install vsftpd -y</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-_u6DFB_u52A0ftp_u5E10_u53F7_u548C_u76EE_u5F55"><a href="#3-_u6DFB_u52A0ftp_u5E10_u53F7_u548C_u76EE_u5F55" class="headerlink" title="3.添加ftp帐号和目录"></a>3.添加ftp帐号和目录</h4><p>先检查一下nologin的位置，通常在/usr/sbin/nologin或者/sbin/nologin下。</p>
+<p>使用下面的命令创建帐户，该命令指定了/alidata/www/wwwroot为用户pwftp的家目录，您可以自己定义帐户名和目录：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#useradd -d /alidata/www/wwwroot -s /sbin/nologin pwftp</span><br></pre></td></tr></table></figure></p>
+<p>修改该帐户密码:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#passwd pwftp</span><br></pre></td></tr></table></figure></p>
+<p>修改指定目录的权限<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#chown -R pwftp.pwftp /alidata/www/wwwroot</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-_u914D_u7F6Evsftp"><a href="#4-_u914D_u7F6Evsftp" class="headerlink" title="4.配置vsftp"></a>4.配置vsftp</h4><p>编辑vsftp配置文件，命令如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#vi /etc/vsftpd/vsftpd.conf</span><br></pre></td></tr></table></figure></p>
+<p>将配置文件中”anonymous_enable=YES “改为 “anonymous_enable=NO”</p>
+<p>取消如下配置前的注释符号：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">local_enable=YES&#10;&#10;write_enable=YES&#10;&#10;chroot_local_user=YES</span><br></pre></td></tr></table></figure></p>
+<p>保存修改，按ESC键，输入：wq</p>
+<h4 id="5-_u4FEE_u6539shell_u914D_u7F6E"><a href="#5-_u4FEE_u6539shell_u914D_u7F6E" class="headerlink" title="5.修改shell配置"></a>5.修改shell配置</h4><p>vi编辑/etc/shells，如果该文件里没有/usr/sbin/nologin或者/sbin/nologin（具体看当前系统配置）则追加进去</p>
+<h4 id="6-_u542F_u52A8vsftp_u670D_u52A1_u5E76_u6D4B_u8BD5_u767B_u5F55"><a href="#6-_u542F_u52A8vsftp_u670D_u52A1_u5E76_u6D4B_u8BD5_u767B_u5F55" class="headerlink" title="6.启动vsftp服务并测试登录"></a>6.启动vsftp服务并测试登录</h4><p>使用命令启动vsftp服务：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#service vsftpd start</span><br></pre></td></tr></table></figure></p>
+<p>然后用帐号pwftp测试下是否可以登陆ftp。目录是/alidata/www/wwwroot。</p>
+<h3 id="u4E8C_u3001Ubuntu/Debian_u5B89_u88C5vsftp_u8F6F_u4EF6"><a href="#u4E8C_u3001Ubuntu/Debian_u5B89_u88C5vsftp_u8F6F_u4EF6" class="headerlink" title="二、Ubuntu/Debian安装vsftp软件"></a>二、Ubuntu/Debian安装vsftp软件</h3><h4 id="1-_u66F4_u65B0_u8F6F_u4EF6_u6E90"><a href="#1-_u66F4_u65B0_u8F6F_u4EF6_u6E90" class="headerlink" title="1.更新软件源"></a>1.更新软件源</h4><p>首先需要更新系统的软件源，便捷工具下载地址：<a href="http://help.aliyun.com/manual?spm=0.0.0.0.zJ3dBU&amp;helpId=1692" target="_blank" rel="external">http://help.aliyun.com/manual?spm=0.0.0.0.zJ3dBU&amp;helpId=1692</a></p>
+<h4 id="2-_u5B89_u88C5vsftp-1"><a href="#2-_u5B89_u88C5vsftp-1" class="headerlink" title="2.安装vsftp"></a>2.安装vsftp</h4><p>使用apt-get命令安装vsftp<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#apt-get install vsftpd -y</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-_u6DFB_u52A0ftp_u5E10_u53F7_u548C_u76EE_u5F55-1"><a href="#3-_u6DFB_u52A0ftp_u5E10_u53F7_u548C_u76EE_u5F55-1" class="headerlink" title="3.添加ftp帐号和目录"></a>3.添加ftp帐号和目录</h4><p>先检查一下nologin的位置，通常在/usr/sbin/nologin或者/sbin/nologin下。</p>
+<p>使用下面的命令创建帐户，该命令指定了/alidata/www/wwwroot为用户pwftp的家目录，您可以自己定义帐户名和目录：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#useradd -d /alidata/www/wwwroot -s /sbin/nologin pwftp</span><br></pre></td></tr></table></figure></p>
+<p>修改该帐户密码:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#passwd pwftp</span><br></pre></td></tr></table></figure></p>
+<p>修改指定目录的权限<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#chown -R pwftp.pwftp /alidata/www/wwwroot</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-_u914D_u7F6Evsftp-1"><a href="#4-_u914D_u7F6Evsftp-1" class="headerlink" title="4.配置vsftp"></a>4.配置vsftp</h4><p>编辑vsftp配置文件，命令如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#vi /etc/vsftpd.conf</span><br></pre></td></tr></table></figure></p>
+<p>将配置文件中”anonymous_enable=YES “改为 “anonymous_enable=NO”</p>
+<p>取消如下配置前的注释符号：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">local_enable=YES&#10;&#10;write_enable=YES&#10;&#10;chroot_local_user=YES&#10;&#10;chroot_list_enable=YES&#10;&#10;chroot_list_file=/etc/vsftpd.chroot_list</span><br></pre></td></tr></table></figure></p>
+<p>保存退出</p>
+<p>编辑/etc/vsftpd.chroot_list文件，将ftp的帐户名添加进去，保存退出</p>
+<h4 id="5-_u4FEE_u6539shell_u914D_u7F6E-1"><a href="#5-_u4FEE_u6539shell_u914D_u7F6E-1" class="headerlink" title="5.修改shell配置"></a>5.修改shell配置</h4><p>vi编辑/etc/shells，如果该文件里没有/usr/sbin/nologin或者/sbin/nologin（具体看当前系统配置）则追加进去</p>
+<h4 id="6-_u91CD_u542Fvsftp_u670D_u52A1_u5E76_u6D4B_u8BD5_u767B_u5F55"><a href="#6-_u91CD_u542Fvsftp_u670D_u52A1_u5E76_u6D4B_u8BD5_u767B_u5F55" class="headerlink" title="6.重启vsftp服务并测试登录"></a>6.重启vsftp服务并测试登录</h4><p>使用命令启动vsftp服务：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#service vsftpd restart</span><br></pre></td></tr></table></figure></p>
+<p>然后用帐号pwftp测试下是否可以登陆ftp。目录是/alidata/www/wwwroot。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/02/09/mt-recommend-practice/" itemprop="url">
                   美团推荐算法实践（转）
                 </a>
@@ -1415,111 +1537,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/01/16/APP-api-version-control/" itemprop="url">
-                  RESTful API 版本控制策略(转)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-01-16T16:58:58+08:00" content="2015-01-16">
-              2015-01-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <p>做RESTful开放平台，一方面其API变动越少， 对API调用者越有利；另一方面，没有人可以预测未来，系统在发展的过程中，不可避免的需要添加新的资源，或者修改现有资源。因此，改动升级必不可少，但是，作为平台开发者，你必须有觉悟：一旦你的API开放出去，有人开始用了，你就不能只管自己Happy了，你对平台的任何改动都需要考虑对当前用户的影响。因此，做开放平台，你从第一个API的设计就需要开始API的版本控制策略问题，API的版本控制策略就像是开放平台和平台用户之间的长期协议，其设计的好坏将直接决定用户是否使用该平台，或者说用户在使用之后是否会因为某次版本升级直接弃用该平台。</p>
-<h3 id="u7248_u672C_u63A7_u5236_u7B56_u7565_u6A21_u5F0F"><a href="#u7248_u672C_u63A7_u5236_u7B56_u7565_u6A21_u5F0F" class="headerlink" title="版本控制策略模式"></a>版本控制策略模式</h3><p>API的版本控制策略通常有3种模式：<br>第一种：The Knot：无版本，即平台的API永远只有一个版本，所有的用户都必须使用最新的API，任何API的修改都会影响到平台所有的用户。甚至平台的整个生态系统。<br><img src="http://ww1.sinaimg.cn/mw690/6ba3371bgw1eobiameosxj20eo0d0t9k.jpg" alt="The Knot"><br>第二种：Point-to-Point：点对点，即平台的API版本自带版本号，用户根据自己的需求选择使用对应的API，需要使用新的API特性，用户必须自己升级。<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eobianomvaj20es0codgs.jpg" alt="Point-to-Point"><br>第三种：Compatible Versioning：兼容性版本控制，和The Knot一样，平台只有一个版本，但是最新版本需要兼容以前版本的API行为。<br><img src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1eobiaqsa8hj20fi0d0myh.jpg" alt="Compatible Versioning"><br>三种策略对整个平台在升级API的开销对比如下：<br><img src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1eobiask28xj20mq0kuadh.jpg" alt=""><br>以上信息来源于这篇文章：<a href="http://www.ebpml.org/blog2/index.php/2013/11/25/understanding-the-costs-of-versioning" target="_blank" rel="external">http://www.ebpml.org/blog2/index.php/2013/11/25/understanding-the-costs-of-versioning</a><br>作者以数学的方式详细的论述了这三种模式下，整个平台在升级API上的开销对比。</p>
-<p>针对上面的论述，首先，API一定得有版本，否则升级对于用户来说将是噩梦。其次，要做到Compatible Versioning有现实的限制，毕竟API升级时，不可避免的会出现无法兼容老版本的状况，因此，版本控制需要结合第二种和第三种模式，即提供一个统一的兼容版本入口，同时对于不能兼容历史版本的API保留历史版本，支持用户能够调用到历史版本的API。另外，对历史版本的API支持一定要有时间和用户限制，即老版API支持到一定时间就删除，新用户必须使用新版API，否则一个API有10个版本会让平台的维护非常痛苦。</p>
-<h3 id="URI_vs_Request_Parameter_vs_Media_Type"><a href="#URI_vs_Request_Parameter_vs_Media_Type" class="headerlink" title="URI vs Request Parameter vs Media Type"></a>URI vs Request Parameter vs Media Type</h3><p>在RESTful API领域，关于如何做版本控制，目前业界比较主流的有3种做法：<br>第一种：URI， 即在URI中直接标记使用的是哪个版本，无版本号URI默认使用最新版本。如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://xianlinbox/api/customers/1234  &#10;http://xianlinbox/api/v3.0/customers/1234</span><br></pre></td></tr></table></figure></p>
-<p>好处：<br>直接可以在URI中直观的看到API版本，<br>可以直接在浏览器的查看各个版本API的结果<br>坏处：<br>版本号在URI中破坏了REST的HATEOAS（hypermedia as the engine of application state）规则。版本号和资源之间并无直接关系。</p>
-<p>第二种：Request Parameter， 即在每个请求后添加一个version参数，表示请求的是哪个版本。如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://server:port/api/customer/123?version=2</span><br></pre></td></tr></table></figure></p>
-<p>这种做法其实就是URI方式的变种，好坏处也都一样。</p>
-<p>第三种： Mdedia Type， 即在HTTP请求的header中使用Media Type标记该请求想获取的资源， 同样的可以不设置或设置通用的Media Type表示最新版本的API。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">===&#62;  &#10;GET /customer/123 HTTP/1.1  &#10;Accept: application/vnd.xianlinbox.customer-v3+json  &#10;  &#10;&#60;===  &#10;HTTP/1.1 200 OK  &#10;Content-Type: application/vnd.xianlinbox.customer-v3+json  &#10;  &#10;&#123;&#34;customer&#34;:  &#10;  &#123;&#34;name&#34;:&#34;Xianlinbox&#34;&#125;  &#10;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>好处：遵循了REST的设计风格。<br>坏处：版本不直观，需要能设置header的client才能调用查看该API的效果。 </p>
-<p>via:<a href="http://ningandjiao.iteye.com/blog/1990004" target="_blank" rel="external">http://ningandjiao.iteye.com/blog/1990004</a></p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1566,7 +1583,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-count">59</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1580,7 +1597,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -200,6 +200,114 @@
             
               
                 
+                <a class="post-title-link" href="/2014/12/03/how-to-use-jacman/" itemprop="url">
+                  Jacman主题设置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2014-12-03T18:18:18+08:00" content="2014-12-03">
+              2014-12-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="u4E3B_u9898_u4ECB_u7ECD"><a href="#u4E3B_u9898_u4ECB_u7ECD" class="headerlink" title="主题介绍"></a>主题介绍</h2><p>Jacman 是一款扁平化，有着响应式设计的 Hexo 主题。本站正式使用了 Jacman 主题。Jacman 基于 Pacman 主题修改而来，目前已有很多特性与原主题不同。</p>
+<h2 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h2><p>在博客根目录下执行如下命令。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/wuchong/jacman.git themes/jacman</span><br></pre></td></tr></table></figure></p>
+<p>Jacman 需要安装 Hexo 2.7 及以上版本，请先升级您的 Hexo 程序，再启用此主题。</p>
+<h2 id="u542F_u7528"><a href="#u542F_u7528" class="headerlink" title="启用"></a>启用</h2><p>修改你的博客根目录下的_config.yml配置文件中的theme属性，将其设置为jacman。同时建议设置stylus属性中的compress值为true，会自动压缩 CSS 文件，hexo默认配置中不包含这一项，建议开启。如下。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: jacman&#10;stylus:&#10;  compress: true</span><br></pre></td></tr></table></figure></p>
+<h2 id="u66F4_u65B0"><a href="#u66F4_u65B0" class="headerlink" title="更新"></a>更新</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd themes/jacman&#10;git pull origin master</span><br></pre></td></tr></table></figure>
+<p>请先备份您主题目录下的 _config.yml 文件后再升级。</p>
+<h3 id="u914D_u7F6E_u6307_u5357"><a href="#u914D_u7F6E_u6307_u5357" class="headerlink" title="配置指南"></a>配置指南</h3><p>Jacman 主题提供了丰富的配置属性，可以实现您对主题的自定义。配置文件_config.yml位于主题根目录下。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##### &#33756;&#21333;&#10;menu:&#10;  &#20027;&#39029;: /&#10;  &#24402;&#26723;: /archives&#10;  &#20851;&#20110;: /about&#10;#### &#25511;&#20214;&#10;widgets: &#10;- category&#10;- tag&#10;- links&#10;- rss&#10;#### RSS &#10;rss: /atom.xml &#10;#### &#22270;&#29255;&#30456;&#20851;&#10;imglogo:&#10;  enable: true               ## &#26159;&#21542;&#26174;&#31034;&#32593;&#31449; logo&#10;  src: img/logo.png        &#10;favicon: img/favicon.ico     ## &#32593;&#31449;&#22270;&#26631;    &#10;apple_icon: img/jacman.jpg   ## &#33529;&#26524;&#35774;&#22791;&#19978;&#30340;&#22270;&#26631;&#65292;&#32972;&#26223;&#19981;&#35201;&#36879;&#26126;&#10;author_img: img/author.jpg   ## &#32593;&#31449;&#24213;&#37096;&#30340;&#21338;&#20027;&#22836;&#20687;&#10;#### &#39318;&#39029;&#30456;&#20851;&#10;index:&#10;  expand: false              ## &#39318;&#39029;&#25991;&#31456;&#26159;&#21542;&#23637;&#24320;&#12290;&#40664;&#35748;&#20026;&#19981;&#23637;&#24320;&#65292;&#21345;&#29255;&#24335;&#12290;&#10;  excerpt_link: Read More    &#10;  &#10;#### &#20316;&#32773;&#20449;&#24687;&#10;author:&#10;  intro_line1:  &#34;Hello ,I&#39;m Larry Page in Google.&#34;    ## &#32593;&#31449;&#24213;&#37096;&#30340;&#20010;&#20154;&#20171;&#32461;&#10;  intro_line2:  &#34;This is my blog,believe it or not.&#34;  &#10;  weibo_verifier:  ## &#24494;&#21338;&#31168;&#30340;&#39564;&#35777;&#30721;&#10;  tsina:           ## &#29992;&#20110;&#24494;&#21338;&#31168;&#21644;&#24494;&#21338;&#20998;&#20139;&#10;  weibo:           ## &#29992;&#20110;&#26174;&#31034;&#32593;&#31449;&#24213;&#37096;&#31038;&#20132;&#25353;&#38062;&#65292;&#19979;&#21516;&#10;  douban:         &#10;  zhihu:  &#10;  email:     &#10;  twitter:   &#10;  github:     &#10;  facebook: &#10;  linkedin:   &#10;  google_plus:   &#10;  stackoverflow:  &#10;#### &#30446;&#24405;&#10;toc:&#10;  article: true   ## &#26159;&#21542;&#22312;&#25991;&#31456;&#20013;&#26174;&#31034;&#30446;&#24405;&#10;  aside: true     ## &#26159;&#21542;&#22312;&#20391;&#36793;&#26639;&#26174;&#31034;&#30446;&#24405;&#10;#### &#21451;&#24773;&#38142;&#25509;&#10;links:&#10;  Jark&#39;s Blog: http://zhangyouzhi.me&#10;  Hexo: http://hexo.io&#10;  &#10;#### &#35780;&#35770;&#10;duoshuo_shortname: &#10;disqus_shortname:  &#10;#### &#20998;&#20139;&#25353;&#38062;&#10;jiathis:&#10;  enable: false   ## &#40664;&#35748;&#20351;&#29992;&#20027;&#39064;&#20869;&#24314;&#20998;&#20139;&#10;  id:    &#10;  tsina: &#10;  &#10;#### &#32593;&#31449;&#32479;&#35745;&#10;google_analytics:&#10;  enable: false&#10;  id:            ## google analytics ID.&#10;  site:          ## &#32593;&#31449;&#22320;&#22336;.&#10;baidu_tongji:&#10;  enable: false&#10;  sitecode:      ## &#30334;&#24230;&#32479;&#35745;&#31449;&#28857;&#29305;&#24449;&#30721;&#10;cnzz_tongji:&#10;  enable: false&#10;  siteid:        ## CNZZ&#32479;&#35745;&#31449;&#28857;ID&#10;#### &#26434;&#39033;&#10;ShowCustomFont: true  &#10;fancybox: true        &#10;totop: true           &#10;#### &#33258;&#23450;&#20041;&#25628;&#32034;&#10;google_cse: &#10;  enable: false&#10;  cx:  &#10;baidu_search:    &#10;  enable: false&#10;  id:   &#10;  site: http://zhannei.baidu.com/cse/search&#10;&#23646;&#24615;&#21151;&#33021;</span><br></pre></td></tr></table></figure></p>
+<h3 id="u83DC_u5355_menu"><a href="#u83DC_u5355_menu" class="headerlink" title="菜单 menu"></a>菜单 menu</h3><p>默认没有启用 /tags 和 /categories页面，如果需要启用请在博客目录下的source文件夹中分别建立tags 和 categories文件夹每个文件夹中分别包含一个index.md文件。内容为：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">layout: tags (&#25110;categories)&#10;title: tags (&#25110;categories)&#10;---</span><br></pre></td></tr></table></figure></p>
+<p>因为主题中已经内置了这两个页面的模板，所以他们会被正确的解析出来。  </p>
+<h3 id="u63A7_u4EF6_widgets"><a href="#u63A7_u4EF6_widgets" class="headerlink" title="控件 widgets"></a>控件 widgets</h3><p>提供了7种小工具。包括标签、标签云、分类、归档、RSS、友情链接、微博秀。<br>友情链接：友情链接的网址添加可以在links属性下添加。</p>
+<h3 id="u5FAE_u535A_u79C0_uFF1A"><a href="#u5FAE_u535A_u79C0_uFF1A" class="headerlink" title="微博秀："></a>微博秀：</h3><p>需要注意的是，如果要启用微博秀，您必须填上author属性下tsina和weibo_verifier的值，前者是您微博ID，后者是您微博秀的验证码，访问 <a href="http://app.weibo.com/tool/weiboshow">http://app.weibo.com/tool/weiboshow</a> 在如下图位置，可以获得您的 verifier，如：我的是4a0b79d5。<br>在主题文件夹下 themes/主题名/_widget/ 创建文件（文本文件就行）修改后缀名为 .ejs ，在新浪微博-我的工具下面选择微博秀,然后将代码复制到文件中即可。</p>
+<h3 id="u56FE_u7247_u76F8_u5173_Image"><a href="#u56FE_u7247_u76F8_u5173_Image" class="headerlink" title="图片相关 Image"></a>图片相关 Image</h3><p>本主题可以设置网站相关图片，例如网站图标（favicon）、网站logo（imglogo）、作者头像（author_img）。建议启用网站logo，格式建议为.svg或.png格式。同时建议提供配套的 favicon 以及在苹果设备上的图标apple_icon（背景不要透明）。</p>
+<h3 id="u9996_u9875_u663E_u793A_u6A21_u5F0F_Index"><a href="#u9996_u9875_u663E_u793A_u6A21_u5F0F_Index" class="headerlink" title="首页显示模式 Index"></a>首页显示模式 Index</h3><p>目前首页的显示模式支持两种，一种是原先的卡片式（前往 Demo 预览），另一种是类似官方主题的文章展开式（本站即采用的这种）。两者各有优劣，前者首页加载速度更快，后者文章内容更能吸引读者。主题默认采用第一种卡片式，如需开启第二种展开式，请设置index属性下的expand: true。<br>卡片式的文章摘要是截取文章内容的前140个字，也可以自己总结description并将其放在开头的front-matter中。展开式的文章摘要就是使用
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/03/how-to-use-jacman/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/12/03/Markdown-basic/" itemprop="url">
                   Markdown语法（转）
                 </a>
@@ -1642,7 +1750,7 @@ _   底线
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-count">59</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1656,7 +1764,7 @@ _   底线
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
