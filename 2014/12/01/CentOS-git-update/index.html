@@ -52,21 +52,18 @@
 
 
 <meta name="description" content="As of this writing, CentOS 6.5 has a default git version of 1.7.1-2.  This version is what you will have installed if you run the typical install command:
-1# yum install git
-However, GitHub and many o">
+1# yum install git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS 6.5升级git">
 <meta property="og:url" content="http://zhangyouzhi.com/2014/12/01/CentOS-git-update/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="As of this writing, CentOS 6.5 has a default git version of 1.7.1-2.  This version is what you will have installed if you run the typical install command:
-1# yum install git
-However, GitHub and many o">
-<meta property="og:updated_time" content="2015-10-19T08:14:02.393Z">
+1# yum install git">
+<meta property="og:updated_time" content="2015-12-30T14:46:44.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 6.5升级git">
 <meta name="twitter:description" content="As of this writing, CentOS 6.5 has a default git version of 1.7.1-2.  This version is what you will have installed if you run the typical install command:
-1# yum install git
-However, GitHub and many o">
+1# yum install git">
 
 
 
@@ -248,6 +245,7 @@ However, GitHub and many o">
       
         <span itemprop="articleBody"><p>As of this writing, CentOS 6.5 has a default git version of 1.7.1-2.  This version is what you will have installed if you run the typical install command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install git</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>However, GitHub and many other services require git version 1.7.10 or higher. It turns out there is a very easy way to get git.  You need to do this from a privileged account, but then the process is simple.<br>Add RPM Forge to Yum Repos</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># wget &#39;http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm&#39;&#10;# rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt&#10;# rpm -i &#39;http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm&#39;&#10;# yum clean all</span><br></pre></td></tr></table></figure>
 <p>Install New Version from RPM Forge</p>

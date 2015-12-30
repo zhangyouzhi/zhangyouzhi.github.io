@@ -61,7 +61,7 @@
 <meta property="og:description" content="一、为什么要用Rsync+sersync架构?1、sersync是基于Inotify开发的，类似于Inotify-tools的工具
 2、sersync可以记录下被监听目录中发生变化的（包括增加、删除、修改）具体某一个文件或某一个目录的名字，然后使用rsync同步的时候，只同步发生变化的这个文件或者这个目录。
 二、Rsync+Inotify-tools与Rsync+sersync这两种架构有什么区别">
-<meta property="og:updated_time" content="2015-10-19T08:14:04.175Z">
+<meta property="og:updated_time" content="2015-12-30T14:45:34.487Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 6.5 Rsync+sersync 实现数据实时同步备份">
 <meta name="twitter:description" content="一、为什么要用Rsync+sersync架构?1、sersync是基于Inotify开发的，类似于Inotify-tools的工具
@@ -250,6 +250,7 @@
 <p>2、sersync可以记录下被监听目录中发生变化的（包括增加、删除、修改）具体某一个文件或某一个目录的名字，然后使用rsync同步的时候，只同步发生变化的这个文件或者这个目录。</p>
 <h3 id="u4E8C_u3001Rsync+Inotify-tools_u4E0ERsync+sersync_u8FD9_u4E24_u79CD_u67B6_u6784_u6709_u4EC0_u4E48_u533A_u522B_uFF1F"><a href="#u4E8C_u3001Rsync+Inotify-tools_u4E0ERsync+sersync_u8FD9_u4E24_u79CD_u67B6_u6784_u6709_u4EC0_u4E48_u533A_u522B_uFF1F" class="headerlink" title="二、Rsync+Inotify-tools与Rsync+sersync这两种架构有什么区别？"></a>二、Rsync+Inotify-tools与Rsync+sersync这两种架构有什么区别？</h3><p>1、Rsync+Inotify-tools<br>（1）：Inotify-tools只能记录下被监听的目录发生了变化（包括增加、删除、修改），并没有把具体是哪个文件或者哪个目录发生了变化记录下来。</p>
 <p>（2）：rsync在同步的时候，并不知道具体是哪个文件或者哪个目录发生了变化，每次都是对整个目录进行同步，当数据量很大时，整个目录同步非常耗时（rsync要对整个目录遍历查找对比文件），因此，效率很低。</p>
+<a id="more"></a>
 <p>2、Rsync+sersync</p>
 <p>（1）：sersync可以记录下被监听目录中发生变化的（包括增加、删除、修改）具体某一个文件或某一个目录的名字；</p>
 <p>（2）：rsync在同步的时候，只同步发生变化的这个文件或者这个目录（每次发生变化的数据相对整个同步目录数据来说是很小的，rsync在遍历查找比对文件时，速度很快），因此，效率很高。</p>

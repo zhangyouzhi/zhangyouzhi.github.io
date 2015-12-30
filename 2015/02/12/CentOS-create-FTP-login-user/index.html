@@ -59,7 +59,7 @@ OK表示重启成功了。启动和关闭分别把restart改为start/stop即可.
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="1. 重启/关闭 vsftpd 服务器1[root@localhost ftp]# service vsftpd restart &amp;#10;&amp;#10;Shutting down vsftpd: [ OK ] &amp;#10;&amp;#10;Starting vsftpd for vsftpd: [ OK ]
 OK表示重启成功了。启动和关闭分别把restart改为start/stop即可.如果是源码安装的,到安">
-<meta property="og:updated_time" content="2015-10-19T08:14:02.042Z">
+<meta property="og:updated_time" content="2015-12-30T14:46:28.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS下创建FTP登录用户">
 <meta name="twitter:description" content="1. 重启/关闭 vsftpd 服务器1[root@localhost ftp]# service vsftpd restart &amp;#10;&amp;#10;Shutting down vsftpd: [ OK ] &amp;#10;&amp;#10;Starting vsftpd for vsftpd: [ OK ]
@@ -245,6 +245,7 @@ OK表示重启成功了。启动和关闭分别把restart改为start/stop即可.
       
         <span itemprop="articleBody"><h3 id="1-__u91CD_u542F/_u5173_u95ED_vsftpd__u670D_u52A1_u5668"><a href="#1-__u91CD_u542F/_u5173_u95ED_vsftpd__u670D_u52A1_u5668" class="headerlink" title="1. 重启/关闭 vsftpd 服务器"></a>1. 重启/关闭 vsftpd 服务器</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ftp]# service vsftpd restart &#10;&#10;Shutting down vsftpd: [ OK ] &#10;&#10;Starting vsftpd for vsftpd: [ OK ]</span><br></pre></td></tr></table></figure>
 <p>OK表示重启成功了。<br>启动和关闭分别把restart改为start/stop即可.<br>如果是源码安装的,到安装文件夹下找到start.sh和shutdown.sh文件,执行它们就可以了。</p>
+<a id="more"></a>
 <h3 id="2-__u4E0Evsftpd_u670D_u52A1_u5668_u6709_u5173_u7684_u6587_u4EF6_u548C_u6587_u4EF6_u5939"><a href="#2-__u4E0Evsftpd_u670D_u52A1_u5668_u6709_u5173_u7684_u6587_u4EF6_u548C_u6587_u4EF6_u5939" class="headerlink" title="2. 与vsftpd服务器有关的文件和文件夹"></a>2. 与vsftpd服务器有关的文件和文件夹</h3><p>vsftpd服务器的配置文件的是: /etc/vsftpd/vsftpd.conf vsftpd服务器的根目录,即FTP服务器的主目录: 在/var/ftp处pub处。<br>如果你想修改服务器目录的路径,那么你只要修改/var/ftp到别处就行了。</p>
 <h3 id="3-__u6DFB_u52A0FTP_u672C_u5730_u7528_u6237"><a href="#3-__u6DFB_u52A0FTP_u672C_u5730_u7528_u6237" class="headerlink" title="3. 添加FTP本地用户"></a>3. 添加FTP本地用户</h3><p>有的FTP服务器需要用户名和密码才能登录,就是因为设置了FTP用户和权限.<br>FTP用户一般是不能登录系统的,只能进入FTP服务器自己的目录中,这是为了安全.这样的用户就叫做虚拟用户了.实际上并不是真正的虚拟用户,只是不能登录SHELL了而已,没能力登录系统.</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/sbin/adduser -d /var/test_ftp -g ftp -s /sbin/nologin testftp</span><br></pre></td></tr></table></figure>

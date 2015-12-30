@@ -51,19 +51,16 @@
 
 
 
-<meta name="description" content="Apache 部署静态页面的位置经常要在Apache部署发布页面文件，需要找到对应的目录下面，目录/var/www/html。
-1[lmmbao@iZ23lttzrggZ /]$ cd /var/www/html/&amp;#10;[lmmbao@iZ23lttzrggZ html]$ ll&amp;#10;total 24&amp;#10;drwxr-xr-x 5 root root 4096 Nov 20 15:49">
+<meta name="description" content="Apache 部署静态页面的位置经常要在Apache部署发布页面文件，需要找到对应的目录下面，目录/var/www/html。1[lmmbao@iZ23lttzrggZ /]$ cd /var/www/html/&amp;#10;[lmmbao@iZ23lttzrggZ html]$ ll&amp;#10;total 24&amp;#10;drwxr-xr-x 5 root root 4096 Nov 20 15:49">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Apache 常用文件的路径">
 <meta property="og:url" content="http://zhangyouzhi.com/2014/12/19/CentOS-apche-configuration/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
-<meta property="og:description" content="Apache 部署静态页面的位置经常要在Apache部署发布页面文件，需要找到对应的目录下面，目录/var/www/html。
-1[lmmbao@iZ23lttzrggZ /]$ cd /var/www/html/&amp;#10;[lmmbao@iZ23lttzrggZ html]$ ll&amp;#10;total 24&amp;#10;drwxr-xr-x 5 root root 4096 Nov 20 15:49">
-<meta property="og:updated_time" content="2015-10-19T08:14:01.761Z">
+<meta property="og:description" content="Apache 部署静态页面的位置经常要在Apache部署发布页面文件，需要找到对应的目录下面，目录/var/www/html。1[lmmbao@iZ23lttzrggZ /]$ cd /var/www/html/&amp;#10;[lmmbao@iZ23lttzrggZ html]$ ll&amp;#10;total 24&amp;#10;drwxr-xr-x 5 root root 4096 Nov 20 15:49">
+<meta property="og:updated_time" content="2015-12-30T14:46:18.245Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Apache 常用文件的路径">
-<meta name="twitter:description" content="Apache 部署静态页面的位置经常要在Apache部署发布页面文件，需要找到对应的目录下面，目录/var/www/html。
-1[lmmbao@iZ23lttzrggZ /]$ cd /var/www/html/&amp;#10;[lmmbao@iZ23lttzrggZ html]$ ll&amp;#10;total 24&amp;#10;drwxr-xr-x 5 root root 4096 Nov 20 15:49">
+<meta name="twitter:description" content="Apache 部署静态页面的位置经常要在Apache部署发布页面文件，需要找到对应的目录下面，目录/var/www/html。1[lmmbao@iZ23lttzrggZ /]$ cd /var/www/html/&amp;#10;[lmmbao@iZ23lttzrggZ html]$ ll&amp;#10;total 24&amp;#10;drwxr-xr-x 5 root root 4096 Nov 20 15:49">
 
 
 
@@ -244,11 +241,12 @@
 
       
         <span itemprop="articleBody"><ol>
-<li><p>Apache 部署静态页面的位置<br>经常要在Apache部署发布页面文件，需要找到对应的目录下面，目录/var/www/html。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23lttzrggZ /]$ cd /var/www/html/&#10;[lmmbao@iZ23lttzrggZ html]$ ll&#10;total 24&#10;drwxr-xr-x 5 root root 4096 Nov 20 15:49 birthday-cake&#10;-rw-r--r-- 1 root root   26 Nov 12 19:13 hello.php&#10;-rw-r--r-- 1 root root   15 Nov 12 18:54 index.html&#10;-rw-r--r-- 1 root root   20 Nov 12 19:03 index.php&#10;drwxr-xr-x 4 root root 4096 Nov 20 16:43 love&#10;drwxr-xr-x 5 root root 4096 Dec  4 10:56 wedding-cake&#10;[lmmbao@iZ23lttzrggZ html]$ cd /</span><br></pre></td></tr></table></figure>
+<li>Apache 部署静态页面的位置<br>经常要在Apache部署发布页面文件，需要找到对应的目录下面，目录/var/www/html。<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23lttzrggZ /]$ cd /var/www/html/&#10;[lmmbao@iZ23lttzrggZ html]$ ll&#10;total 24&#10;drwxr-xr-x 5 root root 4096 Nov 20 15:49 birthday-cake&#10;-rw-r--r-- 1 root root   26 Nov 12 19:13 hello.php&#10;-rw-r--r-- 1 root root   15 Nov 12 18:54 index.html&#10;-rw-r--r-- 1 root root   20 Nov 12 19:03 index.php&#10;drwxr-xr-x 4 root root 4096 Nov 20 16:43 love&#10;drwxr-xr-x 5 root root 4096 Dec  4 10:56 wedding-cake&#10;[lmmbao@iZ23lttzrggZ html]$ cd /</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Apache config 文件 httpd.conf 的位置在/etc/httpd/conf 下。<br>查看命令如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23zmtjn2dZ conf]# ls&#10;extra httpd.conf magic&#10;[lmmbao@iZ23zmtjn2dZ conf]# pwd&#10;/etc/httpd/conf</span><br></pre></td></tr></table></figure></li>
+</ol>
+<a id="more"></a>
+<ol>
+<li>Apache config 文件 httpd.conf 的位置在/etc/httpd/conf 下。<br>查看命令如下：<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23zmtjn2dZ conf]# ls&#10;extra httpd.conf magic&#10;[lmmbao@iZ23zmtjn2dZ conf]# pwd&#10;/etc/httpd/conf</span><br></pre></td></tr></table></figure></li>
 </ol>
 </span>
       

@@ -52,24 +52,18 @@
 
 
 <meta name="description" content="使用yum命令安装Apache
-由于 CentOS 已经封装了 Apache，直接运行安装：1[root@iZ23i2txh8jZ ~]# yum install httpd
-同样配置系统让 Apache 随系统启动：1[root@iZ23i2txh8jZ ~]# chkconfig --levels 235 httpd on
-配置完毕，启动 Apache：1[root@iZ23i2txh8jZ">
+由于 CentOS 已经封装了 Apache，直接运行安装：1[root@iZ23i2txh8jZ ~]# yum install httpd">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS 安装 Apache 服务">
 <meta property="og:url" content="http://zhangyouzhi.com/2014/12/30/CentOS-Install-Apache/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="使用yum命令安装Apache
-由于 CentOS 已经封装了 Apache，直接运行安装：1[root@iZ23i2txh8jZ ~]# yum install httpd
-同样配置系统让 Apache 随系统启动：1[root@iZ23i2txh8jZ ~]# chkconfig --levels 235 httpd on
-配置完毕，启动 Apache：1[root@iZ23i2txh8jZ">
-<meta property="og:updated_time" content="2015-10-19T08:14:02.870Z">
+由于 CentOS 已经封装了 Apache，直接运行安装：1[root@iZ23i2txh8jZ ~]# yum install httpd">
+<meta property="og:updated_time" content="2015-12-30T14:46:55.265Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 安装 Apache 服务">
 <meta name="twitter:description" content="使用yum命令安装Apache
-由于 CentOS 已经封装了 Apache，直接运行安装：1[root@iZ23i2txh8jZ ~]# yum install httpd
-同样配置系统让 Apache 随系统启动：1[root@iZ23i2txh8jZ ~]# chkconfig --levels 235 httpd on
-配置完毕，启动 Apache：1[root@iZ23i2txh8jZ">
+由于 CentOS 已经封装了 Apache，直接运行安装：1[root@iZ23i2txh8jZ ~]# yum install httpd">
 
 
 
@@ -251,6 +245,7 @@
       
         <span itemprop="articleBody"><p><strong>使用yum命令安装Apache</strong></p>
 <p>由于 CentOS 已经封装了 Apache，直接运行安装：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ ~]# yum install httpd</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>同样配置系统让 Apache 随系统启动：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ ~]# chkconfig --levels 235 httpd on</span><br></pre></td></tr></table></figure></p>
 <p>配置完毕，启动 Apache：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ ~]# /etc/init.d/httpd start</span><br></pre></td></tr></table></figure></p>
 <p>如果在启动过程中出现:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ ~]# /etc/init.d/httpd start&#10;Starting httpd: httpd: Could not reliably determine the server&#39;s fully qualified domain name, using 10.168.213.151 for ServerName&#10;                                                           [  OK  ]&#10;[root@iZ23i2txh8jZ ~]# /etc/init.d/httpd start</span><br></pre></td></tr></table></figure></p>

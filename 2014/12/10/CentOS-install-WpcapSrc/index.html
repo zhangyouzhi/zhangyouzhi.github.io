@@ -51,16 +51,16 @@
 
 
 
-<meta name="description" content="因为需要用Wireshark进行远程抓包，需要在远程主机上安装相应的rpcapd服务。Windows上只要安装WinPcap软件就行了，它已经包含了rpcapd服务，只要启动就行了。但Linux上需要自己编译。注：Wireshark支持remote packet capture protocol协议远程抓包，只要在远程主机上安装相应的rpcapd服务例程就可以。安装命令如下：1yum instal">
+<meta name="description" content="因为需要用Wireshark进行远程抓包，需要在远程主机上安装相应的rpcapd服务。Windows上只要安装WinPcap软件就行了，它已经包含了rpcapd服务，只要启动就行了。但Linux上需要自己编译。注：Wireshark支持remote packet capture protocol协议远程抓包，只要在远程主机上安装相应的rpcapd服务例程就可以。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS安装rpcapd服务（WinPcap）">
 <meta property="og:url" content="http://zhangyouzhi.com/2014/12/10/CentOS-install-WpcapSrc/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
-<meta property="og:description" content="因为需要用Wireshark进行远程抓包，需要在远程主机上安装相应的rpcapd服务。Windows上只要安装WinPcap软件就行了，它已经包含了rpcapd服务，只要启动就行了。但Linux上需要自己编译。注：Wireshark支持remote packet capture protocol协议远程抓包，只要在远程主机上安装相应的rpcapd服务例程就可以。安装命令如下：1yum instal">
-<meta property="og:updated_time" content="2015-10-19T08:14:03.477Z">
+<meta property="og:description" content="因为需要用Wireshark进行远程抓包，需要在远程主机上安装相应的rpcapd服务。Windows上只要安装WinPcap软件就行了，它已经包含了rpcapd服务，只要启动就行了。但Linux上需要自己编译。注：Wireshark支持remote packet capture protocol协议远程抓包，只要在远程主机上安装相应的rpcapd服务例程就可以。">
+<meta property="og:updated_time" content="2015-12-30T14:47:52.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS安装rpcapd服务（WinPcap）">
-<meta name="twitter:description" content="因为需要用Wireshark进行远程抓包，需要在远程主机上安装相应的rpcapd服务。Windows上只要安装WinPcap软件就行了，它已经包含了rpcapd服务，只要启动就行了。但Linux上需要自己编译。注：Wireshark支持remote packet capture protocol协议远程抓包，只要在远程主机上安装相应的rpcapd服务例程就可以。安装命令如下：1yum instal">
+<meta name="twitter:description" content="因为需要用Wireshark进行远程抓包，需要在远程主机上安装相应的rpcapd服务。Windows上只要安装WinPcap软件就行了，它已经包含了rpcapd服务，只要启动就行了。但Linux上需要自己编译。注：Wireshark支持remote packet capture protocol协议远程抓包，只要在远程主机上安装相应的rpcapd服务例程就可以。">
 
 
 
@@ -240,7 +240,9 @@
       
 
       
-        <span itemprop="articleBody"><p>因为需要用Wireshark进行远程抓包，需要在远程主机上安装相应的rpcapd服务。Windows上只要安装WinPcap软件就行了，它已经包含了rpcapd服务，只要启动就行了。但Linux上需要自己编译。<br><em>注：Wireshark支持remote packet capture protocol协议远程抓包，只要在远程主机上安装相应的rpcapd服务例程就可以。</em><br><strong>安装命令如下：</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install glibc-static&#10;wget http://www.winpcap.org/install/bin/WpcapSrc_4_1_2.zip&#10;unzip WpcapSrc_4_1_2.zip&#10;cd winpcap/wpcap/libpcap&#10;chmod +x configure runlex.sh&#10;CFLAGS=-static ./configure&#10;make&#10;cd rpcapd&#10;make</span><br></pre></td></tr></table></figure></p>
+        <span itemprop="articleBody"><p>因为需要用Wireshark进行远程抓包，需要在远程主机上安装相应的rpcapd服务。Windows上只要安装WinPcap软件就行了，它已经包含了rpcapd服务，只要启动就行了。但Linux上需要自己编译。<br><em>注：Wireshark支持remote packet capture protocol协议远程抓包，只要在远程主机上安装相应的rpcapd服务例程就可以。</em></p>
+<a id="more"></a>
+<p><strong>安装命令如下：</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install glibc-static&#10;wget http://www.winpcap.org/install/bin/WpcapSrc_4_1_2.zip&#10;unzip WpcapSrc_4_1_2.zip&#10;cd winpcap/wpcap/libpcap&#10;chmod +x configure runlex.sh&#10;CFLAGS=-static ./configure&#10;make&#10;cd rpcapd&#10;make</span><br></pre></td></tr></table></figure></p>
 <p>然后<br>./rpcapd -n<br>就运行rpcap服务了。</p>
 <p><strong>但是，运行./rpcapd -n报如下错误</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23gx7o02aZ rpcapd]# ./rpcapd -n&#10;Press CTRL + C to stop the server...&#10;socket(): Address family not supported by protocol (code 97)</span><br></pre></td></tr></table></figure></p>
 <p><em>原因：在linux上，端口有可能没有开放，这时需要修改iptables服务的配置来开放2002端口。</em><br><strong>解决办法：</strong></p>

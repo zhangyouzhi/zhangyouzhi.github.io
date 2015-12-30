@@ -62,7 +62,7 @@
 二、检查php环境,建议使用php5.3【含】 以上版本1[root@iZ23jffs85aZ /]# rmp -qa | grep php
 没有php环境时提示如下：1[root@iZ23jffs85aZ /]# rmp -qa | grep php&amp;#10;bash: rmp: command not found&amp;#10;[root@iZ23jffs85">
 <meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eq2x3l2zclj20gq0hdjvs.jpg">
-<meta property="og:updated_time" content="2015-10-19T08:14:03.760Z">
+<meta property="og:updated_time" content="2015-12-30T14:47:16.688Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 安装 PHP">
 <meta name="twitter:description" content="一、安装ApacheApache 安装
@@ -250,6 +250,7 @@
         <span itemprop="articleBody"><h3 id="u4E00_u3001_u5B89_u88C5Apache"><a href="#u4E00_u3001_u5B89_u88C5Apache" class="headerlink" title="一、安装Apache"></a>一、安装Apache</h3><p><a href="http://zhangyouzhi.com/2014/12/30/CentOS-Install-Apache/">Apache 安装</a></p>
 <h3 id="u4E8C_u3001_u68C0_u67E5php_u73AF_u5883_2C_u5EFA_u8BAE_u4F7F_u7528php5-3_u3010_u542B_u3011__u4EE5_u4E0A_u7248_u672C"><a href="#u4E8C_u3001_u68C0_u67E5php_u73AF_u5883_2C_u5EFA_u8BAE_u4F7F_u7528php5-3_u3010_u542B_u3011__u4EE5_u4E0A_u7248_u672C" class="headerlink" title="二、检查php环境,建议使用php5.3【含】 以上版本"></a>二、检查php环境,建议使用php5.3【含】 以上版本</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23jffs85aZ /]# rmp -qa | grep php</span><br></pre></td></tr></table></figure>
 <p>没有php环境时提示如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23jffs85aZ /]# rmp -qa | grep php&#10;bash: rmp: command not found&#10;[root@iZ23jffs85aZ /]#</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <h3 id="u4E09_u3001_u5B89_u88C5PHP"><a href="#u4E09_u3001_u5B89_u88C5PHP" class="headerlink" title="三、安装PHP"></a>三、安装PHP</h3><p>按以下步骤安装：<br>3.1 使用yum命令安装PHP<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23jffs85aZ /]# yum install php</span><br></pre></td></tr></table></figure></p>
 <p>3.2 重启Apache服务器</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23jffs85aZ /]# /etc/init.d/httpd restart&#10;Stopping httpd:                                            [  OK  ]&#10;Starting httpd:                                            [  OK  ]&#10;[root@iZ23jffs85aZ /]#</span><br></pre></td></tr></table></figure>

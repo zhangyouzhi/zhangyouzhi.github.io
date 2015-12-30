@@ -735,12 +735,12 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>今天竟然意外的下雪了，而且很大。观雪有感，作文记之。<br>雪，很冬天。<br>冬天因雪而不再凌厉肃杀。<br>高骈说：“六月飞花入户时，坐看青竹变琼枝。”<br>雪，很北国。<br>北国因雪而变得温情江南。<br>元稹说，“才见岭头似盖，已惊岩下雪如尘；千峰笋石千株玉，万树松萝万朵云。”<br>雪很边疆，很羁旅。<br>岑参说，“山回路转不见君，雪上空留马行处。”<br>韩愈说，“云横秦岭家何在，雪拥蓝关马不前。”<br>雪，很梅花。<br>卢梅坡说，“梅须逊雪三分白，雪却输梅一段香。”<br>吕本中说，“雪似梅花，梅花似雪，似和不似都奇绝。”<br>雪，很春意。<br>岑参说，“忽如一夜春风来，千树万树梨花开。”<br>欧阳修说，“雪消门外千山绿，花发江南二月晴。”<br>雪，很陶渊明。<br>柳宗元说，“千山鸟飞绝，万径人踪灭；孤舟蓑笠翁，独钓寒江雪。”<br>江莘说，“谁家残雪，何处孤烟，向一溪桥，一茅店，一渔船。”<br>雪，很李白。<br>李白说，“燕山雪花大如席，纷纷吹落轩辕台。”<br>李白又说，“地白风色寒，雪花大如手。”<br>雪，很名士。<br>刘贺说，“百泉冻皆咽，我吟更真切；半夜倚乔桥，不觉满衣雪。”<br>王安石说，“墙角数枝梅，凌寒独自开。遥知不是雪，为有暗香来。”<br>雪，很侠客。<br>王维说，“草枯鹰眼疾，雪尽马蹄轻。”<br>张元作说，“战退玉龙三百万，败鳞残甲满天飞。”<br>雪，很才女。<br>谢道蕴说，雪乃“柳絮因风起”。<br>沈佩说，“帘外雪初飘，翠幌香凝火未消。独坐夜寒人欲倦，迢迢，梦断更残被寂寥。”<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eow5mk7o0fj216h1kwe2k.jpg" alt="WuHan"><br><img src="http://ww4.sinaimg.cn/mw690/6ba3371bjw1eow5mluwlaj216h1kw7rl.jpg" alt="WuHan"><br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eow5mnuy5tj216h1kwnfo.jpg" alt="WuHan"><br><img src="http://ww3.sinaimg.cn/mw690/6ba3371bjw1eow5mpt02oj216h1kw4qp.jpg" alt="Hometown"><br><img src="http://ww3.sinaimg.cn/mw690/6ba3371bjw1eow5mtxswzj216h1kwe81.jpg" alt="Hometown"><br><img src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1eow5s0e34vj21kw16h4qp.jpg" alt="Hometown"></p>
-
-            
-          </span>
+          <p>今天竟然意外的下雪了，而且很大。观雪有感，作文记之。<br>雪，很冬天。<br>冬天因雪而不再凌厉肃杀。<br>高骈说：“六月飞花入户时，坐看青竹变琼枝。”<br>雪，很北国。<br>北国因雪而变得温情江南。<br>元稹说，“才见岭头似盖，已惊岩下雪如尘；千峰笋石千株玉，万树松萝万朵云。”<br>雪很边疆，很羁旅。<br>岑参说，“山回路转不见君，雪上空留马行处。”<br>韩愈说，“云横秦岭家何在，雪拥蓝关马不前。”</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/02/01/about-snow/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1159,142 +1159,13 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>这里并没不是讨论大学课程中所学的《编译原理》，只是写一些我自己对C++编译器及链接器的工作原理的理解和看法吧，以我的水平，还达不到讲解编译原理（这个很复杂，大学时几乎没学明白）。</p>
+          <p>这里并没不是讨论大学课程中所学的《编译原理》，只是写一些我自己对C++编译器及链接器的工作原理的理解和看法吧，以我的水平，还达不到讲解编译原理（这个很复杂，大学时几乎没学明白）。</p>
 <p>要明白的几个概念：</p>
-<ol>
-<li>编译：编译器对源文件进行编译，就是把源文件中的文本形式存在的源代码翻译成机器语言形式的目标文件的过程，在这个过程中，编译器会进行一系列的语法检查。如果编译通过，就会把对应的CPP转换成OBJ文件。</li>
-<li>编译单元：根据C++标准，每一个CPP文件就是一个编译单元。每个编译单元之间是相互独立并且互相不可知。</li>
-<li>目标文件：由编译所生成的文件，以机器码的形式包含了编译单元里所有的代码和数据，还有一些期他信息，如未解决符号表，导出符号表和地址重定向表等。目标文件是以二进制的形式存在的。</li>
-</ol>
-<p>根据C++标准，一个编译单元（Translation Unit）是指一个.cpp文件以及这所include的所有.h文件，.h文件里面的代码将会被扩展到包含它的.cpp文件里，然后编译器编译该.cpp文件为一个.obj文件，后者拥有PE（Portable Executable，即Windows可执行文件）文件格式，并且本身包含的就是二进制代码，但是不一定能执行，因为并不能保证其中一定有main函数。当编译器将一个工程里的所有.cpp文件以分离的方式编译完毕后，再由链接器进行链接成为一个.exe或.dll文件。</p>
-<p>下面让我们来分析一下编译器的工作过程：</p>
-<p>我们跳过语法分析，直接来到目标文件的生成，假设我们有一个A.cpp文件，如下定义：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int n = 1;&#10;void FunA()&#10;&#123;&#10;++n;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<p>它编译出来的目标文件A.obj就会有一个区域（或者说是段），包含以上的数据和函数，其中就有n、FunA，以文件偏移量形式给出可能就是下面这种情况：</p>
-<table>
-<thead>
-<tr>
-<th>偏移量</th>
-<th style="text-align:center">内容</th>
-<th style="text-align:right">长度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0×0000</td>
-<td style="text-align:center">n</td>
-<td style="text-align:right">4</td>
-</tr>
-<tr>
-<td>0×0004</td>
-<td style="text-align:center">FunA</td>
-<td style="text-align:right">??</td>
-</tr>
-</tbody>
-</table>
-<p>注意：这只是说明，与实际目标文件的布局可能不一样，??表示长度未知，目标文件的各个数据可能不是连续的，也不一定是从0×0000开始。</p>
-<p>FunA函数的内容可能如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0&#215;0004 inc DWORD PTR[0x0000]&#10;&#10;0&#215;00?? ret</span><br></pre></td></tr></table></figure></p>
-<p>这时++n已经被翻译成inc DWORD PTR[0x0000]，也就是说把本单元0×0000位置的一个DWORD（4字节）加1。</p>
-<p>有另外一个B.cpp文件，定义如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extern int n;&#10;void FunB()&#10;&#123;&#10;++n;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<p>它对应的B.obj的二进制应该是：</p>
-<table>
-<thead>
-<tr>
-<th>偏移量</th>
-<th style="text-align:center">内容</th>
-<th style="text-align:right">长度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0×0000</td>
-<td style="text-align:center">FunB</td>
-<td style="text-align:right">??</td>
-</tr>
-</tbody>
-</table>
-<p>这里为什么没有n的空间呢，因为n被声明为extern，这个extern关键字就是告诉编译器n已经在别的编译单元里定义了，在这个单元里就不要定义了。由于编译单元之间是互不相关的，所以编译器就不知道n究竟在哪里，所以在函数FunB就没有办法生成n的地址，那么函数FunB中就是这样的：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0&#215;0000 inc DWORD PTR[????]&#10;&#10;0&#215;00?? ret</span><br></pre></td></tr></table></figure></p>
-<p>那怎么办呢？这个工作就只能由链接器来完成了。</p>
-<p>为了能让链接器知道哪些地方的地址没有填好（也就是还????），那么目标文件中就要有一个表来告诉链接器，这个表就是“未解决符号表”，也就是unresolved symbol table。同样，提供n的目标文件也要提供一个“导出符号表”也就是exprot symbol table，来告诉链接器自己可以提供哪些地址。</p>
-<p>好，到这里我们就已经知道，一个目标文件不仅要提供数据和二进制代码外，还至少要提供两个表：未解决符号表和导出符号表，来告诉链接器自己需要什么和自己能提供些什么。那么这两个表是怎么建立对应关系的呢？这里就有一个新的概念：符号。在C/C++中，每一个变量及函数都会有自己的符号，如变量n的符号就是n，函数的符号会更加复杂，假设FunA的符号就是_FunA（根据编译器不同而不同）。</p>
-<p>所以，A.obj的导出符号表为</p>
-<table>
-<thead>
-<tr>
-<th>符号</th>
-<th>地址</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>n</td>
-<td>0×0000</td>
-</tr>
-<tr>
-<td>_FunA</td>
-<td>0×0004</td>
-</tr>
-</tbody>
-</table>
-<p>未解决符号为空（因为他没有引用别的编译单元里的东西）。</p>
-<p>B.obj的导出符号表为</p>
-<table>
-<thead>
-<tr>
-<th>符号</th>
-<th>地址</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>_FunB</td>
-<td>0×0000</td>
-</tr>
-</tbody>
-</table>
-<p>   未解决符号表为</p>
-<table>
-<thead>
-<tr>
-<th>符号</th>
-<th>地址</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>n</td>
-<td>0×0001</td>
-</tr>
-</tbody>
-</table>
-<p>这个表告诉链接器，在本编译单元0×0001位置有一个地址，该地址不明，但符号是n。</p>
-<p>在链接的时候，链接在B.obj中发现了未解决符号，就会在所有的编译单元中的导出符号表去查找与这个未解决符号相匹配的符号名，如果找到，就把这个符号的地址填到B.obj的未解决符号的地址处。如果没有找到，就会报链接错误。在此例中，在A.obj中会找到符号n，就会把n的地址填到B.obj的0×0001处。</p>
-<p>但是，这里还会有一个问题，如果是这样的话，B.obj的函数FunB的内容就会变成inc DWORD PTR[0x000]（因为n在A.obj中的地址是0×0000）,由于每个编译单元的地址都是从0×0000开始，那么最终多个目标文件链接时就会导致地址重复。所以链接器在链接时就会对每个目标文件的地址进行调整。在这个例子中，假如B.obj的0×0000被定位到可执行文件的0×00001000上，而A.obj的0×0000被定位到可执行文件的0×00002000上，那么实现上对链接器来说，A.obj的导出符号地地址都会加上0×00002000，B.obj所有的符号地址也会加上0×00001000。这样就可以保证地址不会重复。</p>
-<p>既然n的地址会加上0×00002000，那么FunA中的inc DWORD PTR[0x0000]就是错误的，所以目标文件还要提供一个表，叫地址重定向表，address redirect table。</p>
-<p>总结一下：</p>
-<p>目标文件至少要提供三个表：未解决符号表，导出符号表和地址重定向表。</p>
-<p>未解决符号表：列出了本单元里有引用但是不在本单元定义的符号及其出现的地址。</p>
-<p>导出符号表：提供了本编译单元具有定义，并且可以提供给其他编译单元使用的符号及其在本单元中的地址。</p>
-<p>地址重定向表：提供了本编译单元所有对自身地址的引用记录。</p>
-<p>链接器的工作顺序：</p>
-<p>当链接器进行链接的时候，首先决定各个目标文件在最终可执行文件里的位置。然后访问所有目标文件的地址重定义表，对其中记录的地址进行重定向（加上一个偏移量，即该编译单元在可执行文件上的起始地址）。然后遍历所有目标文件的未解决符号表，并且在所有的导出符号表里查找匹配的符号，并在未解决符号表中所记录的位置上填写实现地址。最后把所有的目标文件的内容写在各自的位置上，再作一些另的工作，就生成一个可执行文件。</p>
-<p>说明：实现链接的时候会更加复杂，一般实现的目标文件都会把数据，代码分成好向个区，重定向按区进行，但原理都是一样的。</p>
-<p>明白了编译器与链接器的工作原理后，对于一些链接错误就容易解决了。</p>
-<p>下面再看一看C/C++中提供的一些特性：</p>
-<p>extern：这就是告诉编译器，这个变量或函数在别的编译单元里定义了，也就是要把这个符号放到未解决符号表里面去（外部链接）。</p>
-<p>static：如果该关键字位于全局函数或者变量的声明前面，表明该编译单元不导出这个函数或变量，因些这个符号不能在别的编译单元中使用（内部链接）。如果是static局部变量，则该变量的存储方式和全局变量一样，但是仍然不导出符号。</p>
-<p>默认链接属性：对于函数和变量，默认链接是外部链接，对于const变量，默认内部链接。</p>
-<p>外部链接的利弊：外部链接的符号在整个程序范围内都是可以使用的，这就要求其他编译单元不能导出相同的符号（不然就会报duplicated external symbols）。</p>
-<p>内部链接的利弊：内部链接的符号不能在别的编译单元中使用。但不同的编译单元可以拥有同样的名称的符号。</p>
-<p>为什么头文件里一般只可以有声明不能有定义：头文件可以被多个编译单元包含，如果头文件里面有定义的话，那么每个包含这头文件的编译单元都会对同一个符号进行定义，如果该符号为外部链接，则会导致duplicated external symbols链接错误。</p>
-<p>为什么公共使用的内联函数要定义于头文件里：因为编译时编译单元之间互不知道，如果内联被定义于.cpp文件中，编译其他使用该函数的编译单元的时候没有办法找到函数的定义，因些无法对函数进行展开。所以如果内联函数定义于.cpp里，那么就只有这个.cpp文件能使用它。</p>
-<p>Via：<a href="http://blog.sina.com.cn/s/blog_5f8817250100i3oz.html" target="_blank" rel="external">C++编译器与链接器工作原理</a></p>
-
-            
-          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/21/C++-Compiler-and-Linker-works/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

@@ -62,7 +62,7 @@
 <meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eq2z47gs3dj20lk077q57.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6ba3371bjw1eq2z47sp7yj20ll03ut9p.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6ba3371bjw1eq2z48hru9j20ll07o42x.jpg">
-<meta property="og:updated_time" content="2015-10-19T08:14:02.714Z">
+<meta property="og:updated_time" content="2015-12-30T14:47:06.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 安装 MySQL">
 <meta name="twitter:description" content="在Linux上安装MySQL数据库，我们可以去其官网上下载MySQL数据库的rpm包，http://dev.mysql.com/downloads/mysql/5.6.html#downloads，大家可以根据自己的操作系统去下载对应的数据库文件，目前最新的版本是5.6.10了。
@@ -248,6 +248,7 @@
       
         <span itemprop="articleBody"><p>在Linux上安装MySQL数据库，我们可以去其官网上下载MySQL数据库的rpm包，<a href="http://dev.mysql.com/downloads/mysql/5.6.html#downloads，大家可以根据自己的操作系统去下载对应的数据库文件，目前最新的版本是5.6.10了。" target="_blank" rel="external">http://dev.mysql.com/downloads/mysql/5.6.html#downloads，大家可以根据自己的操作系统去下载对应的数据库文件，目前最新的版本是5.6.10了。</a></p>
 <p>在这里我是通过yum来进行MySQL数据库的安装的，通过这种方式进行安装，可以将跟MySQL相关的一些服务、jar包都给我们安装好，所以省去了很多不必要的麻烦！！！</p>
+<a id="more"></a>
 <h3 id="u4E00_u3001_u5378_u8F7D_u6389_u539F_u6709MySQL"><a href="#u4E00_u3001_u5378_u8F7D_u6389_u539F_u6709MySQL" class="headerlink" title="一、卸载掉原有MySQL"></a>一、卸载掉原有MySQL</h3><p>因为MySQL数据库在Linux上实在是太流行了，所以目前下载的主流Linux系统版本基本上都集成了MySQL数据库在里面，我们可以通过如下命令来查看我们的操作系统上是否已经安装了MySQL数据库。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23jffs85aZ /]# rpm -qa | grep mysql&#12288;&#12288;// &#36825;&#20010;&#21629;&#20196;&#23601;&#20250;&#26597;&#30475;&#35813;&#25805;&#20316;&#31995;&#32479;&#19978;&#26159;&#21542;&#24050;&#32463;&#23433;&#35013;&#20102;MySQL&#25968;&#25454;&#24211;</span><br></pre></td></tr></table></figure></p>
 <p>已经安装的会显示：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23jffs85aZ /]# rpm -qa | grep mysql&#10;php-mysql-5.3.3-40.el6_6.x86_64&#10;mysql-5.1.73-3.el6_5.x86_64&#10;mysql-server-5.1.73-3.el6_5.x86_64&#10;mysql-libs-5.1.73-3.el6_5.x86_64</span><br></pre></td></tr></table></figure></p>
 <p>有的话，我们就通过 rpm -e 命令 或者 rpm -e –nodeps 命令来卸载掉<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23jffs85aZ /]# rpm -e mysql&#12288;&#12288;// &#26222;&#36890;&#21024;&#38500;&#27169;&#24335;&#10;[root@iZ23jffs85aZ /]# rpm -e --nodeps mysql&#12288;&#12288;// &#24378;&#21147;&#21024;&#38500;&#27169;&#24335;&#65292;&#22914;&#26524;&#20351;&#29992;&#19978;&#38754;&#21629;&#20196;&#21024;&#38500;&#26102;&#65292;&#25552;&#31034;&#26377;&#20381;&#36182;&#30340;&#20854;&#23427;&#25991;&#20214;&#65292;&#21017;&#29992;&#35813;&#21629;&#20196;&#21487;&#20197;&#23545;&#20854;&#36827;&#34892;&#24378;&#21147;&#21024;&#38500;</span><br></pre></td></tr></table></figure></p>
