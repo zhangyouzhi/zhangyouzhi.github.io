@@ -51,16 +51,16 @@
 
 
 
-<meta name="description" content="1、修改tomcat-user.xml要想配置管理员用户名和密码，需要修改tomcat安装文件下的conf中的tomcat-user.xml文件。1&amp;#60;tomcat-users&amp;#62;&amp;#10;&amp;#60;!--&amp;#10;  NOTE:  By default, no user is included in the &amp;#34;manager-gui&amp;#34; role required&amp;#1">
+<meta name="description" content="1、修改tomcat-user.xml要想配置管理员用户名和密码，需要修改tomcat安装文件下的conf中的tomcat-user.xml文件。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tomcat 下设置用用户名和密码访问文件目录">
 <meta property="og:url" content="http://zhangyouzhi.com/2015/01/16/tomcat-access-by-name-password/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
-<meta property="og:description" content="1、修改tomcat-user.xml要想配置管理员用户名和密码，需要修改tomcat安装文件下的conf中的tomcat-user.xml文件。1&amp;#60;tomcat-users&amp;#62;&amp;#10;&amp;#60;!--&amp;#10;  NOTE:  By default, no user is included in the &amp;#34;manager-gui&amp;#34; role required&amp;#1">
-<meta property="og:updated_time" content="2015-10-19T08:14:14.216Z">
+<meta property="og:description" content="1、修改tomcat-user.xml要想配置管理员用户名和密码，需要修改tomcat安装文件下的conf中的tomcat-user.xml文件。">
+<meta property="og:updated_time" content="2015-12-30T14:55:06.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tomcat 下设置用用户名和密码访问文件目录">
-<meta name="twitter:description" content="1、修改tomcat-user.xml要想配置管理员用户名和密码，需要修改tomcat安装文件下的conf中的tomcat-user.xml文件。1&amp;#60;tomcat-users&amp;#62;&amp;#10;&amp;#60;!--&amp;#10;  NOTE:  By default, no user is included in the &amp;#34;manager-gui&amp;#34; role required&amp;#1">
+<meta name="twitter:description" content="1、修改tomcat-user.xml要想配置管理员用户名和密码，需要修改tomcat安装文件下的conf中的tomcat-user.xml文件。">
 
 
 
@@ -240,7 +240,9 @@
       
 
       
-        <span itemprop="articleBody"><h3 id="1_u3001_u4FEE_u6539tomcat-user-xml"><a href="#1_u3001_u4FEE_u6539tomcat-user-xml" class="headerlink" title="1、修改tomcat-user.xml"></a>1、修改tomcat-user.xml</h3><p>要想配置管理员用户名和密码，需要修改tomcat安装文件下的conf中的tomcat-user.xml文件。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;tomcat-users&#62;&#10;&#60;!--&#10;  NOTE:  By default, no user is included in the &#34;manager-gui&#34; role required&#10;  to operate the &#34;/manager/html&#34; web application.  If you wish to use this app,&#10;  you must define such a user - the username and password are arbitrary.&#10;--&#62;&#10;&#60;!--&#10;  NOTE:  The sample user and role entries below are wrapped in a comment&#10;  and thus are ignored when reading this file. Do not forget to remove&#10;  &#60;!.. ..&#62; that surrounds them.&#10;--&#62;&#10;  &#60;role rolename=&#34;role1&#34;/&#62;&#10;  &#60;user username=&#34;lmmbao&#34; password=&#34;LmmBao@2014&#34; roles=&#34;role1&#34;/&#62;&#10;&#60;/tomcat-users&#62;</span><br></pre></td></tr></table></figure></p>
+        <span itemprop="articleBody"><h3 id="1_u3001_u4FEE_u6539tomcat-user-xml"><a href="#1_u3001_u4FEE_u6539tomcat-user-xml" class="headerlink" title="1、修改tomcat-user.xml"></a>1、修改tomcat-user.xml</h3><p>要想配置管理员用户名和密码，需要修改tomcat安装文件下的conf中的tomcat-user.xml文件。</p>
+<a id="more"></a>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;tomcat-users&#62;&#10;&#60;!--&#10;  NOTE:  By default, no user is included in the &#34;manager-gui&#34; role required&#10;  to operate the &#34;/manager/html&#34; web application.  If you wish to use this app,&#10;  you must define such a user - the username and password are arbitrary.&#10;--&#62;&#10;&#60;!--&#10;  NOTE:  The sample user and role entries below are wrapped in a comment&#10;  and thus are ignored when reading this file. Do not forget to remove&#10;  &#60;!.. ..&#62; that surrounds them.&#10;--&#62;&#10;  &#60;role rolename=&#34;role1&#34;/&#62;&#10;  &#60;user username=&#34;lmmbao&#34; password=&#34;LmmBao@2014&#34; roles=&#34;role1&#34;/&#62;&#10;&#60;/tomcat-users&#62;</span><br></pre></td></tr></table></figure>
 <h3 id="2_u3001_u4FEE_u6539web-xml"><a href="#2_u3001_u4FEE_u6539web-xml" class="headerlink" title="2、修改web.xml"></a>2、修改web.xml</h3><p>修改工程目录下的web.xml文件<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">   &#60;security-constraint&#62;&#10;   &#9;&#60;web-resource-collection&#62;&#10;       &#9;&#60;display-name&#62;Example&#60;/display-name&#62;&#10;       &#60;web-resource-name&#62;My Test&#60;/web-resource-name&#62;&#10;       &#9;&#60;url-pattern&#62;/*&#60;/url-pattern&#62;&#10;       &#60;/web-resource-collection&#62;&#10;&#9;&#60;auth-constraint&#62;&#10;&#9;&#9;&#60;role-name&#62;role1&#60;/role-name&#62;&#10;&#9;&#60;/auth-constraint&#62;&#10;   &#60;/security-constraint&#62;&#10;   &#60;login-config&#62;&#10;    &#60;auth-method&#62;BASIC&#60;/auth-method&#62;&#10;    &#60;realm-name&#62;My Test&#60;/realm-name&#62;&#10;&#60;/login-config&#62;</span><br></pre></td></tr></table></figure></p>
 <h3 id="3_u3001_u91CD_u542F_u52A8tomcat6"><a href="#3_u3001_u91CD_u542F_u52A8tomcat6" class="headerlink" title="3、重启动tomcat6"></a>3、重启动tomcat6</h3><p>重启动tomcat6, 输入：<a href="http://127.0.0.1:8080/" target="_blank" rel="external">http://127.0.0.1:8080/</a> 。<br>输入用户名:admin, 密码admin。看到目录下文件的内容。<br>至此，tomcat管理员用户名和密码就配置好了。</p>
 </span>

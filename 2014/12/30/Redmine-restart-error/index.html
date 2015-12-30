@@ -58,7 +58,7 @@
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="When i restart Redmine, an erro happend like this:1[root@iZ23lttzrggZ lmmbao]# service httpd start&amp;#10;Starting httpd: Syntax error on line 42 of /etc/httpd/conf.d/subversion.conf:&amp;#10;Invalid command">
 <meta property="og:image" content="http://i.imgur.com/WxR1xD9.jpg">
-<meta property="og:updated_time" content="2015-10-19T08:14:13.541Z">
+<meta property="og:updated_time" content="2015-12-30T14:55:36.832Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redmine restart erro">
 <meta name="twitter:description" content="When i restart Redmine, an erro happend like this:1[root@iZ23lttzrggZ lmmbao]# service httpd start&amp;#10;Starting httpd: Syntax error on line 42 of /etc/httpd/conf.d/subversion.conf:&amp;#10;Invalid command">
@@ -243,6 +243,7 @@
       
         <span itemprop="articleBody"><p>When i restart Redmine, an erro happend like this:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23lttzrggZ lmmbao]# service httpd start&#10;Starting httpd: Syntax error on line 42 of /etc/httpd/conf.d/subversion.conf:&#10;Invalid command &#39;PerlLoadModule&#39;, perhaps misspelled or defined by a module not included in the server configuration&#10;                                                           [FAILED]&#10;[root@iZ23lttzrggZ lmmbao]#</span><br></pre></td></tr></table></figure></p>
 <p><img src="http://i.imgur.com/WxR1xD9.jpg" alt=""></p>
+<a id="more"></a>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23lttzrggZ lmmbao]# vi /etc/httpd/conf.d/subversion.conf</span><br></pre></td></tr></table></figure>
 <p>DELETE this follows:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PerlLoadModule Apache::Redmine&#10;&#60;Location /svn&#62;&#10;        DAV svn&#10;        SVNParentPath &#34;/opt/repositories/svn&#34;&#10;        SVNListParentPath on&#10;        Order deny,allow&#10;        Deny from all&#10;        Satisfy any&#10;        LimitXMLRequestBody 0&#10;        SVNPathAuthz off&#10;        PerlAccessHandler Apache::Authn::Redmine::access_handler&#10;        PerlAuthenHandler Apache::Authn::Redmine::authen_handler&#10;        AuthType Basic&#10;        AuthName &#34;Subversion Repository&#34;&#10;        Require valid-user&#10;        RedmineDSN &#34;DBI:mysql:database=redmine_db;host=localhost:3306&#34;&#10;        RedmineDbUser &#34;redmine_admin&#34;&#10;        RedmineDbPass &#34;**********&#34;&#10;&#60;/Location&#62;</span><br></pre></td></tr></table></figure></p>
 <p>And then restart the httpd service<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23lttzrggZ lmmbao]# service httpd restart</span><br></pre></td></tr></table></figure></p>

@@ -61,7 +61,7 @@ Jacman 需要安装 Hexo 2.7 及以上版本">
 <meta property="og:description" content="主题介绍Jacman 是一款扁平化，有着响应式设计的 Hexo 主题。本站正式使用了 Jacman 主题。Jacman 基于 Pacman 主题修改而来，目前已有很多特性与原主题不同。
 安装在博客根目录下执行如下命令。1$ git clone https://github.com/wuchong/jacman.git themes/jacman
 Jacman 需要安装 Hexo 2.7 及以上版本">
-<meta property="og:updated_time" content="2015-10-19T08:14:06.604Z">
+<meta property="og:updated_time" content="2015-12-30T15:01:31.556Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jacman主题设置">
 <meta name="twitter:description" content="主题介绍Jacman 是一款扁平化，有着响应式设计的 Hexo 主题。本站正式使用了 Jacman 主题。Jacman 基于 Pacman 主题修改而来，目前已有很多特性与原主题不同。
@@ -249,6 +249,7 @@ Jacman 需要安装 Hexo 2.7 及以上版本">
         <span itemprop="articleBody"><h2 id="u4E3B_u9898_u4ECB_u7ECD"><a href="#u4E3B_u9898_u4ECB_u7ECD" class="headerlink" title="主题介绍"></a>主题介绍</h2><p>Jacman 是一款扁平化，有着响应式设计的 Hexo 主题。本站正式使用了 Jacman 主题。Jacman 基于 Pacman 主题修改而来，目前已有很多特性与原主题不同。</p>
 <h2 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h2><p>在博客根目录下执行如下命令。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/wuchong/jacman.git themes/jacman</span><br></pre></td></tr></table></figure></p>
 <p>Jacman 需要安装 Hexo 2.7 及以上版本，请先升级您的 Hexo 程序，再启用此主题。</p>
+<a id="more"></a>
 <h2 id="u542F_u7528"><a href="#u542F_u7528" class="headerlink" title="启用"></a>启用</h2><p>修改你的博客根目录下的_config.yml配置文件中的theme属性，将其设置为jacman。同时建议设置stylus属性中的compress值为true，会自动压缩 CSS 文件，hexo默认配置中不包含这一项，建议开启。如下。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: jacman&#10;stylus:&#10;  compress: true</span><br></pre></td></tr></table></figure></p>
 <h2 id="u66F4_u65B0"><a href="#u66F4_u65B0" class="headerlink" title="更新"></a>更新</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd themes/jacman&#10;git pull origin master</span><br></pre></td></tr></table></figure>
 <p>请先备份您主题目录下的 _config.yml 文件后再升级。</p>
@@ -258,7 +259,7 @@ Jacman 需要安装 Hexo 2.7 及以上版本">
 <h3 id="u63A7_u4EF6_widgets"><a href="#u63A7_u4EF6_widgets" class="headerlink" title="控件 widgets"></a>控件 widgets</h3><p>提供了7种小工具。包括标签、标签云、分类、归档、RSS、友情链接、微博秀。<br>友情链接：友情链接的网址添加可以在links属性下添加。</p>
 <h3 id="u5FAE_u535A_u79C0_uFF1A"><a href="#u5FAE_u535A_u79C0_uFF1A" class="headerlink" title="微博秀："></a>微博秀：</h3><p>需要注意的是，如果要启用微博秀，您必须填上author属性下tsina和weibo_verifier的值，前者是您微博ID，后者是您微博秀的验证码，访问 <a href="http://app.weibo.com/tool/weiboshow" target="_blank" rel="external">http://app.weibo.com/tool/weiboshow</a> 在如下图位置，可以获得您的 verifier，如：我的是4a0b79d5。<br>在主题文件夹下 themes/主题名/_widget/ 创建文件（文本文件就行）修改后缀名为 .ejs ，在新浪微博-我的工具下面选择微博秀,然后将代码复制到文件中即可。</p>
 <h3 id="u56FE_u7247_u76F8_u5173_Image"><a href="#u56FE_u7247_u76F8_u5173_Image" class="headerlink" title="图片相关 Image"></a>图片相关 Image</h3><p>本主题可以设置网站相关图片，例如网站图标（favicon）、网站logo（imglogo）、作者头像（author_img）。建议启用网站logo，格式建议为.svg或.png格式。同时建议提供配套的 favicon 以及在苹果设备上的图标apple_icon（背景不要透明）。</p>
-<h3 id="u9996_u9875_u663E_u793A_u6A21_u5F0F_Index"><a href="#u9996_u9875_u663E_u793A_u6A21_u5F0F_Index" class="headerlink" title="首页显示模式 Index"></a>首页显示模式 Index</h3><p>目前首页的显示模式支持两种，一种是原先的卡片式（前往 Demo 预览），另一种是类似官方主题的文章展开式（本站即采用的这种）。两者各有优劣，前者首页加载速度更快，后者文章内容更能吸引读者。主题默认采用第一种卡片式，如需开启第二种展开式，请设置index属性下的expand: true。<br>卡片式的文章摘要是截取文章内容的前140个字，也可以自己总结description并将其放在开头的front-matter中。展开式的文章摘要就是使用<a id="more"></a>截取了。</p>
+<h3 id="u9996_u9875_u663E_u793A_u6A21_u5F0F_Index"><a href="#u9996_u9875_u663E_u793A_u6A21_u5F0F_Index" class="headerlink" title="首页显示模式 Index"></a>首页显示模式 Index</h3><p>目前首页的显示模式支持两种，一种是原先的卡片式（前往 Demo 预览），另一种是类似官方主题的文章展开式（本站即采用的这种）。两者各有优劣，前者首页加载速度更快，后者文章内容更能吸引读者。主题默认采用第一种卡片式，如需开启第二种展开式，请设置index属性下的expand: true。<br>卡片式的文章摘要是截取文章内容的前140个字，也可以自己总结description并将其放在开头的front-matter中。展开式的文章摘要就是使用<!-- more -->截取了。</p>
 <h3 id="u4F5C_u8005_u4FE1_u606F_author"><a href="#u4F5C_u8005_u4FE1_u606F_author" class="headerlink" title="作者信息 author"></a>作者信息 author</h3><p>作者信息，建议尽量填写完整。其中tsina是你的新浪微博ID，不同于用户名或微博主页地址。启用这个属性后，其他用户在微博上分享你文章的同时会自动@你。同时它和weibo_verifier一起作用生成微博秀。intro_line1和intro_line2是网站底部的个人介绍。weibo、twitter、facebook等是用来显示网站右下角的社交按钮的，如下图所示。</p>
 <h3 id="u76EE_u5F55_toc"><a href="#u76EE_u5F55_toc" class="headerlink" title="目录 toc"></a>目录 toc</h3><p>是否启用在文章中或侧边栏中的目录功能。二者可以都为true或都为false。同时，如果你希望在特定的某一篇文章中关闭目录功能你可以在文章文件开头中的front-matter中加上一行toc: false。如果希望在某一篇文章中关闭目录自动编号功能你可以在文章文件开头的front-matter中加上一行list_number: false。另外 hexo 2.5.2 开始支持中文目录，想获得更好的体验请升级你的 Hexo 版本。</p>
 <h3 id="u8BC4_u8BBA_comments"><a href="#u8BC4_u8BBA_comments" class="headerlink" title="评论 comments"></a>评论 comments</h3><p>填写duoshuo_shortname多说的用户名，启用多说评论系统。在大陆地区更好用的评论系统。<br>填写disqus_shortnamedisqus 的用户名，启用 disqus 评论系统。国际上更广泛使用的评论系统。设置博客根目录下的_config.yml文件中的disqus_shortname同样也能开启该功能。</p>

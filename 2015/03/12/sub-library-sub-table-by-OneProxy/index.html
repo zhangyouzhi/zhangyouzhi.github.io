@@ -57,7 +57,7 @@
 <meta property="og:url" content="http://zhangyouzhi.com/2015/03/12/sub-library-sub-table-by-OneProxy/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="MySQL简单易用，并且开源，自用可以免费，用得好的话可以发挥自主可控成本低的理想功效，非常受互联网企业喜爱，现在也逐渐开始进入非互联网企业（不喜欢用传统企业这个词）了。但也的确缺失一些针对企业的高级功能，比如新增列、添加索引还会对整个表的数据进行重组，需要独占整个表，因此在单机使用时，需要控制单个表的大小，以减少做运维维护工作时独占表的时间。在多核（超过24个核）情况下的线性扩展能力（包括事务能">
-<meta property="og:updated_time" content="2015-10-19T08:14:14.416Z">
+<meta property="og:updated_time" content="2015-12-30T14:55:24.396Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OneProxy:只需修改少量SQL语句，也可以实现快速实现分库分表的可扩展方案（转）">
 <meta name="twitter:description" content="MySQL简单易用，并且开源，自用可以免费，用得好的话可以发挥自主可控成本低的理想功效，非常受互联网企业喜爱，现在也逐渐开始进入非互联网企业（不喜欢用传统企业这个词）了。但也的确缺失一些针对企业的高级功能，比如新增列、添加索引还会对整个表的数据进行重组，需要独占整个表，因此在单机使用时，需要控制单个表的大小，以减少做运维维护工作时独占表的时间。在多核（超过24个核）情况下的线性扩展能力（包括事务能">
@@ -241,6 +241,7 @@
 
       
         <span itemprop="articleBody"><p>MySQL简单易用，并且开源，自用可以免费，用得好的话可以发挥自主可控成本低的理想功效，非常受互联网企业喜爱，现在也逐渐开始进入非互联网企业（不喜欢用传统企业这个词）了。但也的确缺失一些针对企业的高级功能，比如新增列、添加索引还会对整个表的数据进行重组，需要独占整个表，因此在单机使用时，需要控制单个表的大小，以减少做运维维护工作时独占表的时间。在多核（超过24个核）情况下的线性扩展能力（包括事务能力和查询能力）也不够理想，需要有较好的方法来快速解决这一类的技术需求。</p>
+<a id="more"></a>
 <p>当一个表太大不利于维护时，我们会将大表拆分成小表，这些表还属于同一个数据库，这种技术称为分表；当一个数据库的处理能力不够支撑业务，增加CPU的作用也十分有限时，就可能需要将部份表移到别的数据库，以增加系统处理能力，这种技术称为分库；通过精心的数据模型设计，将大的业务表拆分成小表，再将一系列小表分到不同的服务器，使得每台服务器都能独立承担部分业务处理，这种技术称为水平拆分，俗称为分库分表。分表的数量可以和物理的机器数不一致，分表数量称为逻辑份数，分库的数量称为物理份数，当逻辑份数大于物理份数时，就可以迅速获得水平扩展能力。</p>
 <p>在使用传统商业数据库时，必须要通过应用层修改应用代码来实现，现在流行的做法是将应用开发语言统一，比如用统一的Java框架，然后编写一个统一的数据访问层，比如TDDL、ZDAL等。这种做法在大并发量下的性能上有一定的优势，可以减少一次网络交互，但在开发上绑定了特定的开发语言，需要有强大的配置推送体系，并且需要有强大的运维团队来支持。当后台用的是MySQL数据库，或兼容MySQL协议的数据库时，就可以不用修改应用程序，使用OneProxy来承担TDDL、ZDAL的功能，将后端的多台MySQL虚拟成一台MySQL提供给上层应用，对应用相对透明地实现分库分表的需求，来快速获得MySQL上的水平扩展能力。</p>
 <p>OneProxy里分库分表的概念和MySQL里分区表的概念非常接近，来看一下MySQL分区表的创建语法：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE employees (&#10;    id INT NOT NULL,&#10;    fname VARCHAR(30),&#10;    lname VARCHAR(30),&#10;    hired DATE NOT NULL DEFAULT &#39;1970-01-01&#39;,&#10;    separated DATE NOT NULL DEFAULT &#39;9999-12-31&#39;,&#10;    job_code INT NOT NULL,&#10;    store_id INT NOT NULL&#10;)&#10;PARTITION BY RANGE (store_id) (&#10;    PARTITION p0 VALUES LESS THAN (6),&#10;    PARTITION p1 VALUES LESS THAN (11),&#10;    PARTITION p2 VALUES LESS THAN (16),&#10;    PARTITION p3 VALUES LESS THAN (21)&#10;);</span><br></pre></td></tr></table></figure></p>

@@ -57,7 +57,7 @@
 <meta property="og:url" content="http://zhangyouzhi.com/2014/12/04/http-post-get/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="一 原理区别一般在浏览器中输入网址访问资源都是通过GET方式；在FORM提交中，可以通过Method指定提交方式为GET或者POST，默认为GET提交。Http定义了与服务器交互的不同方法，最基本的方法有4种，分别是GET，POST，PUT，DELETE。URL全称是资源描述符，我们可以这样认 为：一个URL地址，它用于描述一个网络上的资源，而HTTP中的GET，POST，PUT，DELETE就对">
-<meta property="og:updated_time" content="2015-10-19T08:14:06.393Z">
+<meta property="og:updated_time" content="2015-12-30T15:01:08.708Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP POST GET本质区别详解（转）">
 <meta name="twitter:description" content="一 原理区别一般在浏览器中输入网址访问资源都是通过GET方式；在FORM提交中，可以通过Method指定提交方式为GET或者POST，默认为GET提交。Http定义了与服务器交互的不同方法，最基本的方法有4种，分别是GET，POST，PUT，DELETE。URL全称是资源描述符，我们可以这样认 为：一个URL地址，它用于描述一个网络上的资源，而HTTP中的GET，POST，PUT，DELETE就对">
@@ -241,6 +241,7 @@
 
       
         <span itemprop="articleBody"><h2 id="u4E00__u539F_u7406_u533A_u522B"><a href="#u4E00__u539F_u7406_u533A_u522B" class="headerlink" title="一 原理区别"></a>一 原理区别</h2><p>一般在浏览器中输入网址访问资源都是通过GET方式；在FORM提交中，可以通过Method指定提交方式为GET或者POST，默认为GET提交。<br>Http定义了与服务器交互的不同方法，最基本的方法有4种，分别是<strong>GET，POST，PUT，DELETE。</strong><br>URL全称是资源描述符，我们可以这样认 为：一个URL地址，它用于描述一个网络上的资源，而HTTP中的<em>GET，POST，PUT，DELETE</em>就对应着对这个资源的<em>查，改，增，删</em>4个操作。到这里，大家应该有个大概的了解了，GET一般用于<strong>获取/查询</strong>资源信息，而POST一般用于<strong>更新</strong>资源信息(<strong>个人认为这是GET和POST的本质区别，也是协议设计者的本意，其它区别都是具体表现形式的差异</strong>)。</p>
+<a id="more"></a>
 <h3 id="u6839_u636EHTTP_u89C4_u8303_uFF0CGET_u7528_u4E8E_u4FE1_u606F_u83B7_u53D6_uFF0C_u800C_u4E14_u5E94_u8BE5_u662F_u5B89_u5168_u7684_u548C_u5E42_u7B49_u7684_u3002"><a href="#u6839_u636EHTTP_u89C4_u8303_uFF0CGET_u7528_u4E8E_u4FE1_u606F_u83B7_u53D6_uFF0C_u800C_u4E14_u5E94_u8BE5_u662F_u5B89_u5168_u7684_u548C_u5E42_u7B49_u7684_u3002" class="headerlink" title="根据HTTP规范，GET用于信息获取，而且应该是安全的和幂等的。"></a>根据HTTP规范，GET用于信息获取，而且应该是安全的和幂等的。</h3><ol>
 <li>所谓安全的意味着该操作用于获取信息而非修改信息。换句话说，GET请求一般不应产生副作用。就是说，它仅仅是获取资源信息，就像数据库查询一样，不会修改，增加数据，不会影响资源的状态。<br><strong>注意：这里安全的含义仅仅是指是非修改信息。</strong></li>
 <li>幂等的意味着对同一URL的多个请求应该返回同样的结果。这里我再解释一下幂等这个概念：<br>幂等（idempotent、idempotence）是一个数学或计算机学概念，常见于抽象代数中。<br>幂等有以下几种定义：<br>对于单目运算，如果一个运算对于在范围内的所有的一个数多次进行该运算所得的结果和进行一次该运算所得的结果是一样的，那么我们就称该运算是幂等的。比如绝对值运算就是一个例子，在实数集中，有abs(a) =abs(abs(a)) 。<br>对于双目运算，则要求当参与运算的两个值是等值的情况下，如果满足运算结果与参与运算的两个值相等，则称该运算幂等，如求两个数的最大值的函数，有在在实数集中幂等，即max(x,x)  =  x 。</li>

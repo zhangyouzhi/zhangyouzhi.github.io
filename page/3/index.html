@@ -347,14 +347,12 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <h3 id="1_u3001_u4FEE_u6539tomcat-user-xml"><a href="#1_u3001_u4FEE_u6539tomcat-user-xml" class="headerlink" title="1、修改tomcat-user.xml"></a>1、修改tomcat-user.xml</h3><p>要想配置管理员用户名和密码，需要修改tomcat安装文件下的conf中的tomcat-user.xml文件。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;tomcat-users&#62;&#10;&#60;!--&#10;  NOTE:  By default, no user is included in the &#34;manager-gui&#34; role required&#10;  to operate the &#34;/manager/html&#34; web application.  If you wish to use this app,&#10;  you must define such a user - the username and password are arbitrary.&#10;--&#62;&#10;&#60;!--&#10;  NOTE:  The sample user and role entries below are wrapped in a comment&#10;  and thus are ignored when reading this file. Do not forget to remove&#10;  &#60;!.. ..&#62; that surrounds them.&#10;--&#62;&#10;  &#60;role rolename=&#34;role1&#34;/&#62;&#10;  &#60;user username=&#34;lmmbao&#34; password=&#34;LmmBao@2014&#34; roles=&#34;role1&#34;/&#62;&#10;&#60;/tomcat-users&#62;</span><br></pre></td></tr></table></figure></p>
-<h3 id="2_u3001_u4FEE_u6539web-xml"><a href="#2_u3001_u4FEE_u6539web-xml" class="headerlink" title="2、修改web.xml"></a>2、修改web.xml</h3><p>修改工程目录下的web.xml文件<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">   &#60;security-constraint&#62;&#10;   &#9;&#60;web-resource-collection&#62;&#10;       &#9;&#60;display-name&#62;Example&#60;/display-name&#62;&#10;       &#60;web-resource-name&#62;My Test&#60;/web-resource-name&#62;&#10;       &#9;&#60;url-pattern&#62;/*&#60;/url-pattern&#62;&#10;       &#60;/web-resource-collection&#62;&#10;&#9;&#60;auth-constraint&#62;&#10;&#9;&#9;&#60;role-name&#62;role1&#60;/role-name&#62;&#10;&#9;&#60;/auth-constraint&#62;&#10;   &#60;/security-constraint&#62;&#10;   &#60;login-config&#62;&#10;    &#60;auth-method&#62;BASIC&#60;/auth-method&#62;&#10;    &#60;realm-name&#62;My Test&#60;/realm-name&#62;&#10;&#60;/login-config&#62;</span><br></pre></td></tr></table></figure></p>
-<h3 id="3_u3001_u91CD_u542F_u52A8tomcat6"><a href="#3_u3001_u91CD_u542F_u52A8tomcat6" class="headerlink" title="3、重启动tomcat6"></a>3、重启动tomcat6</h3><p>重启动tomcat6, 输入：<a href="http://127.0.0.1:8080/" target="_blank" rel="external">http://127.0.0.1:8080/</a> 。<br>输入用户名:admin, 密码admin。看到目录下文件的内容。<br>至此，tomcat管理员用户名和密码就配置好了。</p>
-
-            
-          </span>
+          <h3 id="1_u3001_u4FEE_u6539tomcat-user-xml"><a href="#1_u3001_u4FEE_u6539tomcat-user-xml" class="headerlink" title="1、修改tomcat-user.xml"></a>1、修改tomcat-user.xml</h3><p>要想配置管理员用户名和密码，需要修改tomcat安装文件下的conf中的tomcat-user.xml文件。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/16/tomcat-access-by-name-password/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -445,18 +443,12 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>免安装的tomcat双击startup.bat后，启动窗口一闪而过，而且tomcat服务未启动。<br>原因是：在启动tomcat是，需要读取环境变量和配置信息，缺少了这些信息，就不能登记环境变量，导致了tomcat的闪退。<br>解决办法：</p>
-<ol>
-<li>在已解压的tomcat的bin文件夹下找到startup.bat，右击-&gt;编辑。在文件头加入下面两行：<br>   SET JAVA_HOME=D:\Java\jdk1.6.0_10   （java jdk目录）<br>   SET TOMCAT_HOME=E:\tomcat-6.0.35   （解压后的tomcat文件目录）</li>
-<li>同样的。在已解压的tomcat的bin文件夹下找到shutdown.bat，右击-&gt;编辑。在文件头加入下面两行：<br>   SET JAVA_HOME=D:\Java\jdk1.6.0_10   （java jdk目录）<br>   SET TOMCAT_HOME=E:\tomcat-6.0.35   （解压后的tomcat文件目录）</li>
-<li>将你要发布/部署的web文件复制到tomcat的webapps目录下。</li>
-<li>双击startup.bat即可启动tomcat，成功启动。<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eo8x1tqagkj20hr06ttae.jpg" alt=""><br>5.双击shutdown.bat即可停止tomcat。或者在已启动的tomcat窗口中直接ctrl+c也可停止tomcat。</li>
-</ol>
-
-            
-          </span>
+          <p>免安装的tomcat双击startup.bat后，启动窗口一闪而过，而且tomcat服务未启动。<br>原因是：在启动tomcat是，需要读取环境变量和配置信息，缺少了这些信息，就不能登记环境变量，导致了tomcat的闪退。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/13/tomcat-tomcat.bat-quit/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -547,34 +539,12 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <h3 id="u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F"><a href="#u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F" class="headerlink" title="一、如何把命令运行的结果保存到文件当中?"></a>一、如何把命令运行的结果保存到文件当中?</h3><p>这个问题太简单了，大家都知道，用 &gt; 把输出转向就可以了<br>例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ls &#62; ls.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz</span><br></pre></td></tr></table></figure></p>
-<p>说明: &gt; 是把输出转向到指定的文件，如文件已存在的话也会重新写入，文件原内容不会保留。&gt;&gt; 是把输出附向到文件的后面，文件原内容会保留下来。</p>
-<h3 id="u4E8C_u3001_u5982_u4F55_u80FD_u5728_u8F93_u51FA_u4FE1_u606F_u7684_u540C_u65F6_u628A_u4FE1_u606F_u8BB0_u5F55_u5230_u6587_u4EF6_u4E2D_3F"><a href="#u4E8C_u3001_u5982_u4F55_u80FD_u5728_u8F93_u51FA_u4FE1_u606F_u7684_u540C_u65F6_u628A_u4FE1_u606F_u8BB0_u5F55_u5230_u6587_u4EF6_u4E2D_3F" class="headerlink" title="二、如何能在输出信息的同时把信息记录到文件中?"></a>二、如何能在输出信息的同时把信息记录到文件中?</h3><p>我们在上面的例子中可以看到，我们使用输出转向，命令在终端上的输出转向到了文件中，但如果我希望能同时在终端上看到输出信息怎么办？<br>我们可以使用这个命令: tee<br>解释一下tee的作用:<br>read from standard input and write to standard output and files<br>它从标准输入读取内容并将其写到标准输出和文件中<br>看例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ls | tee ls_tee.txt&#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz&#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls_tee.txt &#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz</span><br></pre></td></tr></table></figure></p>
-<p>备注：使用 tee时,如果想保留目标文件原有的内容怎么办？可以使用 -a参数。<br>-a, –append<br>append to the given FILEs, do not overwrite<br>附加至给出的文件，而不是覆盖它</p>
-<h3 id="u4E09_u3001_u591A_u4E2A_u547D_u4EE4_u7684_u8F93_u51FA_u90FD_u9700_u8981_u8BB0_u5F55_uFF0C_u53EF_u4EE5_u7528script"><a href="#u4E09_u3001_u591A_u4E2A_u547D_u4EE4_u7684_u8F93_u51FA_u90FD_u9700_u8981_u8BB0_u5F55_uFF0C_u53EF_u4EE5_u7528script" class="headerlink" title="三、多个命令的输出都需要记录，可以用script"></a>三、多个命令的输出都需要记录，可以用script</h3><p>script这个命令很强大，可以记录终端的所有输出到相应的文件中。<br>看例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ script&#10;Script started, file is typescript&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim   linux-3.10.28.tar.xz  ls.txt             rsync-3.1.1.tar.gz&#10;linux-3.10.28  ls_tee.txt            quartz_install.sh  typescript&#10;[lmmbao@iZ23b44crpgZ ~]$ exit&#10;exit&#10;Script done, file is typescript&#10;[lmmbao@iZ23b44crpgZ ~]$ cat typescript &#10;Script started on Tue 13 Jan 2015 05:37:51 PM CST&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim   linux-3.10.28.tar.xz  ls.txt             rsync-3.1.1.tar.gz&#10;linux-3.10.28  ls_tee.txt            quartz_install.sh  typescript&#10;[lmmbao@iZ23b44crpgZ ~]$ exit&#10;exit&#10;&#10;Script done on Tue 13 Jan 2015 05:38:24 PM CST&#10;[lmmbao@iZ23b44crpgZ ~]$</span><br></pre></td></tr></table></figure></p>
-<p>说明:</p>
-<ol>
-<li>我们在启动script时没有指定文件名，它会自动记录到当前目录下一个名为 typescript的文件中。也可以用-a参数 指定文件名<br>例子:<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ script -a example.txt&#10;Script started, file is example.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim  linux-3.10.28         ls_tee.txt  quartz_install.sh   typescript&#10;example.txt   linux-3.10.28.tar.xz  ls.txt      rsync-3.1.1.tar.gz&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim  linux-3.10.28         ls_tee.txt  quartz_install.sh   typescript&#10;example.txt   linux-3.10.28.tar.xz  ls.txt      rsync-3.1.1.tar.gz&#10;[lmmbao@iZ23b44crpgZ ~]$ exit&#10;exit&#10;Script done, file is example.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ cat example.txt &#10;Script started on Tue 13 Jan 2015 05:44:33 PM CST&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim  linux-3.10.28         ls_tee.txt  quartz_install.sh   typescript&#10;example.txt   linux-3.10.28.tar.xz  ls.txt      rsync-3.1.1.tar.gz&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim  linux-3.10.28         ls_tee.txt  quartz_install.sh   typescript&#10;example.txt   linux-3.10.28.tar.xz  ls.txt      rsync-3.1.1.tar.gz&#10;[lmmbao@iZ23b44crpgZ ~]$ exit&#10;exit&#10;&#10;Script done on Tue 13 Jan 2015 05:44:39 PM CST&#10;[lmmbao@iZ23b44crpgZ ~]$</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>此时终端的输出内容被记录到example.txt这个文件中</p>
-<ol>
-<li><p>退出script时，用exit<br>感到奇怪吗？事实上script就是启动了一个shell<br>看一下ps auxfww 的信息就知道了</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ps auxfww | grep lmmbao&#10;root     17468  0.0  0.0 163908  2152 pts/2    S    16:00   0:00  |       \_ su lmmbao&#10;lmmbao   17470  0.0  0.0 108392  1852 pts/2    S    16:00   0:00  |           \_ bash&#10;root     17713  0.0  0.0  98428  4232 ?        Ss   16:08   0:00  \_ sshd: lmmbao [priv]&#10;lmmbao   17720  0.0  0.0  98428  1720 ?        S    16:09   0:00  |   \_ sshd: lmmbao@pts/1&#10;lmmbao   17721  0.0  0.0 108392  1840 pts/1    Ss   16:09   0:00  |       \_ -bash&#10;root     19346  0.0  0.0  98428  4232 ?        Ss   17:24   0:00  \_ sshd: lmmbao [priv]&#10;lmmbao   19349  0.0  0.0  98428  1724 ?        S    17:24   0:00      \_ sshd: lmmbao@pts/4&#10;lmmbao   19350  0.0  0.0 108392  1844 pts/4    Ss   17:24   0:00          \_ -bash&#10;lmmbao   19852  0.0  0.0 110348  1140 pts/4    R+   17:49   0:00              \_ ps auxfww&#10;lmmbao   19853  0.0  0.0 103304   804 pts/4    S+   17:49   0:00              \_ grep lmmbao</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看example.txt的内容，可以看到它同时记录下了script的启动和结束时间。</p>
-</li>
-</ol>
-<h3 id="u56DB_u3001_u7528script_u5F55_u5236_u5E76_u64AD_u653Esession_u7684_u5185_u5BB9"><a href="#u56DB_u3001_u7528script_u5F55_u5236_u5E76_u64AD_u653Esession_u7684_u5185_u5BB9" class="headerlink" title="四、用script录制并播放session的内容"></a>四、用script录制并播放session的内容</h3><p>我们可以用 script把整个终端会话的所有操作和输出录制下来，然后再用scriptreplay进行播放。<br>如果录制时记录下来了操作时的时间数据，那么播放时和操作时的使用时间完全相同。<br>这个很有用吧，比如：我们可以把安装软件时编译的过程记录下来，然后给别人进行演示<br>看例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ script -t 2&#62;example.time -a example.txt&#10;Script started, file is example.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;darkburn.vim  example.txt    linux-3.10.28.tar.xz  ls.txt             rsync-3.1.1.tar.gz&#10;example.time  linux-3.10.28  ls_tee.txt            quartz_install.sh  typescript&#10;[lmmbao@iZ23b44crpgZ ~]$</span><br></pre></td></tr></table></figure></p>
-<p>说明: -t 2&gt;example.time -t是把时间数据输出到标准错误(standard error)，所以我们使用 2&gt;example.time 把数据转向到 example.time这个文件当中<br>如何播放所记录的内容?<br>第一步：安装scriptreplay<br>下载<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget linux/utils/util-linux/util-linux-2.12r.tar.bz2&#34;&#62;ftp://ftp.kernel.org/pub/linux/utils/util-linux/util-linux-2.12r.tar.bz2</span><br></pre></td></tr></table></figure></p>
-<p>解压<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -jxvf util-linux-2.12r.tar.bz2</span><br></pre></td></tr></table></figure></p>
-<p>之后复制文件到系统的命令目录中即可<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ &#19979;&#36733;]# cp util-linux-2.12r/misc-utils/scriptreplay.pl /usr/bin/scriptreplay&#10;lmmbao@iZ23b44crpgZ &#19979;&#36733;]# chmod 755 /usr/bin/scriptreplay</span><br></pre></td></tr></table></figure></p>
-<p>备注: fedora 10的util-linux-ng-2.14.1-3.2.fc10.i386.rpm 此包中已包含 scriptreplay,已无需另行安装<br>第二步：播放所录制的session内容<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ scriptreplay example1.time example1.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ ls&#10;1.gtkrc-2.0 c.tar zzzz@hotmail.com pass&#10;[lmmbao@iZ23b44crpgZ ~]$ abcd&#10;bash: abcd: command not found&#10;&#10;[lmmbao@iZ23b44crpgZ ~]$ exit</span><br></pre></td></tr></table></figure></p>
-
-            
-          </span>
+          <h3 id="u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F"><a href="#u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F" class="headerlink" title="一、如何把命令运行的结果保存到文件当中?"></a>一、如何把命令运行的结果保存到文件当中?</h3><p>这个问题太简单了，大家都知道，用 &gt; 把输出转向就可以了<br>例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ls &#62; ls.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz</span><br></pre></td></tr></table></figure></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/12/Linux-terminal-comand-output-to-file/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -665,29 +635,12 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <h3 id="Redis_u7B80_u4ECB"><a href="#Redis_u7B80_u4ECB" class="headerlink" title="Redis简介"></a>Redis简介</h3><p>Redis是一个Key-Value 存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)和zset(有序集合)。这些数据类型都支持 push/pop、add/remove 及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，Redis支持各种不同方式的排序。与 memcached一样，为了保证效率，数据都是缓存在内存中。区别的是 Redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了 master-slave(主从)同步。</p>
-<h3 id="Redis_u5B89_u88C5"><a href="#Redis_u5B89_u88C5" class="headerlink" title="Redis安装"></a>Redis安装</h3><h4 id="u6B65_u9AA4_u4E00_uFF1ARedis_u4E0B_u8F7D_uFF1A"><a href="#u6B65_u9AA4_u4E00_uFF1ARedis_u4E0B_u8F7D_uFF1A" class="headerlink" title="步骤一：Redis下载："></a>步骤一：Redis下载：</h4><p>Redis官方网址：<a href="http://www.redis.io/" target="_blank" rel="external">http://www.redis.io/</a> 。点击Download进入下载。<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eo8wnuxfegj20p20hj11o.jpg" alt="Redis Download"><br>下载最新的稳定版2.8.2。下载完成后，将其拷贝到新建的文件夹Redis中。下面来进行安装：</p>
-<h4 id="u6B65_u9AA4_u4E8C_uFF1A_u7F16_u8BD1_u6E90_u7A0B_u5E8F_uFF1A"><a href="#u6B65_u9AA4_u4E8C_uFF1A_u7F16_u8BD1_u6E90_u7A0B_u5E8F_uFF1A" class="headerlink" title="步骤二：编译源程序："></a>步骤二：编译源程序：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost Redis]# tar zxvf redis-2.8.2.tar.gz&#10;[root@localhost Redis]# cd redis-2.8.2&#10;[root@localhost redis-2.8.2]# make&#10;[root@localhost redis-2.8.2]#cd src&#10;[root@localhost src]# make install</span><br></pre></td></tr></table></figure>
-<h4 id="u6B65_u9AA4_u4E09_uFF1A_u79FB_u52A8_u6587_u4EF6_uFF0C_u4FBF_u4E8E_u7BA1_u7406_uFF1A"><a href="#u6B65_u9AA4_u4E09_uFF1A_u79FB_u52A8_u6587_u4EF6_uFF0C_u4FBF_u4E8E_u7BA1_u7406_uFF1A" class="headerlink" title="步骤三：移动文件，便于管理："></a>步骤三：移动文件，便于管理：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost local]# mkdir &#8211;p /usr/local/redis/bin&#10;[root@localhost local]# mkdir &#8211;p /usr/local/redis/etc&#10;[root@localhost redis-2.8.2]# mv ./redis.conf /usr/local/redis/etc&#10;[root@localhost src]# mv mkreleasehdr.sh redis-benchmark redis-check-aof redis-check-dump redis-cli redis-sentinel redis-server /usr/local/redis/bin</span><br></pre></td></tr></table></figure>
-<h4 id="u6B65_u9AA4_u56DB_uFF1A_u4FEE_u6539_u914D_u7F6E_u6587_u4EF6"><a href="#u6B65_u9AA4_u56DB_uFF1A_u4FEE_u6539_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="步骤四：修改配置文件"></a>步骤四：修改配置文件</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]# vi /usr/local/redis/etc/redis.conf</span><br></pre></td></tr></table></figure>
-<p>将daemonize 的属性改为yes</p>
-<h4 id="u6B65_u9AA4_u4E94_uFF1A_u542F_u52A8Redis_u670D_u52A1_u5E76_u6307_u5B9A_u914D_u7F6E_u6587_u4EF6_uFF1A"><a href="#u6B65_u9AA4_u4E94_uFF1A_u542F_u52A8Redis_u670D_u52A1_u5E76_u6307_u5B9A_u914D_u7F6E_u6587_u4EF6_uFF1A" class="headerlink" title="步骤五：启动Redis服务并指定配置文件："></a>步骤五：启动Redis服务并指定配置文件：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-server /usr/local/redis/etc/redis.conf</span><br></pre></td></tr></table></figure>
-<p>查看Redis是否启动：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]# ps &#8211;ef | grep redis&#10;root      5983     1  0 Dec05 ?        00:00:04 ./redis-server *:6379                         &#10;root      6035  6012  0 Dec05 pts/1    00:00:00 ./redis-cli&#10;root      6494  5944  0 00:06 pts/0    00:00:00 grep redis</span><br></pre></td></tr></table></figure></p>
-<p>Redis 启动成功。</p>
-<h4 id="u6B65_u9AA4_u516D_uFF1A_u542F_u52A8Redis_u5BA2_u6237_u7AEF_uFF1A"><a href="#u6B65_u9AA4_u516D_uFF1A_u542F_u52A8Redis_u5BA2_u6237_u7AEF_uFF1A" class="headerlink" title="步骤六：启动Redis客户端："></a>步骤六：启动Redis客户端：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-cli&#10;127.0.0.1:6379&#62;</span><br></pre></td></tr></table></figure>
-<p>Redis客户端启动成功。</p>
-<h4 id="u6B65_u9AA4_u4E03_uFF1ARedis_u7B80_u5355_u8BD5_u9A8C_uFF1A"><a href="#u6B65_u9AA4_u4E03_uFF1ARedis_u7B80_u5355_u8BD5_u9A8C_uFF1A" class="headerlink" title="步骤七：Redis简单试验："></a>步骤七：Redis简单试验：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-cli&#10;127.0.0.1:6379&#62; keys *&#10;(empty list or set)&#10;127.0.0.1:6379&#62; set name redis&#10;OK&#10;127.0.0.1:6379&#62; get name&#10;&#34;redis&#34;&#10;127.0.0.1:6379&#62;</span><br></pre></td></tr></table></figure>
-<p>至此，Redis安装结束。</p>
-<h3 id="u9644_uFF1ARedis_u76F8_u5173_u64CD_u4F5C_u547D_u4EE4_uFF1A"><a href="#u9644_uFF1ARedis_u76F8_u5173_u64CD_u4F5C_u547D_u4EE4_uFF1A" class="headerlink" title="附：Redis相关操作命令："></a>附：Redis相关操作命令：</h3><h4 id="Redis_u670D_u52A1_u542F_u52A8_uFF1A"><a href="#Redis_u670D_u52A1_u542F_u52A8_uFF1A" class="headerlink" title="Redis服务启动："></a>Redis服务启动：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-server /usr/local/redis/etc/redis.conf</span><br></pre></td></tr></table></figure>
-<h4 id="Redis_u5BA2_u6237_u7AEF_u542F_u52A8_uFF1A"><a href="#Redis_u5BA2_u6237_u7AEF_u542F_u52A8_uFF1A" class="headerlink" title="Redis客户端启动："></a>Redis客户端启动：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-cli</span><br></pre></td></tr></table></figure>
-<h4 id="Redis_u5BA2_u6237_u7AEF_u9000_u51FA_uFF1A"><a href="#Redis_u5BA2_u6237_u7AEF_u9000_u51FA_uFF1A" class="headerlink" title="Redis客户端退出："></a>Redis客户端退出：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&#62; quit</span><br></pre></td></tr></table></figure>
-<h4 id="Redis_u670D_u52A1_u7AEF_u9000_u51FA_uFF1A"><a href="#Redis_u670D_u52A1_u7AEF_u9000_u51FA_uFF1A" class="headerlink" title="Redis服务端退出："></a>Redis服务端退出：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]# pkill redis-server</span><br></pre></td></tr></table></figure>
-<p>或者<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-cli shutdown</span><br></pre></td></tr></table></figure></p>
-
-            
-          </span>
+          <h3 id="Redis_u7B80_u4ECB"><a href="#Redis_u7B80_u4ECB" class="headerlink" title="Redis简介"></a>Redis简介</h3><p>Redis是一个Key-Value 存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)和zset(有序集合)。这些数据类型都支持 push/pop、add/remove 及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，Redis支持各种不同方式的排序。与 memcached一样，为了保证效率，数据都是缓存在内存中。区别的是 Redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了 master-slave(主从)同步。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/12/redis-introduce-and-install/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -778,36 +731,13 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>原生的Hexo是不支持数学公式的显示的，但听说过Latex所以在网上搜教程来着，大部分搜到的渲染公式的方法都分为两个步骤：</p>
+          <p>原生的Hexo是不支持数学公式的显示的，但听说过Latex所以在网上搜教程来着，大部分搜到的渲染公式的方法都分为两个步骤：</p>
 <p>在theme的header中插入对MathJax CDN script的引用，并配置inline math；<br>在文章中用inline math插入公式。<br>但其中似乎存在两个缺点：<br>需要人肉进行的工作太多；<br>遇到特殊符号需要人肉escape，否则会被markdown parser吃掉。<br>于是引用了CATX开发的一款插件来实现这个功能。</p>
-<p>安装与初始化<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-math --save</span><br></pre></td></tr></table></figure></p>
-<p>在blog文件夹中执行：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo math install</span><br></pre></td></tr></table></figure></p>
-<p>在_config.yml中添加：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins: &#10;- hexo-math</span><br></pre></td></tr></table></figure></p>
-<p>部署完之后，相关的ejs等文件就会自动生成在你的theme相应的文件夹里了。</p>
-<p>使用<br>简单的公式：</p>
-<p>Simple inline $a = b + c$.<br>效果：</p>
-<p>Simple inline<br>a=b+c<br>.</p>
-<p>复杂一点的独立公式：</p>
-<p>$$\frac{\partial u}{\partial t}<br>= h^2 \left( \frac{\partial^2 u}{\partial x^2} +<br>\frac{\partial^2 u}{\partial y^2} +<br>\frac{\partial^2 u}{\partial z^2}\right)$$<br>效果：</p>
-<p>∂u∂t=h2(∂2u∂x2+∂2u∂y2+∂2u∂z2)<br>$\cos 2\theta = \cos^2 \theta - \sin^2 \theta =  2 \cos^2 \theta - 1$<br>效果：</p>
-<p>cos2θ=cos2θ−sin2θ=2cos2θ−1<br>最后来个牛逼的吧，薛定谔方程，大学物理考试貌似还复习过这个公式，虽然现在已经记不清是什么意思来着了：</p>
-<p>$$ i\hbar\frac{\partial \psi}{\partial t}<br>= \frac{-\hbar^2}{2m} \left(<br>\frac{\partial^2}{\partial x^2}</p>
-<ul>
-<li>\frac{\partial^2}{\partial y^2}</li>
-<li>\frac{\partial^2}{\partial z^2}<br>\right) \psi + V \psi.$$<br>iℏ∂ψ∂t=−ℏ22m(∂2∂x2+∂2∂y2+∂2∂z2)ψ+Vψ.</li>
-</ul>
-<p>注意<br>对了，在书写的过程中碰到了几个头疼的问题在这里记录一下，防止以后犯错：</p>
-<p>Markdown会将一些标记给编译掉，所以在打{时不能知只打{，需要再加一个斜线来编译，即\{。因为{在markdown编译的时候成了{，然后mathjax再编译就……一定记着编译过程有两次：第一次markdown，第二次mathjax。</p>
-<p>编写带有下标的公式时要在下划线前加上\，比如x_i应该写成x_i。</p>
-<p>数学公式属于符号后面应该有个空格：x_i\in C。</p>
-<p>有关MathJax语法的教程网上特别多就不一一列举了，搜了一下可以参考《MathJax使用LaTeX语法编写数学公式教程》。最后，感觉没学过编译原理这门课有点遗憾，感谢师傅Willzhang在我头疼过程中的指点。</p>
-<p>除特别标明外，本博客所有内容均为Data.Blog原创。<br>为促进技术的发展与交流，我非常愿意将自己掌握的知识与技术和你分享，但请尊重原创与版权，转载请注明本文<a href="http://hijiangtao.github.io/2014/09/08/MathJaxinHexo/" target="_blank" rel="external">源地址</a>与作者Joe Jiang，感谢。</p>
-<p>via:<a href="http://hijiangtao.github.io/2014/09/08/MathJaxinHexo/" target="_blank" rel="external">http://hijiangtao.github.io/2014/09/08/MathJaxinHexo/</a></p>
-
-            
-          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/10/MathJax-use-in-Hexo/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -898,25 +828,15 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>大家都看过Stackoverflow上的公式吧，漂亮，其生成的不是图片。这就要用到MathJax引擎，在Markdown中添加MathJax引擎也很简单，<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;script type=&#34;text/javascript&#34; src=&#34;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&#34;&#62;&#60;/script&#62;</span><br></pre></td></tr></table></figure></p>
+          <p>大家都看过Stackoverflow上的公式吧，漂亮，其生成的不是图片。这就要用到MathJax引擎，在Markdown中添加MathJax引擎也很简单，<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;script type=&#34;text/javascript&#34; src=&#34;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&#34;&#62;&#60;/script&#62;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>然后，再使用Tex写公式。$$公式$$表示行间公式，本来Tex中使用(公式)表示行内公式，但因为Markdown中\是转义字符，所以在Markdown中输入行内公式使用\(公式\)，如下代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$x=\frac&#123;-b\pm\sqrt&#123;b^2-4ac&#125;&#125;&#123;2a&#125;$$&#10;\\(x=\frac&#123;-b\pm\sqrt&#123;b^2-4ac&#125;&#125;&#123;2a&#125;\\)</span><br></pre></td></tr></table></figure></p>
+<p>然后，再使用Tex写公式。$$公式$$表示行间公式，本来Tex中使用(公式)表示行内公式，但因为Markdown中\是转义字符，所以在Markdown中输入行内公式使用\(公式\)，如下代码：</p>
 </blockquote>
-<p>$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$</p>
-<p>\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</p>
-<h3 id="u5206_u522B_u663E_u793A_u7ED3_u679C_uFF08_u884C_u95F4_u516C_u5F0F_uFF09_uFF1A"><a href="#u5206_u522B_u663E_u793A_u7ED3_u679C_uFF08_u884C_u95F4_u516C_u5F0F_uFF09_uFF1A" class="headerlink" title="分别显示结果（行间公式）："></a>分别显示结果（行间公式）：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$x=\frac&#123;-b\pm\sqrt&#123;b^2-4ac&#125;&#125;&#123;2a&#125;$$</span><br></pre></td></tr></table></figure>
-<p>$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$</p>
-<h3 id="u884C_u5185_u516C_u5F0F_uFF1A"><a href="#u884C_u5185_u516C_u5F0F_uFF1A" class="headerlink" title="行内公式："></a>行内公式：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\(x=\frac&#123;-b\pm\sqrt&#123;b^2-4ac&#125;&#125;&#123;2a&#125;\)</span><br></pre></td></tr></table></figure>
-<p>行内公式：(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a})</p>
-<h3 id="u516C_u5F0F_u4F8B_u5B501"><a href="#u516C_u5F0F_u4F8B_u5B501" class="headerlink" title="公式例子1"></a>公式例子1</h3><p>$$J_\alpha(x)=\sum _{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$</p>
-<h3 id="u516C_u5F0F_u4F8B_u5B502"><a href="#u516C_u5F0F_u4F8B_u5B502" class="headerlink" title="公式例子2"></a>公式例子2</h3><p>$\cos 2\theta = \cos^2 \theta - \sin^2 \theta =  2 \cos^2 \theta - 1$</p>
-<h3 id="u516C_u5F0F_u4F8B_u5B503"><a href="#u516C_u5F0F_u4F8B_u5B503" class="headerlink" title="公式例子3"></a>公式例子3</h3><p>$$\frac{\partial u}{\partial t}<br>= h^2 \left( \frac{\partial^2 u}{\partial x^2} +<br>\frac{\partial^2 u}{\partial y^2} +<br>\frac{\partial^2 u}{\partial z^2}\right)$$</p>
-<p>不信，你可以试一下，在公式上还可以使用鼠标右键操作。</p>
-
-            
-          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/09/Mathjax-in-use/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1109,33 +1029,16 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>一杯苦茶，独斟千古。­</p>
+          <p>一杯苦茶，独斟千古。­</p>
 <p>依剑独欢，吸燕赵秦楚之劲气。­</p>
 <p>雨窗小啜，沐江南吴越之清风。­</p>
-<p>魏晋时代，浸身竹林，散看茶香，目送归鸿，手挥五弦，俯仰自得。那些心灵至纯的君子在一起谈老庄，纵酒欲，衣天地，那是一种怎样的至纯无比的心境呢？­</p>
-<p>当毕达哥加斯抛弃凯撒而选择阳光时；­</p>
-<p>当庄周选择掉尾于田间而抛弃宫阙时；­</p>
-<p>当潇洒的嵇康轻抚《广陵散》，淡泊的陶渊明不肯为五斗米折腰时——­</p>
-<p>我看到至纯至净的灵魂。­</p>
-<p>是的，没有纯净的灵魂怎么会有李白清灵俊逸；­</p>
-<p>没有纯净的灵魂怎么会有杜甫的抑扬顿挫；­</p>
-<p>没有纯净的灵魂怎么会有扬州八怪﹑吴中四士；­</p>
-<p>没有纯净的灵魂怎么会有王维的“诗中有画，画中有诗”。­</p>
-<p>纯净的灵魂是一个民族沉淀下来的水晶，传承着这个民族不朽的文化。­</p>
-<p>奥黛丽·赫本告诉我们怎样才能美丽：如果你想红唇诱人，请说善意的话；如果你想明眸善睐，请看别人的优点；如果你想身材苗条，请与别人分享美食；如果你想举止优雅，请把平坦的道路让给别人。­</p>
-<p>莎士比亚从说过这样的话：多听，少说，接受别人的责难，但保留你最后的裁决。是的，在这个喧嚣世界上，灵魂时刻受到污染，保留你最后的裁决无比重要，这样才不会失去你原有的至纯至净的灵魂。­</p>
-<p>曾有一瞬，一眸越了千年；曾有一刻，一笑豪迈了整个江山；曾有一时，一泪别了梦里的婵娟；更有一夜，醉了唐的诗，宋的词，凋了后主的海棠，洒了太白的酒，湿了易安的衣裳，撑了子美的老船。放声太息，壮志蒿莱！­</p>
-<p>心无物欲乾坤净，坐有琴书便是仙。­</p>
-<p>“把窗开在向阳的花园，让阳光恰好找到脚尖，用孤独寂寞来编制自由”—一本杂志如此评价卡夫卡。­</p>
-<p>感动在刹那间泛滥，像一桩陈年已久的冤案在突然之间得到昭雪。­</p>
-<p>在鼻尖还留有卡夫卡的清香之时，我写下了上面的文字，用来祭奠那颗已逝的至纯至净的灵魂。­</p>
-<p>于是，学会了生活，不屑于生存。</p>
-<p><img src="http://ww3.sinaimg.cn/mw1024/6ba3371bjw1eo1ylp24rtj20im0dz74t.jpg" alt="竹">­</p>
-
-            
-          </span>
+<p>魏晋时代，浸身竹林，散看茶香，目送归鸿，手挥五弦，俯仰自得。那些心灵至纯的君子在一起谈老庄，纵酒欲，衣天地，那是一种怎样的至纯无比的心境呢？</p>
+<p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/08/materialistic-universe-with-no-net/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1226,128 +1129,16 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p><img src="http://ww1.sinaimg.cn/mw690/6ba3371bgw1eo3dupaelbj20e305d0te.jpg" alt=""></p>
+          <p><img src="http://ww1.sinaimg.cn/mw690/6ba3371bgw1eo3dupaelbj20e305d0te.jpg" alt=""></p>
 <h2 id="u4EC0_u4E48_u662F_HTTP_uFF1F"><a href="#u4EC0_u4E48_u662F_HTTP_uFF1F" class="headerlink" title="什么是 HTTP？"></a>什么是 HTTP？</h2><p>超文本传输协议（HTTP）的设计目的是保证客户机与服务器之间的通信。</p>
 <p>HTTP 的工作方式是客户机与服务器之间的请求-应答协议。</p>
 <p>web 浏览器可能是客户端，而计算机上的网络应用程序也可能作为服务器端。</p>
 <p>举例：客户端（浏览器）向服务器提交 HTTP 请求；服务器向客户端返回响应。响应包含关于请求的状态信息以及可能被请求的内容。</p>
-<h3 id="u4E24_u79CD_HTTP__u8BF7_u6C42_u65B9_u6CD5_uFF1AGET__u548C_POST"><a href="#u4E24_u79CD_HTTP__u8BF7_u6C42_u65B9_u6CD5_uFF1AGET__u548C_POST" class="headerlink" title="两种 HTTP 请求方法：GET 和 POST"></a>两种 HTTP 请求方法：GET 和 POST</h3><p>在客户机和服务器之间进行请求-响应时，两种最常被用到的方法是：GET 和 POST。</p>
-<ul>
-<li>GET- 从指定的资源请求数据。</li>
-<li>POST- 向指定的资源提交要被处理的数据</li>
-</ul>
-<p><strong>GET 方法</strong><br>请注意，查询字符串（名称/值对）是在 GET 请求的 URL 中发送的：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/test/demo_form.asp?name1=value1&#38;name2=value2</span><br></pre></td></tr></table></figure></p>
-<p>有关 GET 请求的其他一些注释：</p>
-<ul>
-<li>GET 请求可被缓存</li>
-<li>GET 请求保留在浏览器历史记录中</li>
-<li>GET 请求可被收藏为书签</li>
-<li>GET 请求不应在处理敏感数据时使用</li>
-<li>GET 请求有长度限制</li>
-<li>GET 请求只应当用于取回数据</li>
-</ul>
-<p><strong>POST 方法</strong><br>请注意，查询字符串（名称/值对）是在 POST 请求的 HTTP 消息主体中发送的：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /test/demo_form.asp HTTP/1.1&#10;Host: w3schools.com&#10;name1=value1&#38;name2=value2</span><br></pre></td></tr></table></figure></p>
-<p>有关 POST 请求的其他一些注释：</p>
-<ul>
-<li>POST 请求不会被缓存</li>
-<li>POST 请求不会保留在浏览器历史记录中</li>
-<li>POST 不能被收藏为书签</li>
-<li>POST 请求对数据长度没有要求</li>
-</ul>
-<p><strong>比较 GET 与 POST</strong><br>下面的表格比较了两种 HTTP 方法：GET 和 POST。</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th style="text-align:center">get</th>
-<th style="text-align:center">post</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>后退按钮/刷新</td>
-<td style="text-align:center">无害</td>
-<td style="text-align:center">数据会被重新提交（浏览器应该告知用户数据会被重新提交）。</td>
-</tr>
-<tr>
-<td>书签</td>
-<td style="text-align:center">可收藏为书签</td>
-<td style="text-align:center">不可收藏为书签  </td>
-</tr>
-<tr>
-<td>缓存</td>
-<td style="text-align:center">能被缓存</td>
-<td style="text-align:center">不能缓存  </td>
-</tr>
-<tr>
-<td>编码类型</td>
-<td style="text-align:center">application/x-www-form-urlencoded</td>
-<td style="text-align:center">application/x-www-form-urlencoded 或 multipart/form-data。为二进制数据使用多重编码。 </td>
-</tr>
-<tr>
-<td>历史</td>
-<td style="text-align:center">参数保留在浏览器历史中。</td>
-<td style="text-align:center">参数不会保存在浏览器历史中。  </td>
-</tr>
-<tr>
-<td>对数据长度的限制</td>
-<td style="text-align:center">是的。当发送数据时，GET 方法向 URL 添加数据；URL 的长度是受限制的（URL 的最大长度是 2048 个字符）。</td>
-<td style="text-align:center">无限制。  </td>
-</tr>
-<tr>
-<td>对数据类型的限制</td>
-<td style="text-align:center">只允许 ASCII 字符。</td>
-<td style="text-align:center">没有限制。也允许二进制数据。  </td>
-</tr>
-<tr>
-<td>安全性</td>
-<td style="text-align:center">与 POST 相比，GET 的安全性较差，因为所发送的数据是 URL 的一部分。在发送密码或其他敏感信息时绝不要使用 GET ！</td>
-<td style="text-align:center">POST 比 GET 更安全，因为参数不会被保存在浏览器历史或 web 服务器日志中。  </td>
-</tr>
-<tr>
-<td>可见性</td>
-<td style="text-align:center">数据在 URL 中对所有人都是可见的。</td>
-<td style="text-align:center">数据不会显示在 URL 中。  </td>
-</tr>
-</tbody>
-</table>
-<p><strong>其他 HTTP 请求方法</strong><br>下面的表格列出了其他一些 HTTP 请求方法：</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>HEAD</td>
-<td style="text-align:center">与 GET 相同，但只返回 HTTP 报头，不返回文档主体。</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td style="text-align:center">上传指定的 URI 表示。 </td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td style="text-align:center">删除指定资源。</td>
-</tr>
-<tr>
-<td>OPTIONS</td>
-<td style="text-align:center">返回服务器支持的 HTTP 方法。</td>
-</tr>
-<tr>
-<td>CONNECT</td>
-<td style="text-align:center">把请求连接转换到透明的 TCP/IP 通道。</td>
-</tr>
-</tbody>
-</table>
-<p><strong>via:</strong> <a href="http://network.51cto.com/art/201501/463029.htm" target="_blank" rel="external">http://network.51cto.com/art/201501/463029.htm</a></p>
-
-            
-          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/08/HTTP-methods-GET vs POST/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

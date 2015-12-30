@@ -348,24 +348,13 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>2015年1月1日，新年第一天，天气晴好，万里无云。怀着无比激动的心情，迎着新年第一缕温暖的阳光，去迎娶了我这一生的最爱-我的老婆。</p>
+          <p>2015年1月1日，新年第一天，天气晴好，万里无云。怀着无比激动的心情，迎着新年第一缕温暖的阳光，去迎娶了我这一生的最爱-我的老婆。</p>
 <p><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eo39u93xu8j20qn0hsdii.jpg" alt="Happy Wedding"></p>
-<p><img src="http://ww1.sinaimg.cn/mw690/6ba3371bgw1eo23mkabjwj21kw2dbb29.jpg" alt="Happy Wedding"></p>
-<p><img src="http://ww1.sinaimg.cn/mw690/6ba3371bjw1eo39vyzsv0j20qn0hsdhg.jpg" alt="Happy Wedding"></p>
-<p><img src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1eo39u9q4f8j20hs0qnabb.jpg" alt="美丽老婆"></p>
-<p><img src="http://ww1.sinaimg.cn/mw690/6ba3371bgw1eo3am2n2onj20qn0hsq3x.jpg" alt="Me"></p>
-<p><img src="http://ww3.sinaimg.cn/mw1024/6ba3371bjw1eo23268z80j21hs200e81.jpg" alt="可爱侄子-小睿睿"></p>
-<p><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eo39k2fgjqj20jz0zktba.jpg" alt="可爱外甥女-豆豆"></p>
-<p><img src="http://ww4.sinaimg.cn/mw1024/6ba3371bgw1enrqr6t9dyj20lg0daq39.jpg" alt="Wedding Cake"></p>
-<ul>
-<li>Happy Wedding Love：<a href="http://121.41.101.123:88/love/" target="_blank" rel="external">Happy Wedding Love</a> </li>
-<li>Happy Wedding Cake：<a href="http://121.41.101.123:88/wedding-cake/" target="_blank" rel="external">Happy Wedding Cake</a></li>
-</ul>
-
-            
-          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/01/Happy-Wedding/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -554,16 +543,13 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>When i restart Redmine, an erro happend like this:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23lttzrggZ lmmbao]# service httpd start&#10;Starting httpd: Syntax error on line 42 of /etc/httpd/conf.d/subversion.conf:&#10;Invalid command &#39;PerlLoadModule&#39;, perhaps misspelled or defined by a module not included in the server configuration&#10;                                                           [FAILED]&#10;[root@iZ23lttzrggZ lmmbao]#</span><br></pre></td></tr></table></figure></p>
+          <p>When i restart Redmine, an erro happend like this:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23lttzrggZ lmmbao]# service httpd start&#10;Starting httpd: Syntax error on line 42 of /etc/httpd/conf.d/subversion.conf:&#10;Invalid command &#39;PerlLoadModule&#39;, perhaps misspelled or defined by a module not included in the server configuration&#10;                                                           [FAILED]&#10;[root@iZ23lttzrggZ lmmbao]#</span><br></pre></td></tr></table></figure></p>
 <p><img src="http://i.imgur.com/WxR1xD9.jpg" alt=""></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23lttzrggZ lmmbao]# vi /etc/httpd/conf.d/subversion.conf</span><br></pre></td></tr></table></figure>
-<p>DELETE this follows:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PerlLoadModule Apache::Redmine&#10;&#60;Location /svn&#62;&#10;        DAV svn&#10;        SVNParentPath &#34;/opt/repositories/svn&#34;&#10;        SVNListParentPath on&#10;        Order deny,allow&#10;        Deny from all&#10;        Satisfy any&#10;        LimitXMLRequestBody 0&#10;        SVNPathAuthz off&#10;        PerlAccessHandler Apache::Authn::Redmine::access_handler&#10;        PerlAuthenHandler Apache::Authn::Redmine::authen_handler&#10;        AuthType Basic&#10;        AuthName &#34;Subversion Repository&#34;&#10;        Require valid-user&#10;        RedmineDSN &#34;DBI:mysql:database=redmine_db;host=localhost:3306&#34;&#10;        RedmineDbUser &#34;redmine_admin&#34;&#10;        RedmineDbPass &#34;**********&#34;&#10;&#60;/Location&#62;</span><br></pre></td></tr></table></figure></p>
-<p>And then restart the httpd service<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23lttzrggZ lmmbao]# service httpd restart</span><br></pre></td></tr></table></figure></p>
-
-            
-          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/30/Redmine-restart-error/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -751,34 +737,14 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>本文适用于 CentOS 6.5，亲测可行，估计也适用于其他Linux发行版。</p>
+          <p>本文适用于 CentOS 6.5，亲测可行，估计也适用于其他Linux发行版。</p>
 <h3 id="1-__u51C6_u5907_u5DE5_u4F5C"><a href="#1-__u51C6_u5907_u5DE5_u4F5C" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h3><h4 id="1-1__u4E0B_u8F7D_u6E90_u7801_u5305"><a href="#1-1__u4E0B_u8F7D_u6E90_u7801_u5305" class="headerlink" title="1.1 下载源码包"></a>1.1 下载源码包</h4><p>Linux内核版本有两种：稳定版和开发版 ，Linux内核版本号由3个数字组成：r.x.y<br>    r: 主版本号<br>    x: 次版本号，偶数表示稳定版本；奇数表示开发中版本。<br>    y: 修订版本号 ， 表示修改的次数</p>
-<p>去 <a href="http://www.kernel.org" target="_blank" rel="external">http://www.kernel.org</a> 首页，可以看到有stable, longterm等版本，longterm是比stable更稳定的版本，会长时间更新，因此我选择 3.10.28，<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget  https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.10.28.tar.xz</span><br></pre></td></tr></table></figure></p>
-<h4 id="1-2__u89E3_u538B"><a href="#1-2__u89E3_u538B" class="headerlink" title="1.2 解压"></a>1.2 解压</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xf linux-3.10.28.tar.xz</span><br></pre></td></tr></table></figure>
-<h4 id="1-3__u66F4_u65B0_u5F53_u524D_u7CFB_u7EDF"><a href="#1-3__u66F4_u65B0_u5F53_u524D_u7CFB_u7EDF" class="headerlink" title="1.3 更新当前系统"></a>1.3 更新当前系统</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update&#10;sudo yum upgrade</span><br></pre></td></tr></table></figure>
-<h4 id="1-4__u5B89_u88C5_u7F16_u8BD1_u5185_u6838_u6240_u9700_u8981_u7684_u8F6F_u4EF6_u5305"><a href="#1-4__u5B89_u88C5_u7F16_u8BD1_u5185_u6838_u6240_u9700_u8981_u7684_u8F6F_u4EF6_u5305" class="headerlink" title="1.4 安装编译内核所需要的软件包"></a>1.4 安装编译内核所需要的软件包</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum groupinstall &#34;Development Tools&#34; # &#19968;&#21475;&#27668;&#23433;&#35013;&#32534;&#35793;&#26102;&#25152;&#38656;&#30340;&#19968;&#20999;&#24037;&#20855;&#10;sudo yum install ncurses-devel #&#24517;&#39035;&#36825;&#26679;&#25165;&#33021;&#35753; make *config &#36825;&#20010;&#25351;&#20196;&#27491;&#30830;&#22320;&#25191;&#34892;&#12290;&#10;sudo yum install qt-devel #&#22914;&#26524;&#20320;&#27809;&#26377; X &#29615;&#22659;&#65292;&#36825;&#19968;&#26465;&#21487;&#20197;&#19981;&#29992;&#10;sudo yum install hmaccalc zlib-devel binutils-devel elfutils-libelf-devel #&#21019;&#24314; CentOS-6 &#20869;&#26680;&#26102;&#38656;&#35201;&#23427;&#20204;</span><br></pre></td></tr></table></figure>
-<h3 id="2__u914D_u7F6E_u6587_u4EF6"><a href="#2__u914D_u7F6E_u6587_u4EF6" class="headerlink" title="2 配置文件"></a>2 配置文件</h3><h4 id="2-1__u67E5_u770B_u5F53_u524D_u7CFB_u7EDF_u5185_u6838"><a href="#2-1__u67E5_u770B_u5F53_u524D_u7CFB_u7EDF_u5185_u6838" class="headerlink" title="2.1 查看当前系统内核"></a>2.1 查看当前系统内核</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r&#10;2.6.32-358.11.1.el6.x86_64</span><br></pre></td></tr></table></figure>
-<h4 id="2-2__u5C06_u5F53_u524D_u7CFB_u7EDF_u7684_u914D_u7F6E_u6587_u4EF6_u62F7_u8D1D_u5230_u5F53_u524D_u76EE_u5F55"><a href="#2-2__u5C06_u5F53_u524D_u7CFB_u7EDF_u7684_u914D_u7F6E_u6587_u4EF6_u62F7_u8D1D_u5230_u5F53_u524D_u76EE_u5F55" class="headerlink" title="2.2 将当前系统的配置文件拷贝到当前目录"></a>2.2 将当前系统的配置文件拷贝到当前目录</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /boot/config-2.6.32-358.11.1.el6.x86_64 .config</span><br></pre></td></tr></table></figure>
-<h4 id="2-3__u4F7F_u7528_u65E7_u5185_u6838_u914D_u7F6E_uFF0C_u5E76_u81EA_u52A8_u63A5_u53D7_u6BCF_u4E2A_u65B0_u589E_u9009_u9879_u7684_u9ED8_u8BA4_u8BBE_u7F6E"><a href="#2-3__u4F7F_u7528_u65E7_u5185_u6838_u914D_u7F6E_uFF0C_u5E76_u81EA_u52A8_u63A5_u53D7_u6BCF_u4E2A_u65B0_u589E_u9009_u9879_u7684_u9ED8_u8BA4_u8BBE_u7F6E" class="headerlink" title="2.3 使用旧内核配置，并自动接受每个新增选项的默认设置"></a>2.3 使用旧内核配置，并自动接受每个新增选项的默认设置</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c &#39;yes &#34;&#34; | make oldconfig&#39;</span><br></pre></td></tr></table></figure>
-<p>make oldconfig会读取当前目录下的.config文件，在.config文件里没有找到的选项则提示用户填写，然后备份.config文件为.config.old，并生成新的.config文件，参考 <a href="http://stackoverflow.com/questions/4178526/what-does-make-oldconfig-do-exactly-linux-kernel-makefile" target="_blank" rel="external">http://stackoverflow.com/questions/4178526/what-does-make-oldconfig-do-exactly-linux-kernel-makefile</a></p>
-<h3 id="3__u7F16_u8BD1"><a href="#3__u7F16_u8BD1" class="headerlink" title="3 编译"></a>3 编译</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make -j8 bzImage #&#29983;&#25104;&#20869;&#26680;&#25991;&#20214;&#10;sudo make -j8 modules #&#32534;&#35793;&#27169;&#22359;&#10;sudo make -j8 modules_install #&#32534;&#35793;&#23433;&#35013;&#27169;&#22359;</span><br></pre></td></tr></table></figure>
-<p>要严格按照这个顺序进行编译，不能合并成一句，sudo make -j8 bzImage modules modules_install。</p>
-<p>-j后面的数字是线程数，用于加快编译速度，一般的经验是，有多少G内存，就填写那个数字，例如有8G内存，则为-j8。</p>
-<h3 id="4__u5B89_u88C5"><a href="#4__u5B89_u88C5" class="headerlink" title="4 安装"></a>4 安装</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
-<p>如果出现了 ERROR: modinfo: could not find module xxx，数量少的话，可以忽略。</p>
-<h3 id="5__u4FEE_u6539Grub_u5F15_u5BFC_u987A_u5E8F"><a href="#5__u4FEE_u6539Grub_u5F15_u5BFC_u987A_u5E8F" class="headerlink" title="5 修改Grub引导顺序"></a>5 修改Grub引导顺序</h3><p>安装完成后，需要修改Grub引导顺序，让新安装的内核作为默认内核。</p>
-<p>编辑 grub.conf文件，<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/grub.conf</span><br></pre></td></tr></table></figure></p>
-<p>数一下刚刚新安装的内核在哪个位置，从0开始，然后设置default为那个数字，一般新安装的内核在第一个位置，所以设置default=0。</p>
-<h3 id="6__u91CD_u542F"><a href="#6__u91CD_u542F" class="headerlink" title="6 重启"></a>6 重启</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
-<p>重启后，看一下当前内核版本号，<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r&#10;3.10.28</span><br></pre></td></tr></table></figure></p>
-<p>成功啦！！</p>
-<h3 id="7__u5982_u679C_u5931_u8D25_uFF0C_u5219_u91CD_u65B0_u5FAA_u73AF"><a href="#7__u5982_u679C_u5931_u8D25_uFF0C_u5219_u91CD_u65B0_u5FAA_u73AF" class="headerlink" title="7 如果失败，则重新循环"></a>7 如果失败，则重新循环</h3><p>如果失败，重新开始的话，要清理上次编译的现场<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make mrproper #&#28165;&#29702;&#19978;&#27425;&#32534;&#35793;&#30340;&#29616;&#22330;</span><br></pre></td></tr></table></figure></p>
-<p>然后转到第2步，重新开始。</p>
-
-            
-          </span>
+<p>去 <a href="http://www.kernel.org">http://www.kernel.org</a> 首页，可以看到有stable, longterm等版本，longterm是比stable更稳定的版本，会长时间更新，因此我选择 3.10.28，<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget  https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.10.28.tar.xz</span><br></pre></td></tr></table></figure></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/29/upgrade-the-kernel-on-centos/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

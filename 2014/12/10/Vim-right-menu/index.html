@@ -57,7 +57,7 @@
 <meta property="og:url" content="http://zhangyouzhi.com/2014/12/10/Vim-right-menu/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="将下面蓝色的内容保存为vim.reg，1Windows Registry Editor Version 5.00&amp;#10;[HKEY_CLASSES_ROOT\*\shell\Vim]&amp;#10;@=&amp;#34;Vim&amp;#34;&amp;#10;[HKEY_CLASSES_ROOT\*\shell\Vim\command]&amp;#10;@=&amp;#34;\&amp;#34;D:\\vim73-x64\\vim73\\gvim">
-<meta property="og:updated_time" content="2015-10-19T08:14:15.015Z">
+<meta property="og:updated_time" content="2015-12-30T14:54:04.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="右键菜单添加Vim">
 <meta name="twitter:description" content="将下面蓝色的内容保存为vim.reg，1Windows Registry Editor Version 5.00&amp;#10;[HKEY_CLASSES_ROOT\*\shell\Vim]&amp;#10;@=&amp;#34;Vim&amp;#34;&amp;#10;[HKEY_CLASSES_ROOT\*\shell\Vim\command]&amp;#10;@=&amp;#34;\&amp;#34;D:\\vim73-x64\\vim73\\gvim">
@@ -241,6 +241,7 @@
 
       
         <span itemprop="articleBody"><p>将下面蓝色的内容保存为vim.reg，<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00&#10;[HKEY_CLASSES_ROOT\*\shell\Vim]&#10;@=&#34;Vim&#34;&#10;[HKEY_CLASSES_ROOT\*\shell\Vim\command]&#10;@=&#34;\&#34;D:\\vim73-x64\\vim73\\gvim.exe\&#34; -p --remote-tab-silent \&#34;%1\&#34;&#34;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>注意：其中D:\vim73-x64\vim73\gvim.exe\是你机器上安装gvim.exe的路径。Vim是你想在右键菜单显示的内容。<br>完成后双击运行就行。</p>
 </span>
       

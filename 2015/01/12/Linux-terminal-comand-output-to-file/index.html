@@ -57,7 +57,7 @@
 <meta property="og:url" content="http://zhangyouzhi.com/2015/01/12/Linux-terminal-comand-output-to-file/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="一、如何把命令运行的结果保存到文件当中?这个问题太简单了，大家都知道，用 &amp;gt; 把输出转向就可以了例子:1[lmmbao@iZ23b44crpgZ ~]$ ls &amp;#62; ls.txt&amp;#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &amp;#10;darkburn.vim&amp;#10;linux-3.10.28&amp;#10;linux-3.10.28.tar.xz&amp;#10">
-<meta property="og:updated_time" content="2015-10-19T08:14:09.901Z">
+<meta property="og:updated_time" content="2015-12-30T14:58:58.700Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux中记录终端（Terminal）命令及执行结果并输出到文本文件">
 <meta name="twitter:description" content="一、如何把命令运行的结果保存到文件当中?这个问题太简单了，大家都知道，用 &amp;gt; 把输出转向就可以了例子:1[lmmbao@iZ23b44crpgZ ~]$ ls &amp;#62; ls.txt&amp;#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &amp;#10;darkburn.vim&amp;#10;linux-3.10.28&amp;#10;linux-3.10.28.tar.xz&amp;#10">
@@ -241,6 +241,7 @@
 
       
         <span itemprop="articleBody"><h3 id="u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F"><a href="#u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F" class="headerlink" title="一、如何把命令运行的结果保存到文件当中?"></a>一、如何把命令运行的结果保存到文件当中?</h3><p>这个问题太简单了，大家都知道，用 &gt; 把输出转向就可以了<br>例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ls &#62; ls.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>说明: &gt; 是把输出转向到指定的文件，如文件已存在的话也会重新写入，文件原内容不会保留。&gt;&gt; 是把输出附向到文件的后面，文件原内容会保留下来。</p>
 <h3 id="u4E8C_u3001_u5982_u4F55_u80FD_u5728_u8F93_u51FA_u4FE1_u606F_u7684_u540C_u65F6_u628A_u4FE1_u606F_u8BB0_u5F55_u5230_u6587_u4EF6_u4E2D_3F"><a href="#u4E8C_u3001_u5982_u4F55_u80FD_u5728_u8F93_u51FA_u4FE1_u606F_u7684_u540C_u65F6_u628A_u4FE1_u606F_u8BB0_u5F55_u5230_u6587_u4EF6_u4E2D_3F" class="headerlink" title="二、如何能在输出信息的同时把信息记录到文件中?"></a>二、如何能在输出信息的同时把信息记录到文件中?</h3><p>我们在上面的例子中可以看到，我们使用输出转向，命令在终端上的输出转向到了文件中，但如果我希望能同时在终端上看到输出信息怎么办？<br>我们可以使用这个命令: tee<br>解释一下tee的作用:<br>read from standard input and write to standard output and files<br>它从标准输入读取内容并将其写到标准输出和文件中<br>看例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ls | tee ls_tee.txt&#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz&#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls_tee.txt &#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz</span><br></pre></td></tr></table></figure></p>
 <p>备注：使用 tee时,如果想保留目标文件原有的内容怎么办？可以使用 -a参数。<br>-a, –append<br>append to the given FILEs, do not overwrite<br>附加至给出的文件，而不是覆盖它</p>

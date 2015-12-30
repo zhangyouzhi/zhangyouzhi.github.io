@@ -52,21 +52,18 @@
 
 
 <meta name="description" content="一、Redhat/CentOS安装vsftp软件1.更新yum源首先需要更新系统的yum源，便捷工具下载地址：http://help.aliyun.com/manual?spm=0.0.0.0.zJ3dBU&amp;amp;helpId=1692
-2.安装vsftp使用yum命令安装vsftp1#yum install vsftpd -y
-3.添加ftp帐号和目录先检查一下nologin的位置，通常在/u">
+2.安装vsftp使用yum命令安装vsftp1#yum install vsftpd -y">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 下进行 FTP 设置">
 <meta property="og:url" content="http://zhangyouzhi.com/2015/02/12/Linux-FTP-configuration/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="一、Redhat/CentOS安装vsftp软件1.更新yum源首先需要更新系统的yum源，便捷工具下载地址：http://help.aliyun.com/manual?spm=0.0.0.0.zJ3dBU&amp;amp;helpId=1692
-2.安装vsftp使用yum命令安装vsftp1#yum install vsftpd -y
-3.添加ftp帐号和目录先检查一下nologin的位置，通常在/u">
-<meta property="og:updated_time" content="2015-10-19T08:14:08.797Z">
+2.安装vsftp使用yum命令安装vsftp1#yum install vsftpd -y">
+<meta property="og:updated_time" content="2015-12-30T14:59:51.233Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 下进行 FTP 设置">
 <meta name="twitter:description" content="一、Redhat/CentOS安装vsftp软件1.更新yum源首先需要更新系统的yum源，便捷工具下载地址：http://help.aliyun.com/manual?spm=0.0.0.0.zJ3dBU&amp;amp;helpId=1692
-2.安装vsftp使用yum命令安装vsftp1#yum install vsftpd -y
-3.添加ftp帐号和目录先检查一下nologin的位置，通常在/u">
+2.安装vsftp使用yum命令安装vsftp1#yum install vsftpd -y">
 
 
 
@@ -248,6 +245,7 @@
       
         <span itemprop="articleBody"><h3 id="u4E00_u3001Redhat/CentOS_u5B89_u88C5vsftp_u8F6F_u4EF6"><a href="#u4E00_u3001Redhat/CentOS_u5B89_u88C5vsftp_u8F6F_u4EF6" class="headerlink" title="一、Redhat/CentOS安装vsftp软件"></a>一、Redhat/CentOS安装vsftp软件</h3><h4 id="1-_u66F4_u65B0yum_u6E90"><a href="#1-_u66F4_u65B0yum_u6E90" class="headerlink" title="1.更新yum源"></a>1.更新yum源</h4><p>首先需要更新系统的yum源，便捷工具下载地址：<a href="http://help.aliyun.com/manual?spm=0.0.0.0.zJ3dBU&amp;helpId=1692" target="_blank" rel="external">http://help.aliyun.com/manual?spm=0.0.0.0.zJ3dBU&amp;helpId=1692</a></p>
 <h4 id="2-_u5B89_u88C5vsftp"><a href="#2-_u5B89_u88C5vsftp" class="headerlink" title="2.安装vsftp"></a>2.安装vsftp</h4><p>使用yum命令安装vsftp<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#yum install vsftpd -y</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <h4 id="3-_u6DFB_u52A0ftp_u5E10_u53F7_u548C_u76EE_u5F55"><a href="#3-_u6DFB_u52A0ftp_u5E10_u53F7_u548C_u76EE_u5F55" class="headerlink" title="3.添加ftp帐号和目录"></a>3.添加ftp帐号和目录</h4><p>先检查一下nologin的位置，通常在/usr/sbin/nologin或者/sbin/nologin下。</p>
 <p>使用下面的命令创建帐户，该命令指定了/alidata/www/wwwroot为用户pwftp的家目录，您可以自己定义帐户名和目录：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#useradd -d /alidata/www/wwwroot -s /sbin/nologin pwftp</span><br></pre></td></tr></table></figure></p>
 <p>修改该帐户密码:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#passwd pwftp</span><br></pre></td></tr></table></figure></p>

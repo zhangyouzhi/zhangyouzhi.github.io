@@ -51,23 +51,20 @@
 
 
 
-<meta name="description" content="一、问题出现在创建新目录和文件是提示“no space left on device”！按照以前的情况，很有可能是服务器空间又被塞满了，通过命令查看，发现还有剩余。再用df -i查看了一下/分区的索引节点(inode)，发现已经用满(已用=100%)，导致系统无法创建新目录和文件。
-二、问题产生原因Inode译成中文就是索引节点，每个存储设备（例如硬盘）或存储设备的分区被格式化为文件系统后，应该有">
+<meta name="description" content="一、问题出现在创建新目录和文件是提示“no space left on device”！按照以前的情况，很有可能是服务器空间又被塞满了，通过命令查看，发现还有剩余。再用df -i查看了一下/分区的索引节点(inode)，发现已经用满(已用=100%)，导致系统无法创建新目录和文件。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux索引节点(Inode)用满导致空间不足">
 <meta property="og:url" content="http://zhangyouzhi.com/2015/01/29/Linux-inodes-full/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
-<meta property="og:description" content="一、问题出现在创建新目录和文件是提示“no space left on device”！按照以前的情况，很有可能是服务器空间又被塞满了，通过命令查看，发现还有剩余。再用df -i查看了一下/分区的索引节点(inode)，发现已经用满(已用=100%)，导致系统无法创建新目录和文件。
-二、问题产生原因Inode译成中文就是索引节点，每个存储设备（例如硬盘）或存储设备的分区被格式化为文件系统后，应该有">
+<meta property="og:description" content="一、问题出现在创建新目录和文件是提示“no space left on device”！按照以前的情况，很有可能是服务器空间又被塞满了，通过命令查看，发现还有剩余。再用df -i查看了一下/分区的索引节点(inode)，发现已经用满(已用=100%)，导致系统无法创建新目录和文件。">
 <meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eov54sdut5j20b402dmxn.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eox43osx8zj20cl02rjry.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eox43osx8zj20cl02rjry.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6ba3371bgw1eov54uh4dlj20h0080wev.jpg">
-<meta property="og:updated_time" content="2015-10-19T08:14:09.413Z">
+<meta property="og:updated_time" content="2015-12-30T14:59:22.704Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux索引节点(Inode)用满导致空间不足">
-<meta name="twitter:description" content="一、问题出现在创建新目录和文件是提示“no space left on device”！按照以前的情况，很有可能是服务器空间又被塞满了，通过命令查看，发现还有剩余。再用df -i查看了一下/分区的索引节点(inode)，发现已经用满(已用=100%)，导致系统无法创建新目录和文件。
-二、问题产生原因Inode译成中文就是索引节点，每个存储设备（例如硬盘）或存储设备的分区被格式化为文件系统后，应该有">
+<meta name="twitter:description" content="一、问题出现在创建新目录和文件是提示“no space left on device”！按照以前的情况，很有可能是服务器空间又被塞满了，通过命令查看，发现还有剩余。再用df -i查看了一下/分区的索引节点(inode)，发现已经用满(已用=100%)，导致系统无法创建新目录和文件。">
 
 
 
@@ -247,7 +244,9 @@
       
 
       
-        <span itemprop="articleBody"><h3 id="u4E00_u3001_u95EE_u9898_u51FA_u73B0"><a href="#u4E00_u3001_u95EE_u9898_u51FA_u73B0" class="headerlink" title="一、问题出现"></a>一、问题出现</h3><p>在创建新目录和文件是提示“no space left on device”！按照以前的情况，很有可能是服务器空间又被塞满了，通过命令查看，发现还有剩余。<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eov54sdut5j20b402dmxn.jpg" alt=""><br>再用df -i查看了一下/分区的索引节点(inode)，发现已经用满(已用=100%)，导致系统无法创建新目录和文件。<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eox43osx8zj20cl02rjry.jpg" alt=""></p>
+        <span itemprop="articleBody"><h3 id="u4E00_u3001_u95EE_u9898_u51FA_u73B0"><a href="#u4E00_u3001_u95EE_u9898_u51FA_u73B0" class="headerlink" title="一、问题出现"></a>一、问题出现</h3><p>在创建新目录和文件是提示“no space left on device”！按照以前的情况，很有可能是服务器空间又被塞满了，通过命令查看，发现还有剩余。<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eov54sdut5j20b402dmxn.jpg" alt=""><br>再用df -i查看了一下/分区的索引节点(inode)，发现已经用满(已用=100%)，导致系统无法创建新目录和文件。</p>
+<a id="more"></a>
+<p><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eox43osx8zj20cl02rjry.jpg" alt=""></p>
 <h3 id="u4E8C_u3001_u95EE_u9898_u4EA7_u751F_u539F_u56E0"><a href="#u4E8C_u3001_u95EE_u9898_u4EA7_u751F_u539F_u56E0" class="headerlink" title="二、问题产生原因"></a>二、问题产生原因</h3><p>Inode译成中文就是索引节点，每个存储设备（例如硬盘）或存储设备的分区被格式化为文件系统后，应该有两部份，一部份是inode，另一部份是 Block，Block是用来存储数据用的。而inode呢，就是用来存储这些数据的信息，这些信息包括文件大小、属主、归属的用户组、读写权限等。 inode为每个文件进行信息索引，所以就有了inode的数值。操作系统根据指令，能通过inode值最快的找到相对应的文件。<br>而这台服务器的Block虽然还有剩余，但inode已经用满，因此在创建新目录或文件时，系统提示磁盘空间不足。<br>Inode的数量是有限制的，每个文件对应一个Inode，那么如何查看inode的最大数量呢？<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1eox43osx8zj20cl02rjry.jpg" alt=""><br>可以看到Inode的总量，已经使用的Inode数量，和剩余数量。<br>如果watch -n 1 “df -i”一下， 然后去创建一个文件， 会发现已用的加一，未用的减一<br>简单了解下Inode在文件系统中的地位：<br><img src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1eov54uh4dlj20h0080wev.jpg" alt=""><br>Linux会为每一个文件分配一个唯一的inode节点。在linux中，文件的文件名、文件属性、文件内容是分别存储的：文件名存放在目录项（即 dentry）中，文件属性存放在inode中，文件内容存放在block中。Linux在查找文件时，首先先读取dentry，dentry中存储的文 件名和inode编号的一个映射表， 根据这个表找到inode编号，再根据inode找到磁盘中的文件。<br>可以用ls -i查看文件对应的inode编号， 也可以直接stat一个文件， 会有很全的信息。</p>
 <h3 id="u89E3_u51B3_u65B9_u6848"><a href="#u89E3_u51B3_u65B9_u6848" class="headerlink" title="解决方案"></a>解决方案</h3><p>删除/data/cache目录中的部分文件，释放出/data分区的一部分inode。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23b44crpgZ /]# find /var/spool/clientmqueue -type f -print -exec rm -f &#123;&#125; \;</span><br></pre></td></tr></table></figure></p>
 <p>这个命令中 /var/spool/clientmqueue 是要删除的文件所在的目录 -type f这个参数限定find只查找普通文件（即不是管道文件，不是块文件，不是链接文件，不是目录等），防止误删除系统文件。<br>原因分析：系统中有用户开启了cron，而cron中执行的程序有输出内容，输出内容会以邮件形式发给cron的用户，而sendmail没有启动所以就产生了这些文件；<br>解决办法:<br>将crontab里面的命令后面加上  &gt; /dev/null 2&gt;&amp;1 或者crontab里面的命令后面加上  &gt; /dev/null</p>

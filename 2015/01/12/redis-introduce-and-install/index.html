@@ -58,7 +58,7 @@
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="Redis简介Redis是一个Key-Value 存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)和zset(有序集合)。这些数据类型都支持 push/pop、add/remove 及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，Redis支持各种不同方式的排序。与 memcached一样，">
 <meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eo8wnuxfegj20p20hj11o.jpg">
-<meta property="og:updated_time" content="2015-10-19T08:14:13.715Z">
+<meta property="og:updated_time" content="2015-12-30T14:55:50.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis的介绍与安装部署">
 <meta name="twitter:description" content="Redis简介Redis是一个Key-Value 存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)和zset(有序集合)。这些数据类型都支持 push/pop、add/remove 及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，Redis支持各种不同方式的排序。与 memcached一样，">
@@ -242,6 +242,7 @@
 
       
         <span itemprop="articleBody"><h3 id="Redis_u7B80_u4ECB"><a href="#Redis_u7B80_u4ECB" class="headerlink" title="Redis简介"></a>Redis简介</h3><p>Redis是一个Key-Value 存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)和zset(有序集合)。这些数据类型都支持 push/pop、add/remove 及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，Redis支持各种不同方式的排序。与 memcached一样，为了保证效率，数据都是缓存在内存中。区别的是 Redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了 master-slave(主从)同步。</p>
+<a id="more"></a>
 <h3 id="Redis_u5B89_u88C5"><a href="#Redis_u5B89_u88C5" class="headerlink" title="Redis安装"></a>Redis安装</h3><h4 id="u6B65_u9AA4_u4E00_uFF1ARedis_u4E0B_u8F7D_uFF1A"><a href="#u6B65_u9AA4_u4E00_uFF1ARedis_u4E0B_u8F7D_uFF1A" class="headerlink" title="步骤一：Redis下载："></a>步骤一：Redis下载：</h4><p>Redis官方网址：<a href="http://www.redis.io/" target="_blank" rel="external">http://www.redis.io/</a> 。点击Download进入下载。<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eo8wnuxfegj20p20hj11o.jpg" alt="Redis Download"><br>下载最新的稳定版2.8.2。下载完成后，将其拷贝到新建的文件夹Redis中。下面来进行安装：</p>
 <h4 id="u6B65_u9AA4_u4E8C_uFF1A_u7F16_u8BD1_u6E90_u7A0B_u5E8F_uFF1A"><a href="#u6B65_u9AA4_u4E8C_uFF1A_u7F16_u8BD1_u6E90_u7A0B_u5E8F_uFF1A" class="headerlink" title="步骤二：编译源程序："></a>步骤二：编译源程序：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost Redis]# tar zxvf redis-2.8.2.tar.gz&#10;[root@localhost Redis]# cd redis-2.8.2&#10;[root@localhost redis-2.8.2]# make&#10;[root@localhost redis-2.8.2]#cd src&#10;[root@localhost src]# make install</span><br></pre></td></tr></table></figure>
 <h4 id="u6B65_u9AA4_u4E09_uFF1A_u79FB_u52A8_u6587_u4EF6_uFF0C_u4FBF_u4E8E_u7BA1_u7406_uFF1A"><a href="#u6B65_u9AA4_u4E09_uFF1A_u79FB_u52A8_u6587_u4EF6_uFF0C_u4FBF_u4E8E_u7BA1_u7406_uFF1A" class="headerlink" title="步骤三：移动文件，便于管理："></a>步骤三：移动文件，便于管理：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost local]# mkdir &#8211;p /usr/local/redis/bin&#10;[root@localhost local]# mkdir &#8211;p /usr/local/redis/etc&#10;[root@localhost redis-2.8.2]# mv ./redis.conf /usr/local/redis/etc&#10;[root@localhost src]# mv mkreleasehdr.sh redis-benchmark redis-check-aof redis-check-dump redis-cli redis-sentinel redis-server /usr/local/redis/bin</span><br></pre></td></tr></table></figure>

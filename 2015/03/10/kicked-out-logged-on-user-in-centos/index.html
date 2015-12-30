@@ -57,7 +57,7 @@
 <meta property="og:url" content="http://zhangyouzhi.com/2015/03/10/kicked-out-logged-on-user-in-centos/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="Linux系统root用户可强制踢制其它登录用户，首先可用＄w或者who命令查看登录用户信息，显示信息如下：1[root@iZ23zmtjn2dZ ~]# w&amp;#10; 12:00:28 up 32 days, 17:24,  3 users,  load average: 0.28, 0.32, 0.32&amp;#10;USER     TTY      FROM              LOGIN">
-<meta property="og:updated_time" content="2015-10-19T08:14:08.596Z">
+<meta property="og:updated_time" content="2015-12-30T15:00:20.062Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 下踢出登陆用户">
 <meta name="twitter:description" content="Linux系统root用户可强制踢制其它登录用户，首先可用＄w或者who命令查看登录用户信息，显示信息如下：1[root@iZ23zmtjn2dZ ~]# w&amp;#10; 12:00:28 up 32 days, 17:24,  3 users,  load average: 0.28, 0.32, 0.32&amp;#10;USER     TTY      FROM              LOGIN">
@@ -241,6 +241,7 @@
 
       
         <span itemprop="articleBody"><p>Linux系统root用户可强制踢制其它登录用户，首先可用＄w或者who命令查看登录用户信息，显示信息如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23zmtjn2dZ ~]# w&#10; 12:00:28 up 32 days, 17:24,  3 users,  load average: 0.28, 0.32, 0.32&#10;USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT&#10;lmmbao   pts/0    119.79.155.176   11:53    4:33   0.03s  0.02s sshd: lmmbao [priv]&#10;lmmbao   pts/1    119.79.155.176   11:58    4:36   0.00s  0.00s -bash&#10;root     pts/2    119.79.155.176   12:03    0.00s  0.00s  0.00s w&#10;[root@iZ23zmtjn2dZ ~]#</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>想踢除lmmbao这个用户和他的所有开启的程序<br>pkill -u lmmbao<br>注意：这个命令实际上很危险，要相当小心的执行。<br>安全的做法是先查看终端号，然后查看该终端执行的所有进程，根据进程号来停止服务。<br>安全剔除用户：<br>ps -ef| grep pts/0<br>得到用户登录相应的进程号pid后执行。<br>kill -9 pid</p>
 </span>
       

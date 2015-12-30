@@ -61,7 +61,7 @@
 <meta property="og:description" content="在linux中添加ftp用户，并设置相应的权限，操作步骤如下：
 1、环境：ftp为vsftp。被限制用户名为test。被限制路径为/home/test
 2、建用户：在root用户下：1useradd -d /home/test test //&amp;#22686;&amp;#21152;&amp;#29992;&amp;#25143;test&amp;#65292;&amp;#24182;&amp;#21046;&amp;#23450;test&amp;#29992">
-<meta property="og:updated_time" content="2015-10-19T08:14:08.345Z">
+<meta property="og:updated_time" content="2015-12-30T15:00:04.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在linux中添加ftp用户，并设置相应的权限">
 <meta name="twitter:description" content="在linux中添加ftp用户，并设置相应的权限，操作步骤如下：
@@ -250,6 +250,7 @@
 <p>1、环境：ftp为vsftp。被限制用户名为test。被限制路径为/home/test</p>
 <p>2、建用户：在root用户下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -d /home/test test //&#22686;&#21152;&#29992;&#25143;test&#65292;&#24182;&#21046;&#23450;test&#29992;&#25143;&#30340;&#20027;&#30446;&#24405;&#20026;/home/test&#10;passwd test //&#20026;test&#35774;&#32622;&#23494;&#30721;</span><br></pre></td></tr></table></figure></p>
 <p>3、更改用户相应的权限设置：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -s /sbin/nologin test //&#38480;&#23450;&#29992;&#25143;test&#19981;&#33021;telnet&#65292;&#21482;&#33021;ftp&#10;usermod -s /sbin/bash test //&#29992;&#25143;test&#24674;&#22797;&#27491;&#24120;&#10;usermod -d /test test //&#26356;&#25913;&#29992;&#25143;test&#30340;&#20027;&#30446;&#24405;&#20026;/test</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>4、限制用户只能访问/home/test，不能访问其他路径<br>修改/etc/vsftpd/vsftpd.conf如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chroot_list_enable=YES //&#38480;&#21046;&#35775;&#38382;&#33258;&#36523;&#30446;&#24405;&#10;# (default follows)&#10;chroot_list_file=/etc/vsftpd/vsftpd.chroot_list</span><br></pre></td></tr></table></figure></p>
 <p>编辑 vsftpd.chroot_list文件，将受限制的用户添加进去，每个用户名一行。<br>改完配置文件，不要忘记重启vsFTPd服务器。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxsir001 root]# /etc/init.d/vsftpd restart</span><br></pre></td></tr></table></figure></p>
 </span>

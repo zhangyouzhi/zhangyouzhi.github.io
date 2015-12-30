@@ -51,23 +51,17 @@
 
 
 
-<meta name="description" content="免安装的tomcat双击startup.bat后，启动窗口一闪而过，而且tomcat服务未启动。原因是：在启动tomcat是，需要读取环境变量和配置信息，缺少了这些信息，就不能登记环境变量，导致了tomcat的闪退。解决办法：
-
-在已解压的tomcat的bin文件夹下找到startup.bat，右击-&amp;gt;编辑。在文件头加入下面两行：   SET JAVA_HOME=D:\Java\jdk1.6">
+<meta name="description" content="免安装的tomcat双击startup.bat后，启动窗口一闪而过，而且tomcat服务未启动。原因是：在启动tomcat是，需要读取环境变量和配置信息，缺少了这些信息，就不能登记环境变量，导致了tomcat的闪退。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="直接双击启动tomcat中的startup.bat闪退">
 <meta property="og:url" content="http://zhangyouzhi.com/2015/01/13/tomcat-tomcat.bat-quit/index.html">
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
-<meta property="og:description" content="免安装的tomcat双击startup.bat后，启动窗口一闪而过，而且tomcat服务未启动。原因是：在启动tomcat是，需要读取环境变量和配置信息，缺少了这些信息，就不能登记环境变量，导致了tomcat的闪退。解决办法：
-
-在已解压的tomcat的bin文件夹下找到startup.bat，右击-&amp;gt;编辑。在文件头加入下面两行：   SET JAVA_HOME=D:\Java\jdk1.6">
+<meta property="og:description" content="免安装的tomcat双击startup.bat后，启动窗口一闪而过，而且tomcat服务未启动。原因是：在启动tomcat是，需要读取环境变量和配置信息，缺少了这些信息，就不能登记环境变量，导致了tomcat的闪退。">
 <meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bjw1eo8x1tqagkj20hr06ttae.jpg">
-<meta property="og:updated_time" content="2015-10-19T08:14:14.605Z">
+<meta property="og:updated_time" content="2015-12-30T14:54:39.223Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="直接双击启动tomcat中的startup.bat闪退">
-<meta name="twitter:description" content="免安装的tomcat双击startup.bat后，启动窗口一闪而过，而且tomcat服务未启动。原因是：在启动tomcat是，需要读取环境变量和配置信息，缺少了这些信息，就不能登记环境变量，导致了tomcat的闪退。解决办法：
-
-在已解压的tomcat的bin文件夹下找到startup.bat，右击-&amp;gt;编辑。在文件头加入下面两行：   SET JAVA_HOME=D:\Java\jdk1.6">
+<meta name="twitter:description" content="免安装的tomcat双击startup.bat后，启动窗口一闪而过，而且tomcat服务未启动。原因是：在启动tomcat是，需要读取环境变量和配置信息，缺少了这些信息，就不能登记环境变量，导致了tomcat的闪退。">
 
 
 
@@ -247,7 +241,9 @@
       
 
       
-        <span itemprop="articleBody"><p>免安装的tomcat双击startup.bat后，启动窗口一闪而过，而且tomcat服务未启动。<br>原因是：在启动tomcat是，需要读取环境变量和配置信息，缺少了这些信息，就不能登记环境变量，导致了tomcat的闪退。<br>解决办法：</p>
+        <span itemprop="articleBody"><p>免安装的tomcat双击startup.bat后，启动窗口一闪而过，而且tomcat服务未启动。<br>原因是：在启动tomcat是，需要读取环境变量和配置信息，缺少了这些信息，就不能登记环境变量，导致了tomcat的闪退。</p>
+<a id="more"></a>
+<p>解决办法：</p>
 <ol>
 <li>在已解压的tomcat的bin文件夹下找到startup.bat，右击-&gt;编辑。在文件头加入下面两行：<br>   SET JAVA_HOME=D:\Java\jdk1.6.0_10   （java jdk目录）<br>   SET TOMCAT_HOME=E:\tomcat-6.0.35   （解压后的tomcat文件目录）</li>
 <li>同样的。在已解压的tomcat的bin文件夹下找到shutdown.bat，右击-&gt;编辑。在文件头加入下面两行：<br>   SET JAVA_HOME=D:\Java\jdk1.6.0_10   （java jdk目录）<br>   SET TOMCAT_HOME=E:\tomcat-6.0.35   （解压后的tomcat文件目录）</li>
