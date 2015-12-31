@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="Linux系统root用户可强制踢制其它登录用户，首先可用＄w或者who命令查看登录用户信息，显示信息如下：
 1234567[root@iZ23zmtjn2dZ ~]# w 12:00:28 up 32 days, 17:24,  3 users,  load average: 0.28, 0.32, 0.32USER     TTY      FROM              LOGIN@">
-<meta property="og:updated_time" content="2015-12-31T14:16:09.751Z">
+<meta property="og:updated_time" content="2015-12-31T14:50:06.406Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 下踢出登陆用户">
 <meta name="twitter:description" content="Linux系统root用户可强制踢制其它登录用户，首先可用＄w或者who命令查看登录用户信息，显示信息如下：
@@ -263,7 +263,11 @@
         <span itemprop="articleBody"><p>Linux系统root用户可强制踢制其它登录用户，首先可用＄w或者who命令查看登录用户信息，显示信息如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23zmtjn2dZ ~]<span class="comment"># w</span></span><br><span class="line"> <span class="number">12</span>:<span class="number">00</span>:<span class="number">28</span> up <span class="number">32</span> days, <span class="number">17</span>:<span class="number">24</span>,  <span class="number">3</span> users,  load average: <span class="number">0.28</span>, <span class="number">0.32</span>, <span class="number">0.32</span></span><br><span class="line">USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT</span><br><span class="line">lmmbao   pts/<span class="number">0</span>    <span class="number">119.79</span>.<span class="number">155.176</span>   <span class="number">11</span>:<span class="number">53</span>    <span class="number">4</span>:<span class="number">33</span>   <span class="number">0.03</span>s  <span class="number">0.02</span>s sshd: lmmbao [priv]</span><br><span class="line">lmmbao   pts/<span class="number">1</span>    <span class="number">119.79</span>.<span class="number">155.176</span>   <span class="number">11</span>:<span class="number">58</span>    <span class="number">4</span>:<span class="number">36</span>   <span class="number">0.00</span>s  <span class="number">0.00</span>s -bash</span><br><span class="line">root     pts/<span class="number">2</span>    <span class="number">119.79</span>.<span class="number">155.176</span>   <span class="number">12</span>:<span class="number">03</span>    <span class="number">0.00</span>s  <span class="number">0.00</span>s  <span class="number">0.00</span>s w</span><br><span class="line">[root@iZ23zmtjn2dZ ~]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>想踢除lmmbao这个用户和他的所有开启的程序<br>pkill -u lmmbao<br>注意：这个命令实际上很危险，要相当小心的执行。<br>安全的做法是先查看终端号，然后查看该终端执行的所有进程，根据进程号来停止服务。<br>安全剔除用户：<br>ps -ef| grep pts/0<br>得到用户登录相应的进程号pid后执行。<br>kill -9 pid</p>
+<p>想踢除lmmbao这个用户和他的所有开启的程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill -u lmmbao</span><br></pre></td></tr></table></figure>
+<p>注意：这个命令实际上很危险，要相当小心的执行。<br>安全的做法是先查看终端号，然后查看该终端执行的所有进程，根据进程号来停止服务。<br>安全剔除用户：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef| grep pts/<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>得到用户登录相应的进程号pid后执行。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -<span class="number">9</span> pid</span><br></pre></td></tr></table></figure></p>
 </span>
       
     </div>
