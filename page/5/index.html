@@ -210,6 +210,215 @@
             
               
                 
+                <a class="post-title-link" href="/2014/12/19/CentOS-apche-configuration/" itemprop="url">
+                  Apache 常用文件的路径
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2014-12-19T16:58:58+08:00" content="2014-12-19">
+              2014-12-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/12/19/CentOS-apche-configuration/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/19/CentOS-apche-configuration/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <ol>
+<li>Apache 部署静态页面的位置<br>经常要在Apache部署发布页面文件，需要找到对应的目录下面，目录/var/www/html。<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23lttzrggZ /]$ cd /var/www/html/&#10;[lmmbao@iZ23lttzrggZ html]$ ll&#10;total 24&#10;drwxr-xr-x 5 root root 4096 Nov 20 15:49 birthday-cake&#10;-rw-r--r-- 1 root root   26 Nov 12 19:13 hello.php&#10;-rw-r--r-- 1 root root   15 Nov 12 18:54 index.html&#10;-rw-r--r-- 1 root root   20 Nov 12 19:03 index.php&#10;drwxr-xr-x 4 root root 4096 Nov 20 16:43 love&#10;drwxr-xr-x 5 root root 4096 Dec  4 10:56 wedding-cake&#10;[lmmbao@iZ23lttzrggZ html]$ cd /</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/19/CentOS-apche-configuration/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/12/19/add-user-to-sudo/" itemprop="url">
+                  CentOS 将用户添加到 sudo 用户组的方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2014-12-19T16:58:58+08:00" content="2014-12-19">
+              2014-12-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/12/19/add-user-to-sudo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/19/add-user-to-sudo/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>安装完 CentOS 后，默认没有启用 sudo，首先应该是对 sudo 进行设置。<br>sudo的作用就是使当前非 root 用户在使用没有权限的命令 时，直接在命令前加入 sudo ，在输入自己当前用户的密码就可以完成 root 用户的功能，而不必在每次使用 su - 来回切换用户了。sudo的配置文件位于 /etc/sudoers，需要 root 权限才可以读写。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/19/add-user-to-sudo/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/12/16/CentOS-install-redmine/" itemprop="url">
                   Install Redmine on Centos 6.5 - 64 bit
                 </a>
@@ -1032,219 +1241,12 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/12/04/http-post-get/" itemprop="url">
-                  HTTP POST GET本质区别详解（转）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2014-12-04T18:18:58+08:00" content="2014-12-04">
-              2014-12-04
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/12/04/http-post-get/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/04/http-post-get/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u4E00__u539F_u7406_u533A_u522B"><a href="#u4E00__u539F_u7406_u533A_u522B" class="headerlink" title="一 原理区别"></a>一 原理区别</h2><p>一般在浏览器中输入网址访问资源都是通过GET方式；在FORM提交中，可以通过Method指定提交方式为GET或者POST，默认为GET提交。<br>Http定义了与服务器交互的不同方法，最基本的方法有4种，分别是<strong>GET，POST，PUT，DELETE。</strong><br>URL全称是资源描述符，我们可以这样认 为：一个URL地址，它用于描述一个网络上的资源，而HTTP中的<em>GET，POST，PUT，DELETE</em>就对应着对这个资源的<em>查，改，增，删</em>4个操作。到这里，大家应该有个大概的了解了，GET一般用于<strong>获取/查询</strong>资源信息，而POST一般用于<strong>更新</strong>资源信息(<strong>个人认为这是GET和POST的本质区别，也是协议设计者的本意，其它区别都是具体表现形式的差异</strong>)。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/12/04/http-post-get/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/12/03/pts-use-guide/" itemprop="url">
-                  性能测试服务-PTS使用说明
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2014-12-03T18:18:58+08:00" content="2014-12-03">
-              2014-12-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/工作/" itemprop="url" rel="index">
-                    <span itemprop="name">工作</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/12/03/pts-use-guide/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/03/pts-use-guide/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u6982_u89C8"><a href="#u6982_u89C8" class="headerlink" title="概览"></a>概览</h2><h3 id="u5305_u542B_u5185_u5BB9"><a href="#u5305_u542B_u5185_u5BB9" class="headerlink" title="包含内容"></a>包含内容</h3><p><img src="http://i.imgur.com/mgqbd9k.jpg" alt="概览"></p>
-<p>环境：可选择已购买的ECS、RDS、SLB作为测试机使用。<br>脚本：脚本是执行性能测试的基础，脚本里包括需要压测的服务器地址、压测的url、压测的参数和压测的类型。<br>场景：场景需要绑定脚本来运行，一个场景绑定一个脚本，可在场景中设置并发压测用户数、施压模式。<br>任务：任务执行需要绑定场景，一个任务可以绑定多个场景，任务开始执行后可以实时查看性能指标。<br>结果：结果自动保存可随时查看</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/12/03/pts-use-guide/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1285,7 +1287,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

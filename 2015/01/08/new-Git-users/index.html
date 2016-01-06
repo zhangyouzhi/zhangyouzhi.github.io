@@ -1,0 +1,796 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Git," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="原文：sixrevisions来源：http://blog.jobbole.com/50603/英文原文：http://sixrevisions.com/web-development/git-tips/
+
+当我刚刚开始使用Git的版本控制时，我根本不确定我付出那么多时间是不是会得到回报。Branch、Stage、Stash，这些Git名词对我来说都非常陌生。而今天的我已不能想象生活没有Git会变">
+<meta property="og:type" content="article">
+<meta property="og:title" content="写给Git初学者的7个建议">
+<meta property="og:url" content="http://zhangyouzhi.com/2015/01/08/new-Git-users/index.html">
+<meta property="og:site_name" content="ZhangYouzhi's Blog">
+<meta property="og:description" content="原文：sixrevisions来源：http://blog.jobbole.com/50603/英文原文：http://sixrevisions.com/web-development/git-tips/
+
+当我刚刚开始使用Git的版本控制时，我根本不确定我付出那么多时间是不是会得到回报。Branch、Stage、Stash，这些Git名词对我来说都非常陌生。而今天的我已不能想象生活没有Git会变">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6ba3371bgw1ezprdmxiobj20f907cq3d.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ezprrw4ehxj20vy16c44t.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bgw1ezps88ls6gj20fa0amgnt.jpg">
+<meta property="og:updated_time" content="2016-01-06T14:06:43.507Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="写给Git初学者的7个建议">
+<meta name="twitter:description" content="原文：sixrevisions来源：http://blog.jobbole.com/50603/英文原文：http://sixrevisions.com/web-development/git-tips/
+
+当我刚刚开始使用Git的版本控制时，我根本不确定我付出那么多时间是不是会得到回报。Branch、Stage、Stash，这些Git名词对我来说都非常陌生。而今天的我已不能想象生活没有Git会变">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> 写给Git初学者的7个建议 | ZhangYouzhi's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?ceec6645739dddb1be0ef0cee9f335a3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhangYouzhi's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                写给Git初学者的7个建议
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-01-08T20:18:18+08:00" content="2015-01-08">
+              2015-01-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/08/new-Git-users/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/08/new-Git-users/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><blockquote>
+<p>原文：<a href="http://sixrevisions.com/web-development/git-tips/" target="_blank" rel="external">sixrevisions</a><br>来源：<a href="http://blog.jobbole.com/50603/" target="_blank" rel="external">http://blog.jobbole.com/50603/</a><br>英文原文：<a href="http://sixrevisions.com/web-development/git-tips/" target="_blank" rel="external">http://sixrevisions.com/web-development/git-tips/</a></p>
+</blockquote>
+<p>当我刚刚开始使用Git的版本控制时，我根本不确定我付出那么多时间是不是会得到回报。Branch、Stage、Stash，这些Git名词对我来说都非常陌生。<br>而今天的我已不能想象生活没有Git会变成什么样。Git不仅提供了我非常需要的版本控制功能，还让我变成一个更优秀的程序员。<br>这里有一系列可以帮助你的小贴士，可以让Git成为你开发工作中非常重要的一部分。</p>
+<h3 id="u7B2C_u4E00_u6761_uFF1A_u82B1_u65F6_u95F4_u53BB_u5B66_u4E60Git_u7684_u57FA_u672C_u64CD_u4F5C"><a href="#u7B2C_u4E00_u6761_uFF1A_u82B1_u65F6_u95F4_u53BB_u5B66_u4E60Git_u7684_u57FA_u672C_u64CD_u4F5C" class="headerlink" title="第一条：花时间去学习Git的基本操作"></a>第一条：花时间去学习Git的基本操作</h3><hr>
+<p>学习Git的基本操作并不是要求你把整个Git文档从头到尾读完（但如果这就是你的方式，我也不会反对）。<br>Git里面有太多的教育内容，我很确定里面一定有对你胃口的最佳学习方式。</p>
+<p><img src="http://ww4.sinaimg.cn/mw690/6ba3371bgw1ezprdmxiobj20f907cq3d.jpg" alt=""></p>
+<p>看一下以下这些Git学习资源吧：</p>
+<ul>
+<li><a href="http://sixrevisions.com/web-development/easy-git-tutorial/" target="_blank" rel="external">怎么快速开始使用Git</a></li>
+<li><a href="https://try.github.io/levels/1/challenges/1" target="_blank" rel="external">试试Git</a> - 15分钟的Git交互教程</li>
+<li><a href="/">提示和技巧</a>（Ry的Git教学）是常见Git功能的实践教程</li>
+<li><a href="http://rogerdudler.github.io/git-guide/" target="_blank" rel="external">Git简单指南</a></li>
+<li><a href="http://gitready.com/" target="_blank" rel="external">Git Ready</a>是一个收藏有许多简单而简短的Git提示的网站</li>
+<li><a href="http://www.git-tower.com/blog/git-cheat-sheet/" target="_blank" rel="external">Git作弊码</a></li>
+<li><a href="http://www.git-tower.com/learn/" target="_blank" rel="external">Git Tower学习区</a>是一个在我的网站上的Git学习资源列表</li>
+<li><a href="http://git-scm.com/docs/gittutorial" target="_blank" rel="external">Git官方教程</a></li>
+<li><a href="http://www.youtube.com/playlist?list=PLg7s6cbtAD165JTRsXh8ofwRw0PqUnkVH" target="_blank" rel="external">Training: Git Basics (视频)</a>是YouTube上的一个视频列表</li>
+<li><a href="http://git-scm.com/book/en/v2" target="_blank" rel="external">Pro Git</a>一本让你深入了解Git的在线书籍</li>
+</ul>
+<h3 id="u7B2C_u4E8C_u6761_uFF1A_u4ECE_u7B80_u5355_u7684Git_u5DE5_u4F5C_u6D41_u5F00_u59CB"><a href="#u7B2C_u4E8C_u6761_uFF1A_u4ECE_u7B80_u5355_u7684Git_u5DE5_u4F5C_u6D41_u5F00_u59CB" class="headerlink" title="第二条：从简单的Git工作流开始"></a>第二条：从简单的Git工作流开始</h3><hr>
+<p>少即是多。</p>
+<p>常常的，Git会和一个复杂的工作流联系起来。不过我可以这么说：你还暂时不需要为了Git的诸多好处，而一下子变成Git大师。</p>
+<p>Git的工作流是可以非常简单的 —- 而且在许多情况下你需要的就是这么简单。你当然可以用multiple remote repositories、issue pull request、rebase changes等等，但是你不想用这些的话完全可以不用。</p>
+<p>从简单的工作流入手也会使日后添加复杂性或者使用Git高级功能变得简单。当你需要使用这些功能的时候，Git已经准备好了。</p>
+<p>这里有一些不同的Git工作流的例子，你可以从他们的想法中得到启发</p>
+<p><a href="http://blog.teamtreehouse.com/git-for-designers-part-1" target="_blank" rel="external">设计者的Git工作流</a><br><a href="http://nuclearsquid.com/writings/git-tricks-tips-workflows/" target="_blank" rel="external">Markus Prinz的Git工作流</a><br><a href="http://yehudakatz.com/2010/05/13/common-git-workflows/" target="_blank" rel="external">Yehuda Katz的普通Git工作流</a><br><a href="http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html" target="_blank" rel="external">Agile团队的Git工作流</a><br>总的来说：不要因为觉得Git什么都要学就压力很大，你完全可以从今天开始使用Git。</p>
+<h3 id="u7B2C_u4E09_u6761_uFF1A_u4E0D_u8981_u518D_u5BB3_u6015_u72AF_u9519_u8BEF"><a href="#u7B2C_u4E09_u6761_uFF1A_u4E0D_u8981_u518D_u5BB3_u6015_u72AF_u9519_u8BEF" class="headerlink" title="第三条：不要再害怕犯错误"></a>第三条：不要再害怕犯错误</h3><hr>
+<p>Git最出色的一点是：它几乎是100%易上手误操作的。</p>
+<p>记住以下几点会让你晚上睡得更香：</p>
+<ol>
+<li>Git基本上不删除数据。即使是那些看起来是删除数据的操作，实际上是为了让你更快的撤销删除，而在向系统添加数据。</li>
+<li>Git基本可以撤销所有操作。我鼓励你更多的实验和探索你的想法，因为这就是使用版本控制系统系统的最主要的好处之一。</li>
+<li>你团队的每一个成员都在他／她的计算机中有各自的副本。本质上这更像是整个版本控制项目中的冗余备份（包括包括整个历史纪录），你捅了大娄子而且还没办法还原这种情况是极其少见的。</li>
+</ol>
+<h3 id="u7B2C_u56DB_u6761_uFF1A_u7406_u89E3_u5206_u652F_u6982_u5FF5"><a href="#u7B2C_u56DB_u6761_uFF1A_u7406_u89E3_u5206_u652F_u6982_u5FF5" class="headerlink" title="第四条：理解分支概念"></a>第四条：理解分支概念</h3><hr>
+<p>在Git里面，分支这个概念是你一开始能学到的最有用的东西了。分支允许你隔离开发你的项目，而要想成为一个高效的Git用户，这是非常关键的一点。</p>
+<p>一开始这听起来好像不是什么大事，但一旦你完全的理解了分支概念，你会开始想没有这个你怎么活下去。</p>
+<p>尽管其他的版本控制系统也会使用分支概念，Git是第一个实现它，并让它变的好用的系统。</p>
+<p><img src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ezprrw4ehxj20vy16c44t.jpg" alt="Git branches"></p>
+<p>这里有一些有助你了解Git分支概念的资源：</p>
+<ul>
+<li><a href="http://pcottle.github.io/learnGitBranching/" target="_blank" rel="external">LearnGitBranching!</a>是一个Git分支的交互式教程</li>
+<li><a href="http://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging" target="_blank" rel="external">Git基本分支和合并</a></li>
+<li><a href="https://www.atlassian.com/git/tutorials/using-branches/" target="_blank" rel="external">Git分支</a>是一个很多绘图的Git教程</li>
+<li><a href="http://blog.jobbole.com/81196/" target="_blank" rel="external">《一个成功的 Git 分支模型》</a></li>
+</ul>
+<h3 id="u7B2C_u4E94_u6761_uFF1A_u5B66_u4E60_u6682_u5B58_u533A"><a href="#u7B2C_u4E94_u6761_uFF1A_u5B66_u4E60_u6682_u5B58_u533A" class="headerlink" title="第五条：学习暂存区"></a>第五条：学习暂存区</h3><hr>
+<p>当你的提交里面只包含一些相关的变化时，版本控制会变的非常有用[b]，它保证了你的提交可以被没有任何副作用的回滚，经常提交的习惯也可以让你的同事更好的了解你的进度。</p>
+<p>Git有个功能叫暂存区让这一切都变为可能</p>
+<p>学习使用暂存区，并爱上它，因为这是Git里面最重要最独立的一个模块。</p>
+<ol>
+<li><a href="http://programmers.stackexchange.com/questions/69178/what-is-the-benefit-of-gits-two-stage-commit-process-staging" target="_blank" rel="external">用暂存区的好处在哪</a> —- 一个有关Git暂存区的讨论主题</li>
+<li><a href="http://gitready.com/beginner/2009/01/18/the-staging-area.html" target="_blank" rel="external">Git上有关暂存区的简短教程</a></li>
+</ol>
+<h3 id="u7B2C_u516D_u6761_uFF1A_u7528Git_u56FE_u5F62_u754C_u9762"><a href="#u7B2C_u516D_u6761_uFF1A_u7528Git_u56FE_u5F62_u754C_u9762" class="headerlink" title="第六条：用Git图形界面"></a>第六条：用Git图形界面</h3><hr>
+<p>尽管使用图形界面绝对不会是一个要求，但我还是高度推荐使用。</p>
+<p>使用图形界面让大多数操作都变得简单，让你在项目开始时便占尽优势。</p>
+<p>不管怎么说，使用Git不应该只是记住各种命令和参数，而是改进你的编程工作流。如果图形界面可以做到这一点的话，没有理由让简单的事变的困难嘛。</p>
+<p><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1ezps88ls6gj20fa0amgnt.jpg" alt="Git "></p>
+<ul>
+<li><a href="https://tortoisegit.org/" target="_blank" rel="external">Tortoise Git</a> - Windows平台下的开源Git图形界面</li>
+<li><a href="http://gitx.laullon.com/" target="_blank" rel="external">GitX(L)</a> - Mac OS X下的开源Git客户端</li>
+<li><a href="https://www.sourcetreeapp.com/" target="_blank" rel="external">SourceTree</a> - Windows和Mac下的免费Git或Mecurial界面</li>
+<li><a href="http://git-cola.github.io/" target="_blank" rel="external">git-cola</a> - 一款开源Git界面</li>
+<li><a href="http://www.git-tower.com/" target="_blank" rel="external">Tower</a> - 我们公司为Mac用户所出的Git界面</li>
+</ul>
+<p>使用图形界面并不能减轻你学习Git基础的负担，不过一旦你快乐的征服了Git，使用这些工具会让你的生活变得更轻松。</p>
+<h3 id="u7B2C_u4E03_u6761_uFF1A_u5BF9_u81EA_u5DF1_u627F_u8BFA_u4F60_u4F1A_u7528Git"><a href="#u7B2C_u4E03_u6761_uFF1A_u5BF9_u81EA_u5DF1_u627F_u8BFA_u4F60_u4F1A_u7528Git" class="headerlink" title="第七条：对自己承诺你会用Git"></a>第七条：对自己承诺你会用Git</h3><hr>
+<p>使用一个新工具一开始会让人非常头疼，走过这条学习曲线的方法只有一个：继续走下去。</p>
+<p>做一个充分的承诺，不要回头。在你平常的工作流里引入Git很快就会被证明这是你近期做的最大的，最有意义的决定。</p>
+<p>避免这种情况：「我会在这个项目里使用Git，但其他项目就再说了。」至少一开始不要这样。</p>
+<p>充分承诺的这种心态会让你有更多的机会去练习，让事情变得更加简单，因为你知道你现在这个项目用了版本控制系统。而更重要的是，让Git成为你的编程习惯。</p>
+<p>未来不久，你就会看到只有那么一些情况不需要用到Git，</p>
+<p>对自己做一个100%的承诺，作为Git征服之路的开始。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag">#Git</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/01/08/git-warning-LF-will-be-replaced-by-CRLF/" rel="next" title="LF will be replaced by CRLF">
+                <i class="fa fa-chevron-left"></i> LF will be replaced by CRLF
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/01/09/Mathjax-in-use/" rel="prev" title="使用MathJax引擎">
+                使用MathJax引擎 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/01/08/new-Git-users/"
+           data-title="写给Git初学者的7个建议" data-url="http://zhangyouzhi.com/2015/01/08/new-Git-users/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://ww3.sinaimg.cn/mw690/6ba3371bgw1ei1yg6iujij209l09rwg2.jpg" alt="ZhangYouzhi" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">ZhangYouzhi</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Where there is a will, there is a way!</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhangyouzhi" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/zhangyouzhi" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> weibo
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/zhangyouzhi" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> twitter
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://douban.com/people/zhangyouzhi" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> douban
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/zhangyouzhi" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> zhihu
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u4E00_u6761_uFF1A_u82B1_u65F6_u95F4_u53BB_u5B66_u4E60Git_u7684_u57FA_u672C_u64CD_u4F5C"><span class="nav-number">1.</span> <span class="nav-text">第一条：花时间去学习Git的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u4E8C_u6761_uFF1A_u4ECE_u7B80_u5355_u7684Git_u5DE5_u4F5C_u6D41_u5F00_u59CB"><span class="nav-number">2.</span> <span class="nav-text">第二条：从简单的Git工作流开始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u4E09_u6761_uFF1A_u4E0D_u8981_u518D_u5BB3_u6015_u72AF_u9519_u8BEF"><span class="nav-number">3.</span> <span class="nav-text">第三条：不要再害怕犯错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u56DB_u6761_uFF1A_u7406_u89E3_u5206_u652F_u6982_u5FF5"><span class="nav-number">4.</span> <span class="nav-text">第四条：理解分支概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u4E94_u6761_uFF1A_u5B66_u4E60_u6682_u5B58_u533A"><span class="nav-number">5.</span> <span class="nav-text">第五条：学习暂存区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u516D_u6761_uFF1A_u7528Git_u56FE_u5F62_u754C_u9762"><span class="nav-number">6.</span> <span class="nav-text">第六条：用Git图形界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7B2C_u4E03_u6761_uFF1A_u5BF9_u81EA_u5DF1_u627F_u8BFA_u4F60_u4F1A_u7528Git"><span class="nav-number">7.</span> <span class="nav-text">第七条：对自己承诺你会用Git</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYouzhi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhangyouzhi"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
