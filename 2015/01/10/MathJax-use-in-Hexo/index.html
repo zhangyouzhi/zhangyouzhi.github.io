@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="原生的Hexo是不支持数学公式的显示的，但听说过Latex所以在网上搜教程来着，大部分搜到的渲染公式的方法都分为两个步骤：
 在theme的header中插入对MathJax CDN script的引用，并配置inline math；在文章中用inline math插入公式。但其中似乎存在两个缺点：需要人肉进行的工作太多；遇到特殊符号需要人肉escape，否则会被markdown parser吃掉。">
-<meta property="og:updated_time" content="2015-12-30T14:57:24.668Z">
+<meta property="og:updated_time" content="2016-01-18T14:45:08.576Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo上使用MathJax来实现数学公式的表达(转)">
 <meta name="twitter:description" content="原生的Hexo是不支持数学公式的显示的，但听说过Latex所以在网上搜教程来着，大部分搜到的渲染公式的方法都分为两个步骤：
@@ -263,9 +263,9 @@
         <span itemprop="articleBody"><p>原生的Hexo是不支持数学公式的显示的，但听说过Latex所以在网上搜教程来着，大部分搜到的渲染公式的方法都分为两个步骤：</p>
 <p>在theme的header中插入对MathJax CDN script的引用，并配置inline math；<br>在文章中用inline math插入公式。<br>但其中似乎存在两个缺点：<br>需要人肉进行的工作太多；<br>遇到特殊符号需要人肉escape，否则会被markdown parser吃掉。<br>于是引用了CATX开发的一款插件来实现这个功能。</p>
 <a id="more"></a>
-<p>安装与初始化<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-math --save</span><br></pre></td></tr></table></figure></p>
-<p>在blog文件夹中执行：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo math install</span><br></pre></td></tr></table></figure></p>
-<p>在_config.yml中添加：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins: &#10;- hexo-math</span><br></pre></td></tr></table></figure></p>
+<p>安装与初始化<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-math --save</span><br></pre></td></tr></table></figure></p>
+<p>在blog文件夹中执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo math install</span><br></pre></td></tr></table></figure></p>
+<p>在_config.yml中添加：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plugins: </span><br><span class="line">- hexo-math</span><br></pre></td></tr></table></figure></p>
 <p>部署完之后，相关的ejs等文件就会自动生成在你的theme相应的文件夹里了。</p>
 <p>使用<br>简单的公式：</p>
 <p>Simple inline $a = b + c$.<br>效果：</p>

@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="ZhangYouzhi's Blog">
 <meta property="og:description" content="As of this writing, CentOS 6.5 has a default git version of 1.7.1-2.  This version is what you will have installed if you run the typical install command:
 1# yum install git">
-<meta property="og:updated_time" content="2015-12-30T14:46:44.978Z">
+<meta property="og:updated_time" content="2016-01-18T14:48:06.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 6.5升级git">
 <meta name="twitter:description" content="As of this writing, CentOS 6.5 has a default git version of 1.7.1-2.  This version is what you will have installed if you run the typical install command:
@@ -261,16 +261,16 @@
 
       
         <span itemprop="articleBody"><p>As of this writing, CentOS 6.5 has a default git version of 1.7.1-2.  This version is what you will have installed if you run the typical install command:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install git</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum install git</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>However, GitHub and many other services require git version 1.7.10 or higher. It turns out there is a very easy way to get git.  You need to do this from a privileged account, but then the process is simple.<br>Add RPM Forge to Yum Repos</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># wget &#39;http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm&#39;&#10;# rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt&#10;# rpm -i &#39;http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm&#39;&#10;# yum clean all</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># wget 'http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm'</span></span><br><span class="line"><span class="comment"># rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt</span></span><br><span class="line"><span class="comment"># rpm -i 'http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm'</span></span><br><span class="line"><span class="comment"># yum clean all</span></span><br></pre></td></tr></table></figure>
 <p>Install New Version from RPM Forge</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># cd /etc/yum.repos.d&#10;# vim (or whatever) rpmforge.repo</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cd /etc/yum.repos.d</span></span><br><span class="line"><span class="comment"># vim (or whatever) rpmforge.repo</span></span><br></pre></td></tr></table></figure>
 <p>change the enabled=0 flag to enabled=1 in the section labelled [rpmforge-extras].</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum  update&#10;# yum provides git</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum  update</span></span><br><span class="line"><span class="comment"># yum provides git</span></span><br></pre></td></tr></table></figure>
 <p>This will return a longer list of available git modules.<br>Install the newer git by copying the FULL REPO NAME.   For example:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install git-1.7.12.4-1.el6.rfx.x86_64&#10;# git --version</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum install git-1.7.12.4-1.el6.rfx.x86_64</span></span><br><span class="line"><span class="comment"># git --version</span></span><br></pre></td></tr></table></figure>
 <p>You should have the new release installed.<br>Now go back and edit rpmforge.repo and disable the rpmforge-extras repository.  Then ensure the yum directory is cleaned up.</p>
 </span>
       
