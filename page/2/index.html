@@ -210,6 +210,112 @@
             
               
                 
+                <a class="post-title-link" href="/2015/02/18/Linux-add-ftp-user-and-configuration/" itemprop="url">
+                  在linux中添加ftp用户，并设置相应的权限
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-02-18T09:58:58+08:00" content="2015-02-18">
+              2015-02-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/02/18/Linux-add-ftp-user-and-configuration/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/18/Linux-add-ftp-user-and-configuration/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>在linux中添加ftp用户，并设置相应的权限，操作步骤如下：</p>
+<p>1、环境：ftp为vsftp。被限制用户名为test。被限制路径为/home/test</p>
+<p>2、建用户：在root用户下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd <span class="operator">-d</span> /home/<span class="built_in">test</span> <span class="built_in">test</span> //增加用户<span class="built_in">test</span>，并制定<span class="built_in">test</span>用户的主目录为/home/<span class="built_in">test</span></span><br><span class="line">passwd <span class="built_in">test</span> //为<span class="built_in">test</span>设置密码</span><br></pre></td></tr></table></figure></p>
+<p>3、更改用户相应的权限设置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">usermod <span class="operator">-s</span> /sbin/nologin <span class="built_in">test</span> //限定用户<span class="built_in">test</span>不能telnet，只能ftp</span><br><span class="line">usermod <span class="operator">-s</span> /sbin/bash <span class="built_in">test</span> //用户<span class="built_in">test</span>恢复正常</span><br><span class="line">usermod <span class="operator">-d</span> /<span class="built_in">test</span> <span class="built_in">test</span> //更改用户<span class="built_in">test</span>的主目录为/<span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/02/18/Linux-add-ftp-user-and-configuration/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/02/12/gVim-Vim-configuration/" itemprop="url">
                   Gvim/Vim 配置（已配置常用插件且Windows 与 Linux 通用）
                 </a>
@@ -1102,110 +1208,6 @@
 <h3 id="u4E8C_u3001_u5DF2_u786E_u8BA4_u88AB_u6210_u529F_u5229_u7528_u7684_u8F6F_u4EF6_u53CA_u7CFB_u7EDF"><a href="#u4E8C_u3001_u5DF2_u786E_u8BA4_u88AB_u6210_u529F_u5229_u7528_u7684_u8F6F_u4EF6_u53CA_u7CFB_u7EDF" class="headerlink" title="二、已确认被成功利用的软件及系统"></a>二、已确认被成功利用的软件及系统</h3><p>Glibc 2.2到2.17 (包含2.2和2.17版本)  </p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/01/27/Linux-Glibc-Bug-fixes/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/01/21/C++-Compiler-and-Linker-works/" itemprop="url">
-                  C++编译器与链接器工作原理（转）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-01-21T12:58:58+08:00" content="2015-01-21">
-              2015-01-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/01/21/C++-Compiler-and-Linker-works/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/21/C++-Compiler-and-Linker-works/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>这里并没不是讨论大学课程中所学的《编译原理》，只是写一些我自己对C++编译器及链接器的工作原理的理解和看法吧，以我的水平，还达不到讲解编译原理（这个很复杂，大学时几乎没学明白）。</p>
-<p>要明白的几个概念：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/01/21/C++-Compiler-and-Linker-works/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

@@ -210,6 +210,110 @@
             
               
                 
+                <a class="post-title-link" href="/2015/01/21/C++-Compiler-and-Linker-works/" itemprop="url">
+                  C++编译器与链接器工作原理（转）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-01-21T12:58:58+08:00" content="2015-01-21">
+              2015-01-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/21/C++-Compiler-and-Linker-works/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/21/C++-Compiler-and-Linker-works/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>这里并没不是讨论大学课程中所学的《编译原理》，只是写一些我自己对C++编译器及链接器的工作原理的理解和看法吧，以我的水平，还达不到讲解编译原理（这个很复杂，大学时几乎没学明白）。</p>
+<p>要明白的几个概念：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/21/C++-Compiler-and-Linker-works/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/01/18/weibo-platform-archieture/" itemprop="url">
                   亿级用户下的新浪微博平台架构（转）
                 </a>
@@ -725,109 +829,6 @@
             
               
                 
-                <a class="post-title-link" href="/2015/01/12/Linux-terminal-comand-output-to-file/" itemprop="url">
-                  Linux中记录终端（Terminal）命令及执行结果并输出到文本文件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-01-12T18:58:58+08:00" content="2015-01-12">
-              2015-01-12
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/工作/" itemprop="url" rel="index">
-                    <span itemprop="name">工作</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/01/12/Linux-terminal-comand-output-to-file/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/12/Linux-terminal-comand-output-to-file/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F"><a href="#u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F" class="headerlink" title="一、如何把命令运行的结果保存到文件当中?"></a>一、如何把命令运行的结果保存到文件当中?</h3><p>这个问题太简单了，大家都知道，用 &gt; 把输出转向就可以了<br>例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ls &#62; ls.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz</span><br></pre></td></tr></table></figure></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/01/12/Linux-terminal-comand-output-to-file/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2015/01/12/redis-introduce-and-install/" itemprop="url">
                   Redis的介绍与安装部署
                 </a>
@@ -889,6 +890,109 @@
           <h3 id="Redis_u7B80_u4ECB"><a href="#Redis_u7B80_u4ECB" class="headerlink" title="Redis简介"></a>Redis简介</h3><p>Redis是一个Key-Value 存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)和zset(有序集合)。这些数据类型都支持 push/pop、add/remove 及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，Redis支持各种不同方式的排序。与 memcached一样，为了保证效率，数据都是缓存在内存中。区别的是 Redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了 master-slave(主从)同步。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/01/12/redis-introduce-and-install/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/01/12/Linux-terminal-comand-output-to-file/" itemprop="url">
+                  Linux中记录终端（Terminal）命令及执行结果并输出到文本文件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-01-12T18:58:58+08:00" content="2015-01-12">
+              2015-01-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/12/Linux-terminal-comand-output-to-file/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/12/Linux-terminal-comand-output-to-file/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F"><a href="#u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F" class="headerlink" title="一、如何把命令运行的结果保存到文件当中?"></a>一、如何把命令运行的结果保存到文件当中?</h3><p>这个问题太简单了，大家都知道，用 &gt; 把输出转向就可以了<br>例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ls &#62; ls.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz</span><br></pre></td></tr></table></figure></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/12/Linux-terminal-comand-output-to-file/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1099,115 +1203,6 @@
 </blockquote>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/01/09/Mathjax-in-use/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/01/08/git-warning-LF-will-be-replaced-by-CRLF/" itemprop="url">
-                  LF will be replaced by CRLF
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-01-08T20:18:18+08:00" content="2015-01-08">
-              2015-01-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/01/08/git-warning-LF-will-be-replaced-by-CRLF/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/08/git-warning-LF-will-be-replaced-by-CRLF/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>在代码提交时会遇到下图错误：</p>
-<p><img src="http://ww4.sinaimg.cn/mw690/6ba3371bjw1eo2d2mif7xj20hv0aadiw.jpg" alt=""></p>
-<p>有两个解决办法：</p>
-<ol>
-<li>将你源文件中的CRLF转为LF【推荐】</li>
-<li>将autocrlf 设置为true 或者 false</li>
-</ol>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/01/08/git-warning-LF-will-be-replaced-by-CRLF/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

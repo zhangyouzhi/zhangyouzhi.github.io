@@ -210,6 +210,115 @@
             
               
                 
+                <a class="post-title-link" href="/2015/01/08/git-warning-LF-will-be-replaced-by-CRLF/" itemprop="url">
+                  LF will be replaced by CRLF
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-01-08T20:18:18+08:00" content="2015-01-08">
+              2015-01-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/08/git-warning-LF-will-be-replaced-by-CRLF/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/08/git-warning-LF-will-be-replaced-by-CRLF/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>在代码提交时会遇到下图错误：</p>
+<p><img src="http://ww4.sinaimg.cn/mw690/6ba3371bjw1eo2d2mif7xj20hv0aadiw.jpg" alt=""></p>
+<p>有两个解决办法：</p>
+<ol>
+<li>将你源文件中的CRLF转为LF【推荐】</li>
+<li>将autocrlf 设置为true 或者 false</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/08/git-warning-LF-will-be-replaced-by-CRLF/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/01/08/HTTP-methods-GET vs POST/" itemprop="url">
                   HTTP 方法：GET 对比 POST（转）
                 </a>
@@ -1114,109 +1223,6 @@
 <p>（2）：rsync在同步的时候，并不知道具体是哪个文件或者哪个目录发生了变化，每次都是对整个目录进行同步，当数据量很大时，整个目录同步非常耗时（rsync要对整个目录遍历查找对比文件），因此，效率很低。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/12/25/CentOS6.5-rsync-sersync/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/12/19/CentOS-add-user/" itemprop="url">
-                  CentOS 服务器新建用户并设置密码
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2014-12-19T18:58:58+08:00" content="2014-12-19">
-              2014-12-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/工作/" itemprop="url" rel="index">
-                    <span itemprop="name">工作</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/12/19/CentOS-add-user/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/19/CentOS-add-user/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="u6DFB_u52A0_u7528_u6237"><a href="#u6DFB_u52A0_u7528_u6237" class="headerlink" title="添加用户"></a>添加用户</h3><p>useradd lmmabao<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23i2txh8jZ ~]<span class="comment"># useradd lmmbao</span></span><br></pre></td></tr></table></figure></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/12/19/CentOS-add-user/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
