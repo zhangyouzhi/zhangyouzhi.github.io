@@ -187,11 +187,111 @@
 
     
     
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/01/27/Linux-Glibc-Bug-fixes/" itemprop="url">
+                  Linux Glibc漏洞修复
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-01-27T16:58:58+08:00" content="2015-01-27">
+              2015-01-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/27/Linux-Glibc-Bug-fixes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/27/Linux-Glibc-Bug-fixes/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
       
       
 
       
-    
+        
+          <p>日前Linux GNU glibc标准库的 gethostbyname函数爆出缓冲区溢出漏洞，漏洞编号为CVE-2015-0235。黑客可以通过gethostbyname系列函数实现远程代码执行，获取服务器的控制权及Shell权限，此漏洞触发途径多，影响范围大，请大家关注和及时临时修复。 </p>
+<h3 id="u4E00_u3001_u6F0F_u6D1E_u53D1_u5E03_u65E5_u671F"><a href="#u4E00_u3001_u6F0F_u6D1E_u53D1_u5E03_u65E5_u671F" class="headerlink" title="一、漏洞发布日期"></a>一、漏洞发布日期</h3><p>2015年1月27日  </p>
+<h3 id="u4E8C_u3001_u5DF2_u786E_u8BA4_u88AB_u6210_u529F_u5229_u7528_u7684_u8F6F_u4EF6_u53CA_u7CFB_u7EDF"><a href="#u4E8C_u3001_u5DF2_u786E_u8BA4_u88AB_u6210_u529F_u5229_u7528_u7684_u8F6F_u4EF6_u53CA_u7CFB_u7EDF" class="headerlink" title="二、已确认被成功利用的软件及系统"></a>二、已确认被成功利用的软件及系统</h3><p>Glibc 2.2到2.17 (包含2.2和2.17版本)  </p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/27/Linux-Glibc-Bug-fixes/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -834,109 +934,6 @@
             
               
                 
-                <a class="post-title-link" href="/2015/01/12/redis-introduce-and-install/" itemprop="url">
-                  Redis的介绍与安装部署
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-01-12T18:58:58+08:00" content="2015-01-12">
-              2015-01-12
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/工作/" itemprop="url" rel="index">
-                    <span itemprop="name">工作</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/01/12/redis-introduce-and-install/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/12/redis-introduce-and-install/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="Redis_u7B80_u4ECB"><a href="#Redis_u7B80_u4ECB" class="headerlink" title="Redis简介"></a>Redis简介</h3><p>Redis是一个Key-Value 存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)和zset(有序集合)。这些数据类型都支持 push/pop、add/remove 及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，Redis支持各种不同方式的排序。与 memcached一样，为了保证效率，数据都是缓存在内存中。区别的是 Redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了 master-slave(主从)同步。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/01/12/redis-introduce-and-install/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2015/01/12/Linux-terminal-comand-output-to-file/" itemprop="url">
                   Linux中记录终端（Terminal）命令及执行结果并输出到文本文件
                 </a>
@@ -998,6 +995,109 @@
           <h3 id="u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F"><a href="#u4E00_u3001_u5982_u4F55_u628A_u547D_u4EE4_u8FD0_u884C_u7684_u7ED3_u679C_u4FDD_u5B58_u5230_u6587_u4EF6_u5F53_u4E2D_3F" class="headerlink" title="一、如何把命令运行的结果保存到文件当中?"></a>一、如何把命令运行的结果保存到文件当中?</h3><p>这个问题太简单了，大家都知道，用 &gt; 把输出转向就可以了<br>例子:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lmmbao@iZ23b44crpgZ ~]$ ls &#62; ls.txt&#10;[lmmbao@iZ23b44crpgZ ~]$ cat ls.txt &#10;darkburn.vim&#10;linux-3.10.28&#10;linux-3.10.28.tar.xz&#10;ls.txt&#10;quartz_install.sh&#10;rsync-3.1.1.tar.gz</span><br></pre></td></tr></table></figure></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/01/12/Linux-terminal-comand-output-to-file/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/01/12/redis-introduce-and-install/" itemprop="url">
+                  Redis的介绍与安装部署
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-01-12T18:58:58+08:00" content="2015-01-12">
+              2015-01-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/12/redis-introduce-and-install/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/12/redis-introduce-and-install/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="Redis_u7B80_u4ECB"><a href="#Redis_u7B80_u4ECB" class="headerlink" title="Redis简介"></a>Redis简介</h3><p>Redis是一个Key-Value 存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)和zset(有序集合)。这些数据类型都支持 push/pop、add/remove 及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，Redis支持各种不同方式的排序。与 memcached一样，为了保证效率，数据都是缓存在内存中。区别的是 Redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了 master-slave(主从)同步。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/12/redis-introduce-and-install/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1123,112 +1223,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/01/09/Mathjax-in-use/" itemprop="url">
-                  使用MathJax引擎
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-01-09T18:58:58+08:00" content="2015-01-09">
-              2015-01-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/01/09/Mathjax-in-use/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/09/Mathjax-in-use/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>大家都看过Stackoverflow上的公式吧，漂亮，其生成的不是图片。这就要用到MathJax引擎，在Markdown中添加MathJax引擎也很简单，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span> src=<span class="string">"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>然后，再使用Tex写公式。$$公式$$表示行间公式，本来Tex中使用(公式)表示行内公式，但因为Markdown中\是转义字符，所以在Markdown中输入行内公式使用\(公式\)，如下代码：</p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/01/09/Mathjax-in-use/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1275,7 +1269,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">63</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1289,7 +1283,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

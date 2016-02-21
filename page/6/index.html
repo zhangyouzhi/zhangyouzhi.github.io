@@ -187,11 +187,111 @@
 
     
     
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/12/08/CentOS-vi-update/" itemprop="url">
+                  CentOS 升级和使用Vi
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2014-12-08T18:18:18+08:00" content="2014-12-08">
+              2014-12-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工作/" itemprop="url" rel="index">
+                    <span itemprop="name">工作</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/12/08/CentOS-vi-update/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/08/CentOS-vi-update/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
       
       
 
       
-    
+        
+          <p>在linux中用vi编辑和修改文件配置中没有彩色显示文件的内容，特别一些关键字不能彩色显示，给我们配置服务过程中造成极大的不方便。下面给出一种解决的方法。</p>
+<h3 id="u7B2C_u4E00_u6B65_uFF1A_u53EF_u80FD_u662F_u56E0_u4E3Avi_u7684_u7248_u672C_u592A_u4F4E_uFF0C_u5E76_u4E14_u6CA1_u6709_u5F00_u542F_u9AD8_u4EAE_u663E_u793A_u3002"><a href="#u7B2C_u4E00_u6B65_uFF1A_u53EF_u80FD_u662F_u56E0_u4E3Avi_u7684_u7248_u672C_u592A_u4F4E_uFF0C_u5E76_u4E14_u6CA1_u6709_u5F00_u542F_u9AD8_u4EAE_u663E_u793A_u3002" class="headerlink" title="第一步：可能是因为vi的版本太低，并且没有开启高亮显示。"></a>第一步：可能是因为vi的版本太低，并且没有开启高亮显示。</h3><p>检查是否有更新, 更新一下最新版本的vi。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23h8csloyZ ~]# yum install vim</span><br></pre></td></tr></table></figure></p>
+<p>查下是否已经安装了vi<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23h8csloyZ ~]# rpm -<span class="keyword">qa</span>|<span class="keyword">grep</span> <span class="keyword">vim</span></span><br></pre></td></tr></table></figure></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/08/CentOS-vi-update/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -1181,110 +1281,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/11/28/Markdown-tool/" itemprop="url">
-                  MarkdownPad常用设置
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2014-11-28T12:18:18+08:00" content="2014-11-28">
-              2014-11-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/11/28/Markdown-tool/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/28/Markdown-tool/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>以前用在线的 Markdown 编辑器，但在windows平台下，还是MarkdownPad 最好用。</p>
-<p><strong>一、设置中文</strong><br><strong>设置方法</strong>:需要在 Tools –&gt; Options –&gt; Editor 在语言项选择中文。<br><em>另：需要在 Tools –&gt; Options –&gt; Editor 中将IME support选项手动打开才可以。</em></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/11/28/Markdown-tool/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1331,7 +1327,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">63</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1345,7 +1341,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
