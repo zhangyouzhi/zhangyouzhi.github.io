@@ -62,7 +62,7 @@
 
 网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备……）。因此，必须有一种统一的机制，方便不同的前端设备与后端进行通信。这导致API构架的流行，甚至出现”API First”的设计思想。RESTful API是目前比较成熟的一套互联网应用程序的API设计理论。我以前写过一篇《理解RESTful架构》，探讨如何理解这个">
 <meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6ba3371bgw1f0l3e03zzjj20gm08uwf1.jpg">
-<meta property="og:updated_time" content="2016-02-22T14:17:23.755Z">
+<meta property="og:updated_time" content="2016-02-22T14:21:04.148Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RESTful API 设计指南">
 <meta name="twitter:description" content="原文出处： 阮一峰
@@ -267,10 +267,10 @@
         <span itemprop="articleBody"><blockquote>
 <p>原文出处： <a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="external">阮一峰</a></p>
 </blockquote>
-<p>网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备……）。<br>因此，必须有一种统一的机制，方便不同的前端设备与后端进行通信。这导致API构架的流行，甚至出现”API First”的设计思想。<a href="http://www.api-first.com/" target="_blank" rel="external">RESTful API</a>是目前比较成熟的一套互联网应用程序的API设计理论。我以前写过一篇<a href="http://www.ruanyifeng.com/blog/2011/09/restful.html" target="_blank" rel="external">《理解RESTful架构》</a>，探讨如何理解这个概念。<br>今天，我将介绍RESTful API的设计细节，探讨如何设计一套合理、好用的API。我的主要参考了两篇文章（<a href="http://codeplanet.io/principles-good-restful-api-design/" target="_blank" rel="external">1</a>，<a href="https://bourgeois.me/rest/" target="_blank" rel="external">2</a>）。<br><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1f0l3e03zzjj20gm08uwf1.jpg" alt=""></p>
+<p><img src="http://ww2.sinaimg.cn/mw690/6ba3371bgw1f0l3e03zzjj20gm08uwf1.jpg" alt=""><br>网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备……）。<br>因此，必须有一种统一的机制，方便不同的前端设备与后端进行通信。这导致API构架的流行，甚至出现”API First”的设计思想。<a href="http://www.api-first.com/" target="_blank" rel="external">RESTful API</a>是目前比较成熟的一套互联网应用程序的API设计理论。我以前写过一篇<a href="http://www.ruanyifeng.com/blog/2011/09/restful.html" target="_blank" rel="external">《理解RESTful架构》</a>，探讨如何理解这个概念。<br>今天，我将介绍RESTful API的设计细节，探讨如何设计一套合理、好用的API。我的主要参考了两篇文章（<a href="http://codeplanet.io/principles-good-restful-api-design/" target="_blank" rel="external">1</a>，<a href="https://bourgeois.me/rest/" target="_blank" rel="external">2</a>）。</p>
+<a id="more"></a>
 <h3 id="u4E00_u3001_u534F_u8BAE"><a href="#u4E00_u3001_u534F_u8BAE" class="headerlink" title="一、协议"></a>一、协议</h3><hr>
 <p>API与用户的通信协议，总是使用<a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="external">HTTPs协议</a>。</p>
-<a id="more"></a>
 <h3 id="u4E8C_u3001_u57DF_u540D"><a href="#u4E8C_u3001_u57DF_u540D" class="headerlink" title="二、域名"></a>二、域名</h3><hr>
 <p>应该尽量将API部署在专用域名之下。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://api.example.com</span><br></pre></td></tr></table></figure></p>
 <p>如果确定API很简单，不会有进一步扩展，可以考虑放在主域名下。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://example.org/api/</span><br></pre></td></tr></table></figure></p>
